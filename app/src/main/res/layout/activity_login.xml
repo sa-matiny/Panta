@@ -23,10 +23,11 @@
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/imageView3"
+        android:id="@+id/imageView"
         android:layout_gravity="center_horizontal"
-        android:src="@drawable/ic_launcher"
-        android:layout_marginTop="50dp" />
+        android:src="@drawable/panta_word"
+        android:layout_marginTop="30dp"
+        android:contentDescription="panta_word" />
 
     <EditText
         android:id="@+id/email"
@@ -39,7 +40,7 @@
         android:linksClickable="false"
         android:longClickable="false"
         android:password="false"
-        android:layout_marginTop="80dp"
+        android:layout_marginTop="30dp"
         android:gravity="right"
         android:layout_marginRight="40dp"
         android:layout_marginLeft="40dp" />
@@ -98,6 +99,3 @@
     </ScrollView>
 
 </LinearLayout>
-
-
-
