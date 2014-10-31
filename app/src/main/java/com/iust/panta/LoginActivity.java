@@ -8,6 +8,7 @@ import android.app.Activity;
 import android.app.LoaderManager.LoaderCallbacks;
 import android.content.ContentResolver;
 import android.content.CursorLoader;
+import android.content.Intent;
 import android.content.Loader;
 import android.database.Cursor;
 import android.net.Uri;
@@ -32,6 +33,7 @@ import java.util.List;
 
 /**
  * A login screen that offers login via email/password.
+
 
  */
 
@@ -300,6 +302,12 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor>{
             mAuthTask = null;
             showProgress(false);
         }
+    }
+
+    public void GoRegister(View view) {
+        Intent intent = new Intent(this,SignUp.class);
+        finish();
+        startActivity(intent);
     }
 }
 
