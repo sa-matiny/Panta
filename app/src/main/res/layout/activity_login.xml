@@ -28,9 +28,9 @@
         android:src="@drawable/ic_launcher"
         android:layout_marginTop="50dp" />
 
-    <AutoCompleteTextView
+    <EditText
         android:id="@+id/email"
-        android:layout_width="300dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/prompt_email"
         android:inputType="textEmailAddress"
@@ -40,17 +40,13 @@
         android:longClickable="false"
         android:password="false"
         android:layout_marginTop="80dp"
-        android:gravity="right" />
-
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/imageView2"
-        android:layout_gravity="right" />
+        android:gravity="right"
+        android:layout_marginRight="40dp"
+        android:layout_marginLeft="40dp" />
 
     <EditText
         android:id="@+id/password"
-        android:layout_width="300dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/prompt_password"
         android:imeActionId="@+id/login"
@@ -60,7 +56,9 @@
         android:maxLines="1"
         android:singleLine="true"
         android:layout_marginTop="20dp"
-        android:gravity="right" />
+        android:gravity="right"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp" />
 
     <ScrollView
         android:id="@+id/login_form"

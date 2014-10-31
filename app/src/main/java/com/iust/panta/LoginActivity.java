@@ -34,6 +34,7 @@ import java.util.List;
  * A login screen that offers login via email/password.
 
  */
+
 public class LoginActivity extends Activity implements LoaderCallbacks<Cursor>{
 
     /**
@@ -49,7 +50,7 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor>{
     private UserLoginTask mAuthTask = null;
 
     // UI references.
-    private AutoCompleteTextView mEmailView;
+    private EditText mEmailView;
     private EditText mPasswordView;
     private View mProgressView;
     private View mLoginFormView;
@@ -60,8 +61,8 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor>{
         setContentView(R.layout.activity_login);
 
         // Set up the login form.
-        mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
-        populateAutoComplete();
+        mEmailView = (EditText) findViewById(R.id.email);
+        //populateAutoComplete();
 
         mPasswordView = (EditText) findViewById(R.id.password);
         mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
@@ -87,9 +88,9 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor>{
         mProgressView = findViewById(R.id.login_progress);
     }
 
-    private void populateAutoComplete() {
+    /*private void populateAutoComplete() {
         getLoaderManager().initLoader(0, null, this);
-    }
+    }*/
 
 
     /**
@@ -151,7 +152,7 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor>{
 
     private boolean isPasswordValid(String password) {
         //TODO: Replace this with your own logic
-        return password.length() > 4;
+        return password.length() > 6;
     }
 
     /**
@@ -216,7 +217,7 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor>{
             cursor.moveToNext();
         }
 
-        addEmailsToAutoComplete(emails);
+        //addEmailsToAutoComplete(emails);
     }
 
     @Override
@@ -235,14 +236,14 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor>{
     }
 
 
-    private void addEmailsToAutoComplete(List<String> emailAddressCollection) {
+    /*private void addEmailsToAutoComplete(List<String> emailAddressCollection) {
         //Create adapter to tell the AutoCompleteTextView what to show in its dropdown list.
         ArrayAdapter<String> adapter =
                 new ArrayAdapter<String>(LoginActivity.this,
                         android.R.layout.simple_dropdown_item_1line, emailAddressCollection);
 
         mEmailView.setAdapter(adapter);
-    }
+    }*/
 
     /**
      * Represents an asynchronous login/registration task used to authenticate
