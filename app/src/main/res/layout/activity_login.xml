@@ -9,29 +9,22 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".LoginActivity"
     android:id="@+id/login"
-    android:gravity="center">
+    android:gravity="center_horizontal">
 
     <!-- Login progress -->
+
     <ProgressBar
         android:id="@+id/login_progress"
         style="?android:attr/progressBarStyleLarge"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
-        android:visibility="gone"/>
-
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/imageView"
         android:layout_gravity="center_horizontal"
-        android:src="@drawable/ic_launcher"
-        android:layout_marginTop="30dp"
-        android:contentDescription="panta_word" />
+        android:layout_marginTop="10dp" />
 
     <EditText
         android:id="@+id/email"
-        android:layout_width="match_parent"
+        android:layout_width="280dp"
         android:layout_height="wrap_content"
         android:hint="@string/prompt_email"
         android:inputType="textEmailAddress"
@@ -41,13 +34,11 @@
         android:longClickable="false"
         android:password="false"
         android:layout_marginTop="30dp"
-        android:gravity="right"
-        android:layout_marginRight="40dp"
-        android:layout_marginLeft="40dp" />
+        android:gravity="right" />
 
     <EditText
         android:id="@+id/password"
-        android:layout_width="match_parent"
+        android:layout_width="280dp"
         android:layout_height="wrap_content"
         android:hint="@string/prompt_password"
         android:imeActionId="@+id/login"
@@ -57,45 +48,27 @@
         android:maxLines="1"
         android:singleLine="true"
         android:layout_marginTop="20dp"
-        android:gravity="right"
-        android:layout_marginLeft="40dp"
-        android:layout_marginRight="40dp" />
+        android:gravity="right" />
 
-    <ScrollView
-        android:id="@+id/login_form"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:fillViewport="false">
+    <Button
+        android:id="@+id/email_sign_in_button"
+        style="?android:textAppearanceSmall"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:text="@string/action_sign_in"
+        android:textStyle="bold" />
 
-            <LinearLayout
-                android:id="@+id/email_login_form"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <Button
-                    android:id="@+id/email_sign_in_button"
-                    style="?android:textAppearanceSmall"
-                    android:layout_width="200dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="40dp"
-                    android:text="@string/action_sign_in"
-                    android:textStyle="bold"
-                    android:layout_gravity="center" />
-
-                <TextView
-                    android:id="@+id/email_sign_up_text"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:text="@string/action_sign_up"
-                    android:layout_gravity="center_horizontal"
-                    android:textStyle=""
-                    android:layout_marginTop="20dp"
-                    android:clickable="true"
-                    android:onClick="GoRegister" />
-
-            </LinearLayout>
-    </ScrollView>
+    <TextView
+        android:id="@+id/email_sign_up_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="@string/action_sign_up"
+        android:layout_gravity="center_horizontal"
+        android:textStyle=""
+        android:layout_marginTop="20dp"
+        android:clickable="true"
+        android:onClick="GoRegister" />
 
 </LinearLayout>
