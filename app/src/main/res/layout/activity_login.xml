@@ -13,15 +13,6 @@
 
     <!-- Login progress -->
 
-    <ProgressBar
-        android:id="@+id/login_progress"
-        style="?android:attr/progressBarStyleLarge"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="10dp" />
-
     <EditText
         android:id="@+id/email"
         android:layout_width="280dp"
@@ -57,7 +48,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="40dp"
         android:text="@string/action_sign_in"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        android:onClick="Login" />
 
     <TextView
         android:id="@+id/email_sign_up_text"
@@ -70,5 +62,15 @@
         android:layout_marginTop="20dp"
         android:clickable="true"
         android:onClick="GoRegister" />
+
+    <ProgressBar
+        android:id="@+id/login_progress"
+        style="?android:attr/progressBarStyleLarge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="10dp"
+        android:visibility="gone" />
 
 </LinearLayout>
