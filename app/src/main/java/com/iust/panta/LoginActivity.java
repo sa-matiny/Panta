@@ -45,19 +45,19 @@ public class LoginActivity extends Activity {
         View focusView = null;
 
         // Check for a valid password, if the user entered one.
-        if (!TextUtils.isEmpty(password) && !isPasswordValid(password)) {
-            mPasswordView.setError(getString(R.string.error_invalid_password));
+        if (TextUtils.isEmpty(password)) {
+            mPasswordView.setError("گذرواژه را وارد کنید");
             focusView = mPasswordView;
             cancel = true;
         }
 
         // Check for a valid email address.
         if (TextUtils.isEmpty(email)) {
-            mEmailView.setError(getString(R.string.error_field_required));
+            mEmailView.setError("پست الکترونیکی را وارد کنید");
             focusView = mEmailView;
             cancel = true;
         } else if (!isEmailValid(email)) {
-            mEmailView.setError(getString(R.string.error_invalid_email));
+            mEmailView.setError("پست الکترونیکی نامعتبر است");
             focusView = mEmailView;
             cancel = true;
         }
@@ -79,18 +79,9 @@ public class LoginActivity extends Activity {
         return email.contains("@");
     }
 
-    private boolean isPasswordValid(String password) {
-        //TODO: Replace this with your own logic
-        return password.length() > 6;
-    }
-
-
     public void GoRegister(View view) {
         Intent intent = new Intent(this,SignUp.class);
-        finish();
+        //finish();
         startActivity(intent);
     }
 }
-
-
-
