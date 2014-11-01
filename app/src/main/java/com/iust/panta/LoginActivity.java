@@ -67,6 +67,7 @@ public class LoginActivity extends Activity {
             // form field with an error.
             focusView.requestFocus();
         } else {
+            mProgressView.setVisibility(View.VISIBLE);
             // Show a progress spinner, and kick off a background task to
             // perform the user login attempt.
             //showProgress(true);
