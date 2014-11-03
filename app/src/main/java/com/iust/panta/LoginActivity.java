@@ -2,7 +2,9 @@ package com.iust.panta;
 
 
 import android.app.ActionBar;
-import android.app.Activity;;
+import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 
 import android.os.Build;
@@ -12,8 +14,12 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
-import com.loopj.android.http.AsyncHttpClient;
-import com.loopj.android.http.JsonHttpResponseHandler;
+import com.loopj.android.http.*;
+
+import org.apache.http.Header;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 
 public class LoginActivity extends Activity {
@@ -71,6 +77,68 @@ public class LoginActivity extends Activity {
             // Show a progress spinner, and kick off a background task to
             // perform the user login attempt.
             //showProgress(true);
+            RequestParams params = new RequestParams();
+            params.put("username", email);
+            params.put("password", password);
+            AsyncHttpClient client = new AsyncHttpClient();
+            client.post("http://104.236.61.35:8800/login/",params, new JsonHttpResponseHandler()
+            {
+
+                @Override
+                public void onStart() {
+                    System.out.println("Start");
+                }
+
+                @Override
+                public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                    mProgressView.setVisibility(View.GONE);
+                    try {
+                        if(response.getBoolean("success"))
+                        {
+                            Intent intent = new Intent(LoginActivity.this,Profile.class);
+                            finish();
+                            startActivity(intent);
+
+                        }
+                        else
+                        {
+                            AlertDialog.Builder dlg = new AlertDialog.Builder(LoginActivity.this);
+                            dlg.setCancelable(false);
+                            dlg.setMessage("خطا! دوباره وارد شوید");
+                            dlg.setPositiveButton("باشه", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    dialog.cancel();
+                                }
+                            });
+                            dlg.create().show();
+                        }
+
+                    }
+                    catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+
+                @Override
+                public void onFailure(int statusCode, Header[] headers, Throwable e, JSONObject errorResponse) {
+                    mProgressView.setVisibility(View.GONE);
+                    AlertDialog.Builder builder = new AlertDialog.Builder(LoginActivity.this);
+                    builder.setCancelable(false);
+                    builder.setMessage("نا موفق.لطفا دوباره سعی کنید!");
+                    builder.setPositiveButton("باشه", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.cancel();
+                        }
+                    });
+                    AlertDialog alert = builder.create();
+                    alert.show();
+                    //System.out.println(errorResponse);
+                    //System.out.println(statusCode);
+                }
+
+            });
         }
     }
 
