@@ -125,7 +125,7 @@ public class LoginActivity extends Activity {
                     mProgressView.setVisibility(View.GONE);
                     AlertDialog.Builder builder = new AlertDialog.Builder(LoginActivity.this);
                     builder.setCancelable(false);
-                    builder.setMessage("نا موفق.لطفا دوباره سعی کنید!");
+                    builder.setMessage("خطا! دوباره وارد شوید");
                     builder.setPositiveButton("باشه", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
