@@ -14,10 +14,17 @@
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="adjustResize|stateVisible" >
 
+<<<<<<< HEAD
+=======
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+
+>>>>>>> origin/master
         </activity>
         <activity
             android:name=".SignUp"
-            android:label="@string/title_activity_sign_up" >
+            android:label="@string/title_activity_sign_up"
+            android:windowSoftInputMode="adjustResize|stateVisible" >
         </activity>
         <activity
             android:name=".Profile"
