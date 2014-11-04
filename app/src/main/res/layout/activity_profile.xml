@@ -1,16 +1,79 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:id="@+id/linearL"
     tools:context="com.iust.panta.Profile">
 
-    <TextView
-        android:text="@string/hello_world"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+    <ImageButton
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/Button"
+        android:layout_gravity="right"
+        android:src="@drawable/ic_action_overflow"/>
 
-</RelativeLayout>
+    <EditText
+
+        android:id="@+id/edittext"
+
+        android:layout_height="wrap_content"
+
+        android:singleLine="true"
+
+        android:layout_width="400dip"
+        android:text="search..">
+
+    </EditText>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="من"
+        android:id="@+id/name_label"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="پروژه های من"
+        android:id="@+id/project_label"
+        android:layout_below="@+id/name_label"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/notif_l"
+        android:layout_gravity="center_horizontal" />
+
+    <ExpandableListView
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:id="@+id/expandableListView"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/project_label">
+
+        </ExpandableListView>
+
+
+    <TextView
+
+       android:id="@+id/text1"
+
+    android:layout_width="fill_parent"
+
+    android:layout_height="match_parent"
+
+    android:text="Hold For contextual menu"
+
+    android:padding="4dip"
+
+    />
+
+
+</LinearLayout>
+

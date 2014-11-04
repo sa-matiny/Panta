@@ -30,6 +30,12 @@
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.iust.panta.LoginActivity" />
+
+
+        </activity>
+        <activity
+            android:name=".MnU"
+            android:label="@string/title_activity_mn_u" >
         </activity>
     </application>
 
