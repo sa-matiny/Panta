@@ -4,16 +4,11 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:paddingBottom="@dimen/activity_vertical_margin"
-<<<<<<< HEAD
-<<<<<<< HEAD
     tools:context="com.iust.panta.SignUp"
-    android:id="@+id/signUp">
-=======
+    android:id="@+id/signUp"
     android:paddingStart="@dimen/activity_horizontal_margin"
     android:paddingEnd="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context=".SignUp"
-    android:id="@+id/signup"
     android:gravity="center_horizontal">
 
     <EditText
@@ -68,10 +63,6 @@
         android:layout_centerVertical="true"
         android:layout_alignStart="@+id/signup_progress"
         android:layout_marginTop="40dp" />
->>>>>>> origin/master
-=======
-    tools:context="com.iust.panta.SignUp">
->>>>>>> parent of 00f9496... first
 
     <ProgressBar
         style="?android:attr/progressBarStyleLarge"
