@@ -10,6 +10,7 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -44,7 +45,7 @@ public class LoginActivity extends Activity {
         mPasswordView.setError(null);
 
         // Store values at the time of the login attempt.
-        String email = mEmailView.getText().toString();
+        final String email = mEmailView.getText().toString();
         String password = mPasswordView.getText().toString();
 
         boolean cancel = false;
@@ -93,9 +94,12 @@ public class LoginActivity extends Activity {
                 public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                     mProgressView.setVisibility(View.GONE);
                     try {
-                        if(response.getBoolean("success"))
+                        if(response.getBoolean("successful"))
                         {
+                            JSONArray projects = response.getJSONArray("projects");
+                            Log.d("PROJECTS",projects.toString());
                             Intent intent = new Intent(LoginActivity.this,Profile.class);
+                            intent.putExtra("project",projects.toString());
                             finish();
                             startActivity(intent);
 
@@ -104,8 +108,8 @@ public class LoginActivity extends Activity {
                         {
                             AlertDialog.Builder dlg = new AlertDialog.Builder(LoginActivity.this);
                             dlg.setCancelable(false);
-                            dlg.setMessage("خطا! دوباره وارد شوید");
-                            dlg.setPositiveButton("باشه", new DialogInterface.OnClickListener() {
+                            dlg.setMessage("خطا! ابتدا ثبت نام کنید");
+                            dlg.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
                                     dialog.cancel();
@@ -126,7 +130,7 @@ public class LoginActivity extends Activity {
                     AlertDialog.Builder builder = new AlertDialog.Builder(LoginActivity.this);
                     builder.setCancelable(false);
                     builder.setMessage("خطا! دوباره وارد شوید");
-                    builder.setPositiveButton("باشه", new DialogInterface.OnClickListener() {
+                    builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             dialog.cancel();
