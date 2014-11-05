@@ -47,7 +47,7 @@ public class Profile extends Activity {
         ArrayList<ExpandGroupList> lst=new ArrayList<ExpandGroupList>();
         ArrayList<ExpandChildList> lst2=new ArrayList<ExpandChildList>();
         ExpandGroupList gr1=new ExpandGroupList();
-        gr1.SetName("project1");
+        gr1.SetName("پروژه");
         ExpandChildList ch1=new ExpandChildList();
         ch1.setName("tast1");
         ch1.setTag(null);
@@ -64,7 +64,7 @@ public class Profile extends Activity {
        // lst.add(gr1);
         lst2=new ArrayList<ExpandChildList>();
         ExpandGroupList gr2=new ExpandGroupList();
-        gr2.SetName("project2");
+        gr2.SetName("اون یکی پروژه");
         ExpandChildList ch2_1=new ExpandChildList();
         ch2_1.setName("tast1");
         ch2_1.setTag(null);

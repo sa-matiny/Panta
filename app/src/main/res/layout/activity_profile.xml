@@ -4,7 +4,8 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:id="@+id/linearL"
-    tools:context="com.iust.panta.Profile">
+    tools:context="com.iust.panta.Profile"
+    android:gravity="right">
 
     <ImageButton
         android:layout_width="50dp"
@@ -22,7 +23,8 @@
         android:singleLine="true"
 
         android:layout_width="400dip"
-        android:text="search..">
+        android:text="جستجو..."
+        android:gravity="right">
 
     </EditText>
 
@@ -33,7 +35,8 @@
         android:text="من"
         android:id="@+id/name_label"
         android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        />
 
     <TextView
         android:layout_width="wrap_content"
@@ -48,14 +51,15 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/notif_l"
-        android:layout_gravity="center_horizontal" />
+        android:layout_gravity="right" />
 
     <ExpandableListView
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:id="@+id/expandableListView"
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/project_label">
+        android:layout_below="@+id/project_label"
+        android:layout_gravity="right">
 
         </ExpandableListView>
 
@@ -71,6 +75,7 @@
     android:text="Hold For contextual menu"
 
     android:padding="4dip"
+    android:layout_gravity="right"
 
     />
 
