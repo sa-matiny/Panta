@@ -24,6 +24,12 @@
             android:name=".SignUp"
             android:label="@string/title_activity_sign_up"
             android:windowSoftInputMode="adjustResize|stateVisible" >
+
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity
             android:name=".Profile"
@@ -32,11 +38,7 @@
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.iust.panta.LoginActivity" />
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
 
         </activity>
     </application>

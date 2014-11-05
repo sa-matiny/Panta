@@ -1,18 +1,27 @@
 package com.iust.panta;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
 import android.view.View;
+import android.widget.ProgressBar;
 
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 
+import org.apache.http.Header;
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
+import android.util.Log;
+
 
 
 public class SignUp extends Activity {
@@ -21,8 +30,11 @@ public class SignUp extends Activity {
     private EditText mEmailView;
     private EditText mPasswordView;
     private EditText mPassword2View;
+    private ProgressBar mProgressView;
     private int password_size=8; // dynamic
     private boolean has_error=false;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,6 +45,7 @@ public class SignUp extends Activity {
         mEmailView=(EditText) findViewById(R.id.email);
         mPasswordView=(EditText) findViewById(R.id.password);
         mPassword2View=(EditText) findViewById(R.id.rePassword);
+        mProgressView=(ProgressBar) findViewById(R.id.signup_progress);
     }
 
 
@@ -103,8 +116,10 @@ public class SignUp extends Activity {
 
         }
 
-        if(password!=password2)
+        if(! password.equals(password2))
         {
+            Log.d("passwrd1",password);
+            Log.d("passwrd2",password2);
              mPassword2View.setError("گذر واژه را اشتباه وارد کردید");
              focus_view=mPassword2View;
              focus_view.requestFocus();
@@ -141,6 +156,7 @@ public class SignUp extends Activity {
             this.has_error=true;
 
         }
+        writeInSignUpTb();
 
     }
 
@@ -173,8 +189,70 @@ public class SignUp extends Activity {
 
             AsyncHttpClient client = new AsyncHttpClient();
            // client.post("http://104.236.61.35:8800/login/",params)
-        client.post("http://104.236.61.35:8800/login/",params, new JsonHttpResponseHandler());
+        client.post("http://104.236.61.35:8800/register/",params, new JsonHttpResponseHandler()
 
+        {
+
+            @Override
+            public void onStart() {
+                System.out.println("Start");
+            }
+
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                mProgressView.setVisibility(View.GONE);
+                try {
+
+
+                 //   JSONObject s_response= response.getJSONObject("");
+
+                   // JSONArray
+                    if(response.getBoolean("successful"))
+                    {
+                        Intent intent = new Intent(SignUp.this,Profile.class);
+                        finish();
+                        startActivity(intent);
+
+                    }
+                    else
+                    {
+                        AlertDialog.Builder dlg = new AlertDialog.Builder(SignUp.this);
+                        dlg.setCancelable(false);
+                        dlg.setMessage("خطا  شما به سرور وصل نیستید!");
+                        dlg.setPositiveButton("باشه", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.cancel();
+                            }
+                        });
+                        dlg.create().show();
+                    }
+
+                }
+                catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, Throwable e, JSONObject errorResponse) {
+                mProgressView.setVisibility(View.GONE);
+                AlertDialog.Builder builder = new AlertDialog.Builder(SignUp.this);
+                builder.setCancelable(false);
+                builder.setMessage("خطا دوباره ثبت نام کنید");
+                builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                });
+                AlertDialog alert = builder.create();
+                alert.show();
+                //System.out.println(errorResponse);
+                //System.out.println(statusCode);
+            }
+
+        });
 
 
 

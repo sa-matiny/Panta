@@ -1,0 +1,10 @@
+<resources>
+
+
+    <string name="name">نام ونام خانوادگی</string>
+    <string name="signUpBottun">ثبت نام</string>
+    <string name="signp_email">پست الکترونیکی</string>
+    <string name="sign_up_password">گذرواژه</string>
+    <string name="sign_up_password2">تکرار گذرواژه</string>
+
+</resources>
