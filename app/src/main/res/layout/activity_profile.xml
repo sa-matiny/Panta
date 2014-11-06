@@ -23,8 +23,8 @@
         android:singleLine="true"
 
         android:layout_width="400dip"
-        android:text="جستجو..."
-        android:gravity="right">
+        android:gravity="right"
+        android:hint="جستجو...">
 
     </EditText>
 
