@@ -1,26 +1,20 @@
 package com.iust.panta;
 
 import android.app.Activity;
-import android.app.AlertDialog;
-import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.EditText;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ProgressBar;
 
 import com.loopj.android.http.AsyncHttpClient;
-import com.loopj.android.http.JsonHttpResponseHandler;
+import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 
 import org.apache.http.Header;
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-import android.util.Log;
 
 
 
@@ -31,8 +25,8 @@ public class SignUp extends Activity {
     private EditText mPasswordView;
     private EditText mPassword2View;
     private ProgressBar mProgressView;
-    private int password_size=8; // dynamic
-    private boolean has_error=false;
+    private int password_size = 2; // dynamic
+    private boolean has_error = false;
 
 
     @Override
@@ -42,10 +36,10 @@ public class SignUp extends Activity {
         // set Up sign Up information
 
         mNameView = (EditText) findViewById(R.id.name);
-        mEmailView=(EditText) findViewById(R.id.email);
-        mPasswordView=(EditText) findViewById(R.id.password);
-        mPassword2View=(EditText) findViewById(R.id.rePassword);
-        mProgressView=(ProgressBar) findViewById(R.id.signup_progress);
+        mEmailView = (EditText) findViewById(R.id.email);
+        mPasswordView = (EditText) findViewById(R.id.password);
+        mPassword2View = (EditText) findViewById(R.id.rePassword);
+        mProgressView = (ProgressBar) findViewById(R.id.signup_progress);
     }
 
 
@@ -71,125 +65,143 @@ public class SignUp extends Activity {
 
     // on click function
 
-    public void Sign_up(View view)
-    {
-        this.has_error=false;
-        String email ,
+    public void Sign_up(View view) {
+        this.has_error = false;
+        String email,
                 name,
                 password,
                 password2;
-        email=mEmailView.getText().toString();
-        name=mNameView.getText().toString();
-        password=mPasswordView.getText().toString();
-        password2=mPassword2View.getText().toString();
+        email = mEmailView.getText().toString();
+        name = mNameView.getText().toString();
+        password = mPasswordView.getText().toString();
+        password2 = mPassword2View.getText().toString();
 
         View focus_view;
 
         // check if Edit texts are Empty
 
 
-
-
-        if(TextUtils.isEmpty(password2))
-        {
+        if (TextUtils.isEmpty(password2)) {
             mPassword2View.setError("تکرار گذرواژه را وارد کنید");  // sentence is wrong
             focus_view = mPassword2View;
             focus_view.requestFocus();
-            this.has_error=true;
+            this.has_error = true;
         }
 
-        if(TextUtils.isEmpty(password))
-        {
+        if (TextUtils.isEmpty(password)) {
             mPasswordView.setError("گذرواژه را وارد کنید");
             focus_view = mPasswordView;
             focus_view.requestFocus();
-            this.has_error=true;
+            this.has_error = true;
 
         }
 
-        if(TextUtils.isEmpty(email))
-        {
+        if (TextUtils.isEmpty(email)) {
             mEmailView.setError("پست الکترونیکی را وارد کنید ");
-            focus_view=mEmailView;
+            focus_view = mEmailView;
             focus_view.requestFocus();
-            this.has_error=true;
+            this.has_error = true;
 
         }
 
-        if(! password.equals(password2))
-        {
-            Log.d("passwrd1",password);
-            Log.d("passwrd2",password2);
-             mPassword2View.setError("گذر واژه را اشتباه وارد کردید");
-             focus_view=mPassword2View;
-             focus_view.requestFocus();
-            this.has_error=true;
+        if (!password.equals(password2)) {
+            Log.d("passwrd1", password);
+            Log.d("passwrd2", password2);
+            mPassword2View.setError("گذر واژه را اشتباه وارد کردید");
+            focus_view = mPassword2View;
+            focus_view.requestFocus();
+            this.has_error = true;
 
         }
-        if(isInvalidPassword(password)) // number of character
+        if (isInvalidPassword(password)) // number of character
         {
-            mPasswordView.setError("  حداقل"+ this.password_size +"کاراکتر وارد کنید ");
+            mPasswordView.setError("  حداقل" + this.password_size + "کاراکتر وارد کنید ");
             focus_view = mPasswordView;
             focus_view.requestFocus();
-            this.has_error=true;
+            this.has_error = true;
 
 
         }
 
 
         //invalid Email
-        if(isInvalidEmail(email))
-        {
+        if (isInvalidEmail(email)) {
             mEmailView.setError("پست الکترونیکی معتبر نمی باشد ");
-            focus_view=mEmailView;
+            focus_view = mEmailView;
             focus_view.requestFocus();
-            this.has_error=true;
+            this.has_error = true;
 
         }
 
-        if(TextUtils.isEmpty(name))
-        {
+        if (TextUtils.isEmpty(name)) {
 
             mNameView.setError("نام و نام خانوادگی را وارد کنید");
-            focus_view=mNameView;
+            focus_view = mNameView;
             focus_view.requestFocus();
-            this.has_error=true;
+            this.has_error = true;
 
         }
         writeInSignUpTb();
 
     }
 
-    private boolean isInvalidEmail(String email)
-    {
+    private boolean isInvalidEmail(String email) {
 
         return !(android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches());
 
     }
+
     private boolean isInvalidPassword(String password) // just determine the number
     {
-        if(password.length()< this.password_size)
+        if (password.length() < this.password_size)
             return true;
 
         return false;
     }
 
-    public  void writeInSignUpTb()
-    {
+    public void writeInSignUpTb() {
+        //   JSONObject  object= new JSONObject();
 
-        RequestParams params= new RequestParams();
-     //   JSONObject  object= new JSONObject();
+        if (!has_error) {
 
-        if(! has_error )
-        {
-
-      //  params.put("name",mNameView.getText().toString());
-        params.put("username",mEmailView.getText().toString());
-        params.put("password",mPasswordView.getText().toString());
-
+            RequestParams params = new RequestParams();
+            params.put("name", mNameView.getText().toString());
+            params.put("username", mEmailView.getText().toString());
+            params.put("password", mPasswordView.getText().toString());
             AsyncHttpClient client = new AsyncHttpClient();
-           // client.post("http://104.236.61.35:8800/login/",params)
-        client.post("http://104.236.61.35:8800/register/",params, new JsonHttpResponseHandler()
+            client.post("http://172.17.10.42:8800/register/", params, new AsyncHttpResponseHandler() {
+
+                @Override
+                public void onStart() {
+                    // called before request is started
+                    Log.d("STARTED", "STARTED");
+                }
+
+                @Override
+                public void onSuccess(int statusCode, Header[] headers, byte[] response) {
+                    // called when response HTTP status is "200 OK"
+                    Log.d("SUCCESS", "SUCCESS");
+                }
+
+                @Override
+                public void onFailure(int statusCode, Header[] headers, byte[] errorResponse, Throwable e) {
+
+                    // called when response HTTP status is "4XX" (eg. 401, 403, 404)
+                    Log.d("FAILED", "FAILED");
+                    Log.d("statusCode", String.valueOf(statusCode));
+                    Log.d("headers", String.valueOf(headers));
+                    Log.d("headers", String.valueOf(headers));
+
+                }
+
+                @Override
+                public void onRetry(int retryNo) {
+                    // called when request is retried
+                }
+            });
+
+        /*AsyncHttpClient client = new AsyncHttpClient();
+        client.post("http://172.17.10.42:8800/register", params, new JsonHttpResponseHandler()
 
         {
 
@@ -204,18 +216,15 @@ public class SignUp extends Activity {
                 try {
 
 
-                 //   JSONObject s_response= response.getJSONObject("");
+                    //   JSONObject s_response= response.getJSONObject("");
 
-                   // JSONArray
-                    if(response.getBoolean("successful"))
-                    {
-                        Intent intent = new Intent(SignUp.this,Profile.class);
+                    // JSONArray
+                    if (response.getBoolean("successful")) {
+                        Intent intent = new Intent(SignUp.this, Profile.class);
                         finish();
                         startActivity(intent);
 
-                    }
-                    else
-                    {
+                    } else {
                         AlertDialog.Builder dlg = new AlertDialog.Builder(SignUp.this);
                         dlg.setCancelable(false);
                         dlg.setMessage("خطا  شما به سرور وصل نیستید!");
@@ -228,8 +237,7 @@ public class SignUp extends Activity {
                         dlg.create().show();
                     }
 
-                }
-                catch (JSONException e) {
+                } catch (JSONException e) {
                     e.printStackTrace();
                 }
             }
@@ -237,6 +245,9 @@ public class SignUp extends Activity {
             @Override
             public void onFailure(int statusCode, Header[] headers, Throwable e, JSONObject errorResponse) {
                 mProgressView.setVisibility(View.GONE);
+                Log.d("statusCode", String.valueOf(statusCode));
+                Log.d("errorResponse", String.valueOf(errorResponse));
+                Log.d("HEADERS", String.valueOf(headers));
                 AlertDialog.Builder builder = new AlertDialog.Builder(SignUp.this);
                 builder.setCancelable(false);
                 builder.setMessage("خطا دوباره ثبت نام کنید");
@@ -252,11 +263,10 @@ public class SignUp extends Activity {
                 //System.out.println(statusCode);
             }
 
-        });
+        });*/
 
 
-
-}
-}
+        }
+    }
 }
 

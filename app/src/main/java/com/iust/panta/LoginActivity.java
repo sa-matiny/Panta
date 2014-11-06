@@ -1,21 +1,19 @@
 package com.iust.panta;
 
 
-import android.app.ActionBar;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-
-import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 
-import com.loopj.android.http.*;
+import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.JsonHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
 
 import org.apache.http.Header;
 import org.json.JSONArray;
@@ -82,7 +80,7 @@ public class LoginActivity extends Activity {
             params.put("username", email);
             params.put("password", password);
             AsyncHttpClient client = new AsyncHttpClient();
-            client.post("http://104.236.61.35:8800/login/",params, new JsonHttpResponseHandler()
+            client.post("http://172.17.10.42:8800/login/",params, new JsonHttpResponseHandler()
             {
 
                 @Override
@@ -138,8 +136,6 @@ public class LoginActivity extends Activity {
                     });
                     AlertDialog alert = builder.create();
                     alert.show();
-                    //System.out.println(errorResponse);
-                    //System.out.println(statusCode);
                 }
 
             });
@@ -154,7 +150,6 @@ public class LoginActivity extends Activity {
 
     public void GoRegister(View view) {
         Intent intent = new Intent(this,SignUp.class);
-        //finish();
         startActivity(intent);
     }
 }
