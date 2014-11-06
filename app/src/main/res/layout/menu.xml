@@ -4,7 +4,7 @@
     android:layout_height="match_parent">
 <item android:id="@+id/search"
 
-android:title="Add new project" />
+android:title="Add new project"/>
 
 <item android:id="@+id/notif"
 

@@ -25,7 +25,7 @@
         android:longClickable="false"
         android:password="false"
         android:layout_marginTop="30dp"
-        android:gravity="right" />
+        android:gravity="right"/>
 
     <EditText
         android:id="@+id/password"
@@ -39,7 +39,7 @@
         android:maxLines="1"
         android:singleLine="true"
         android:layout_marginTop="20dp"
-        android:gravity="right" />
+        android:gravity="right"/>
 
     <Button
         android:id="@+id/email_sign_in_button"
@@ -48,8 +48,11 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="40dp"
         android:text="@string/action_sign_in"
+        android:onClick="Login"
+        android:background="#033649"
+        android:textColor="#fff"
         android:textStyle="bold"
-        android:onClick="Login" />
+        android:textSize="20sp"/>
 
     <TextView
         android:id="@+id/email_sign_up_text"
@@ -58,10 +61,12 @@
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:text="@string/action_sign_up"
         android:layout_gravity="center_horizontal"
-        android:textStyle=""
+        android:textStyle="bold"
         android:layout_marginTop="20dp"
         android:clickable="true"
-        android:onClick="GoRegister" />
+        android:onClick="GoRegister"
+        android:textColor="#033649"
+        android:textSize="15sp" />
 
     <ProgressBar
         android:id="@+id/login_progress"
