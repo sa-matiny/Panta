@@ -1,6 +1,5 @@
 package com.iust.panta;
 
-
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -10,13 +9,13 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 
 import com.loopj.android.http.AsyncHttpClient;
-import com.loopj.android.http.JsonHttpResponseHandler;
+import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 
 import org.apache.http.Header;
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -25,7 +24,7 @@ public class LoginActivity extends Activity {
 
     private EditText mEmailView;
     private EditText mPasswordView;
-    private View mProgressView;
+    private ProgressBar mProgressView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,7 +33,7 @@ public class LoginActivity extends Activity {
         // Set up the login form.
         mEmailView = (EditText) findViewById(R.id.email);
         mPasswordView = (EditText) findViewById(R.id.password);
-        mProgressView = findViewById(R.id.login_progress);
+        mProgressView = (ProgressBar)findViewById(R.id.login_progress);
     }
 
     public void Login(View view) {
@@ -80,7 +79,7 @@ public class LoginActivity extends Activity {
             params.put("username", email);
             params.put("password", password);
             AsyncHttpClient client = new AsyncHttpClient();
-            client.post("http://172.17.10.42:8800/login/",params, new JsonHttpResponseHandler()
+            client.post("http://104.236.33.128:8800/login/",params, new AsyncHttpResponseHandler()
             {
 
                 @Override
@@ -89,15 +88,16 @@ public class LoginActivity extends Activity {
                 }
 
                 @Override
-                public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                public void onSuccess(int statusCode, Header[] headers, byte[] response){
                     mProgressView.setVisibility(View.GONE);
                     try {
-                        if(response.getBoolean("successful"))
+                        Log.d("RESPONSE",new String(response));
+                        JSONObject s_response= new JSONObject(new String(response));
+                        if(s_response.getBoolean("successful"))
                         {
-                            JSONArray projects = response.getJSONArray("projects");
-                            Log.d("PROJECTS",projects.toString());
                             Intent intent = new Intent(LoginActivity.this,Profile.class);
-                            intent.putExtra("project",projects.toString());
+                            Log.d("array",s_response.getJSONArray("projects").toString());
+                            intent.putExtra("projects",s_response.getJSONArray("projects").toString());
                             finish();
                             startActivity(intent);
 
@@ -123,7 +123,7 @@ public class LoginActivity extends Activity {
                 }
 
                 @Override
-                public void onFailure(int statusCode, Header[] headers, Throwable e, JSONObject errorResponse) {
+                public void onFailure(int statusCode, Header[] headers, byte[] errorResponse, Throwable e) {
                     mProgressView.setVisibility(View.GONE);
                     AlertDialog.Builder builder = new AlertDialog.Builder(LoginActivity.this);
                     builder.setCancelable(false);
@@ -144,7 +144,6 @@ public class LoginActivity extends Activity {
 
 
     private boolean isEmailValid(String email) {
-        //TODO: Replace this with your own logic
         return email.contains("@");
     }
 

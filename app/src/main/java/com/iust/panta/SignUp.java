@@ -7,8 +7,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ProgressBar;
@@ -44,26 +42,6 @@ public class SignUp extends Activity {
         mPasswordView = (EditText) findViewById(R.id.password);
         mPassword2View = (EditText) findViewById(R.id.rePassword);
         mProgressView = (ProgressBar) findViewById(R.id.signup_progress);
-    }
-
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.sign_up, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-        if (id == R.id.action_settings) {
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
     }
 
 
@@ -157,23 +135,20 @@ public class SignUp extends Activity {
 
     private boolean isInvalidPassword(String password) // just determine the number
     {
-        if (password.length() < this.password_size)
-            return true;
+        return (password.length() < this.password_size);
 
-        return false;
     }
 
     public void writeInSignUpTb() {
-        //   JSONObject  object= new JSONObject();
 
         if (!has_error) {
-
+            mProgressView.setVisibility(View.VISIBLE);
             RequestParams params = new RequestParams();
             params.put("name", mNameView.getText().toString());
             params.put("username", mEmailView.getText().toString());
             params.put("password", mPasswordView.getText().toString());
             AsyncHttpClient client = new AsyncHttpClient();
-            client.post("http://172.17.10.42:8800/register/", params, new AsyncHttpResponseHandler() {
+            client.post("http://104.236.33.128:8800/register/", params, new AsyncHttpResponseHandler() {
 
                 @Override
                 public void onStart() {
@@ -187,13 +162,14 @@ public class SignUp extends Activity {
                     Log.d("SUCCESS", "SUCCESS");
                     mProgressView.setVisibility(View.GONE);
                     try {
-
                         Log.d("RESPONSE",new String(response));
                         JSONObject s_response= new JSONObject(new String(response));
 
                         // JSONArray
                         if (s_response.getBoolean("successful")) {
                             Intent intent = new Intent(SignUp.this, Profile.class);
+                            Log.d("array",s_response.getJSONArray("projects").toString());
+                            intent.putExtra("projects",s_response.getJSONArray("projects").toString());
                             finish();
                             startActivity(intent);
 
@@ -221,9 +197,9 @@ public class SignUp extends Activity {
                     // called when response HTTP status is "4XX" (eg. 401, 403, 404)
                     Log.d("FAILED", "FAILED");
                     mProgressView.setVisibility(View.GONE);
-                    Log.d("statusCode", String.valueOf(statusCode));
-                    Log.d("errorResponse", String.valueOf(errorResponse));
-                    Log.d("HEADERS", String.valueOf(headers));
+                    /*Log.d("statusCode", String.valueOf(statusCode));
+                    Log.d("errorResponse", errorResponse.toString());
+                    Log.d("HEADERS",headers.toString());*/
                     AlertDialog.Builder builder = new AlertDialog.Builder(SignUp.this);
                     builder.setCancelable(false);
                     builder.setMessage("خطا دوباره ثبت نام کنید");
@@ -235,8 +211,6 @@ public class SignUp extends Activity {
                     });
                     AlertDialog alert = builder.create();
                     alert.show();
-                    //System.out.println(errorResponse);
-                    //System.out.println(statusCode);
 
                 }
 
@@ -245,28 +219,6 @@ public class SignUp extends Activity {
                     // called when request is retried
                 }
             });
-
-        /*AsyncHttpClient client = new AsyncHttpClient();
-        client.post("http://172.17.10.42:8800/register", params, new JsonHttpResponseHandler()
-
-        {
-
-            @Override
-            public void onStart() {
-                System.out.println("Start");
-            }
-
-            @Override
-            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-
-            }
-
-            @Override
-            public void onFailure(int statusCode, Header[] headers, Throwable e, JSONObject errorResponse) {
-
-            }
-
-        });*/
 
 
         }
