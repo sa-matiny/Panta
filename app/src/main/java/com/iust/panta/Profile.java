@@ -27,45 +27,47 @@ public class Profile extends Activity {
     private ExpandListViewAdapter Expadapter;
     private ArrayList<ExpandGroupList> expGroup;
     private ExpandableListView Explist;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
-        EditText ed = (EditText)findViewById(R.id.edittext);
-        ImageButton men=(ImageButton)findViewById(R.id.Button);
-        Explist=(ExpandableListView)findViewById(R.id.expandableListView);
-        expGroup=SetStandardGroup();
-        Expadapter=new ExpandListViewAdapter(Profile.this,expGroup);
+        EditText ed = (EditText) findViewById(R.id.edittext);
+        ImageButton men = (ImageButton) findViewById(R.id.Button);
+        Explist = (ExpandableListView) findViewById(R.id.expandableListView);
+        expGroup = SetStandardGroup();
+        Expadapter = new ExpandListViewAdapter(Profile.this, expGroup);
         Explist.setAdapter(Expadapter);
         registerForContextMenu(men);
     }
-    public ArrayList<ExpandGroupList> SetStandardGroup(){
-        ArrayList<ExpandGroupList> lst=new ArrayList<ExpandGroupList>();
-        ArrayList<ExpandChildList> lst2=new ArrayList<ExpandChildList>();
-        ExpandGroupList gr1=new ExpandGroupList();
+
+    public ArrayList<ExpandGroupList> SetStandardGroup() {
+        ArrayList<ExpandGroupList> lst = new ArrayList<ExpandGroupList>();
+        ArrayList<ExpandChildList> lst2 = new ArrayList<ExpandChildList>();
+        ExpandGroupList gr1 = new ExpandGroupList();
         gr1.SetName("پروژه");
-        ExpandChildList ch1=new ExpandChildList();
+        ExpandChildList ch1 = new ExpandChildList();
         ch1.setName("tast1");
         ch1.setTag(null);
         lst2.add(ch1);
-        ExpandChildList ch1_2=new ExpandChildList();
+        ExpandChildList ch1_2 = new ExpandChildList();
         ch1_2.setName("task2");
         ch1_2.setTag(null);
         lst2.add(ch1_2);
-        ExpandChildList ch1_3=new ExpandChildList();
+        ExpandChildList ch1_3 = new ExpandChildList();
         ch1_3.setName("task3");
         ch1_3.setTag(null);
         lst2.add(ch1_3);
         gr1.setItemes(lst2);
-       // lst.add(gr1);
-        lst2=new ArrayList<ExpandChildList>();
-        ExpandGroupList gr2=new ExpandGroupList();
+        // lst.add(gr1);
+        lst2 = new ArrayList<ExpandChildList>();
+        ExpandGroupList gr2 = new ExpandGroupList();
         gr2.SetName("اون یکی پروژه");
-        ExpandChildList ch2_1=new ExpandChildList();
+        ExpandChildList ch2_1 = new ExpandChildList();
         ch2_1.setName("tast1");
         ch2_1.setTag(null);
         lst2.add(ch2_1);
-        ExpandChildList ch2_2=new ExpandChildList();
+        ExpandChildList ch2_2 = new ExpandChildList();
         ch2_2.setName("task2");
         ch2_2.setTag(null);
         lst2.add(ch2_2);
@@ -77,82 +79,78 @@ public class Profile extends Activity {
     }
 
 
+    public boolean onCreateActionMode(ActionMode actionMode, Menu menu) {
+        return false;
+    }
 
 
-
-        public boolean onCreateActionMode(ActionMode actionMode, Menu menu) {
-            return false;
-        }
-
+    public boolean onActionItemClicked(ActionMode actionMode, MenuItem menuItem) {
+        return false;
+    }
 
 
-        public boolean onActionItemClicked(ActionMode actionMode, MenuItem menuItem) {
-            return false;
-        }
+    public void onDestroyActionMode(ActionMode actionMode) {
 
+    }
 
-        public void onDestroyActionMode(ActionMode actionMode) {
-
-        }
-
-    public void onCreateContextMenu(ContextMenu m, View v,ContextMenu.ContextMenuInfo menuinf) {
+    public void onCreateContextMenu(ContextMenu m, View v, ContextMenu.ContextMenuInfo menuinf) {
 
         super.onCreateContextMenu(m, v, menuinf);
 
         if (v.getId() == R.id.Button) {
-            getMenuInflater().inflate(R.menu.mn_u,m);
+            getMenuInflater().inflate(R.menu.mn_u, m);
 
         }
     }
-        public boolean onContextItemSelected(MenuItem item) {
 
-            switch (item.getItemId()) {
+    public boolean onContextItemSelected(MenuItem item) {
 
-                case R.id.search:
+        switch (item.getItemId()) {
 
-                    showToast("search Clicked");
+            case R.id.search:
 
-                    return true;
+                showToast("search Clicked");
 
-                case R.id.notif:
+                return true;
 
-                    showToast("notification Clicked");
+            case R.id.notif:
 
-                    return true;
-                case R.id.add_new:
-                    showToast("add cliched");
+                showToast("notification Clicked");
 
-                default:
+                return true;
+            case R.id.add_new:
+                showToast("add cliched");
 
-                    return super.onContextItemSelected(item);
+            default:
 
-            }
-
-        }
-
-        public void showToast(String message) {
-
-            Toast toast = Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT);
-
-            toast.show();
+                return super.onContextItemSelected(item);
 
         }
 
+    }
+
+    public void showToast(String message) {
+
+        Toast toast = Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT);
+
+        toast.show();
+
+    }
 
 
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        MenuInflater inflater=getMenuInflater();
+        MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.profile, menu);
 
         return super.onCreateOptionsMenu(menu);
     }
-    public void showPopup(View v)
-    {
-        PopupMenu pop =new PopupMenu(this, v);
 
-      //  MenuInflater inf=pop.getMenuInflater();
-       // inf.inflate(R.menu.acts,pop.getMenu());
+    public void showPopup(View v) {
+        PopupMenu pop = new PopupMenu(this, v);
+
+        //  MenuInflater inf=pop.getMenuInflater();
+        // inf.inflate(R.menu.acts,pop.getMenu());
     }
 
     @Override
@@ -183,9 +181,9 @@ public class Profile extends Activity {
 
             default:
 
-        return super.onOptionsItemSelected(item);
-    }
+                return super.onOptionsItemSelected(item);
+        }
 
-}
+    }
 
 }
