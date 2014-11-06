@@ -176,7 +176,7 @@ public class SignUp extends Activity {
                         } else {
                             AlertDialog.Builder dlg = new AlertDialog.Builder(SignUp.this);
                             dlg.setCancelable(false);
-                            dlg.setMessage("خطا  شما به سرور وصل نیستید!");
+                            dlg.setMessage("خطا! دوباره ثبت نام کنید");
                             dlg.setPositiveButton("باشه", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
@@ -202,7 +202,7 @@ public class SignUp extends Activity {
                     Log.d("HEADERS",headers.toString());*/
                     AlertDialog.Builder builder = new AlertDialog.Builder(SignUp.this);
                     builder.setCancelable(false);
-                    builder.setMessage("خطا دوباره ثبت نام کنید");
+                    builder.setMessage("خطا! دوباره ثبت نام کنید");
                     builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
