@@ -1,6 +1,9 @@
 package com.iust.panta;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -15,7 +18,8 @@ import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 
 import org.apache.http.Header;
-
+import org.json.JSONException;
+import org.json.JSONObject;
 
 
 public class SignUp extends Activity {
@@ -181,6 +185,34 @@ public class SignUp extends Activity {
                 public void onSuccess(int statusCode, Header[] headers, byte[] response) {
                     // called when response HTTP status is "200 OK"
                     Log.d("SUCCESS", "SUCCESS");
+                    mProgressView.setVisibility(View.GONE);
+                    try {
+
+                        Log.d("RESPONSE",new String(response));
+                        JSONObject s_response= new JSONObject(new String(response));
+
+                        // JSONArray
+                        if (s_response.getBoolean("successful")) {
+                            Intent intent = new Intent(SignUp.this, Profile.class);
+                            finish();
+                            startActivity(intent);
+
+                        } else {
+                            AlertDialog.Builder dlg = new AlertDialog.Builder(SignUp.this);
+                            dlg.setCancelable(false);
+                            dlg.setMessage("خطا  شما به سرور وصل نیستید!");
+                            dlg.setPositiveButton("باشه", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    dialog.cancel();
+                                }
+                            });
+                            dlg.create().show();
+                        }
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
                 }
 
                 @Override
@@ -188,9 +220,23 @@ public class SignUp extends Activity {
 
                     // called when response HTTP status is "4XX" (eg. 401, 403, 404)
                     Log.d("FAILED", "FAILED");
+                    mProgressView.setVisibility(View.GONE);
                     Log.d("statusCode", String.valueOf(statusCode));
-                    Log.d("headers", String.valueOf(headers));
-                    Log.d("headers", String.valueOf(headers));
+                    Log.d("errorResponse", String.valueOf(errorResponse));
+                    Log.d("HEADERS", String.valueOf(headers));
+                    AlertDialog.Builder builder = new AlertDialog.Builder(SignUp.this);
+                    builder.setCancelable(false);
+                    builder.setMessage("خطا دوباره ثبت نام کنید");
+                    builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.cancel();
+                        }
+                    });
+                    AlertDialog alert = builder.create();
+                    alert.show();
+                    //System.out.println(errorResponse);
+                    //System.out.println(statusCode);
 
                 }
 
@@ -212,55 +258,12 @@ public class SignUp extends Activity {
 
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-                mProgressView.setVisibility(View.GONE);
-                try {
 
-
-                    //   JSONObject s_response= response.getJSONObject("");
-
-                    // JSONArray
-                    if (response.getBoolean("successful")) {
-                        Intent intent = new Intent(SignUp.this, Profile.class);
-                        finish();
-                        startActivity(intent);
-
-                    } else {
-                        AlertDialog.Builder dlg = new AlertDialog.Builder(SignUp.this);
-                        dlg.setCancelable(false);
-                        dlg.setMessage("خطا  شما به سرور وصل نیستید!");
-                        dlg.setPositiveButton("باشه", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                dialog.cancel();
-                            }
-                        });
-                        dlg.create().show();
-                    }
-
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
             }
 
             @Override
             public void onFailure(int statusCode, Header[] headers, Throwable e, JSONObject errorResponse) {
-                mProgressView.setVisibility(View.GONE);
-                Log.d("statusCode", String.valueOf(statusCode));
-                Log.d("errorResponse", String.valueOf(errorResponse));
-                Log.d("HEADERS", String.valueOf(headers));
-                AlertDialog.Builder builder = new AlertDialog.Builder(SignUp.this);
-                builder.setCancelable(false);
-                builder.setMessage("خطا دوباره ثبت نام کنید");
-                builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.cancel();
-                    }
-                });
-                AlertDialog alert = builder.create();
-                alert.show();
-                //System.out.println(errorResponse);
-                //System.out.println(statusCode);
+
             }
 
         });*/
