@@ -124,7 +124,7 @@ public class LoginActivity extends Activity {
                         {
                             AlertDialog.Builder dlg = new AlertDialog.Builder(LoginActivity.this);
                             dlg.setCancelable(false);
-                            dlg.setMessage("خطا! پست الکترونیکی یا گذر واژه نادرست است");
+                            dlg.setMessage("خطا! پست الکترونیکی یا گذرواژه نادرست است");
                             dlg.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
