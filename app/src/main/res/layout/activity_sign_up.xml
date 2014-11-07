@@ -11,7 +11,8 @@
     android:id="@+id/signup"
     android:gravity="center_horizontal"
     android:clickable="true"
-    android:weightSum="1">
+    android:weightSum="1"
+    android:onClick="ClickOnSignUpBody">
 
     <EditText
         android:layout_width="280dp"

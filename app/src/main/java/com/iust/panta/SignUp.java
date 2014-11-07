@@ -10,7 +10,8 @@ import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ProgressBar;
-
+import android.view.inputmethod.InputMethodManager;
+import android.content.Context;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
@@ -42,12 +43,30 @@ public class SignUp extends Activity {
         mPasswordView = (EditText) findViewById(R.id.password);
         mPassword2View = (EditText) findViewById(R.id.rePassword);
         mProgressView = (ProgressBar) findViewById(R.id.signup_progress);
+
     }
 
 
     // on click function
 
     public void Sign_up(View view) {
+
+
+        //this is for hiding keyboard
+        InputMethodManager imm = (InputMethodManager)getSystemService(
+                Context.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(mEmailView.getWindowToken(), 0);
+        imm.hideSoftInputFromWindow(mNameView.getWindowToken(), 0);
+        imm.hideSoftInputFromWindow(mPasswordView.getWindowToken(), 0);
+        imm.hideSoftInputFromWindow(mPassword2View.getWindowToken(), 0);
+
+        //set null error
+        mEmailView.setError(null);
+        mPasswordView.setError(null);
+        mPasswordView.setError(null);
+        mNameView.setError(null);
+
+        //set variable
         this.has_error = false;
         String email,
                 name,
@@ -57,6 +76,7 @@ public class SignUp extends Activity {
         name = mNameView.getText().toString();
         password = mPasswordView.getText().toString();
         password2 = mPassword2View.getText().toString();
+
 
         View focus_view;
 
@@ -125,6 +145,8 @@ public class SignUp extends Activity {
             this.has_error = true;
 
         }
+        if(this.has_error)
+            mProgressView.setVisibility(View.GONE);
         writeInSignUpTb();
 
     }
@@ -178,8 +200,8 @@ public class SignUp extends Activity {
                         } else {
                             AlertDialog.Builder dlg = new AlertDialog.Builder(SignUp.this);
                             dlg.setCancelable(false);
-                            dlg.setMessage("خطا! دوباره ثبت نام کنید");
-                            dlg.setPositiveButton("باشه", new DialogInterface.OnClickListener() {
+                            dlg.setMessage("خطا! پست الکترونیکی در سیستم موجود است");
+                            dlg.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
                                     dialog.cancel();
@@ -224,6 +246,19 @@ public class SignUp extends Activity {
 
 
         }
+    }
+
+    public void ClickOnSignUpBody(View view)
+    {
+
+        InputMethodManager imm = (InputMethodManager)getSystemService(
+                Context.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(mEmailView.getWindowToken(), 0);
+        imm.hideSoftInputFromWindow(mNameView.getWindowToken(), 0);
+        imm.hideSoftInputFromWindow(mPasswordView.getWindowToken(), 0);
+        imm.hideSoftInputFromWindow(mPassword2View.getWindowToken(), 0);
+
+
     }
 }
 

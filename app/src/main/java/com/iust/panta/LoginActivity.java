@@ -2,12 +2,14 @@ package com.iust.panta;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 
@@ -34,10 +36,26 @@ public class LoginActivity extends Activity {
         mEmailView = (EditText) findViewById(R.id.email);
         mPasswordView = (EditText) findViewById(R.id.password);
         mProgressView = (ProgressBar)findViewById(R.id.login_progress);
+
+
+
     }
 
     public void Login(View view) {
+
+        //hide Keyboard
+
+        InputMethodManager imm = (InputMethodManager)getSystemService(
+                Context.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(mEmailView.getWindowToken(), 0);
+        imm.hideSoftInputFromWindow(mPasswordView.getWindowToken(), 0);
+
+
+
+
         // Reset errors.
+
+
         mEmailView.setError(null);
         mPasswordView.setError(null);
 
@@ -150,5 +168,16 @@ public class LoginActivity extends Activity {
     public void GoRegister(View view) {
         Intent intent = new Intent(this,SignUp.class);
         startActivity(intent);
+    }
+
+    public void ClickOnLoginBody(View view) // this for hiding Keyboard
+    {
+
+        InputMethodManager imm = (InputMethodManager)getSystemService(
+                Context.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(mEmailView.getWindowToken(), 0);
+        imm.hideSoftInputFromWindow(mPasswordView.getWindowToken(), 0);
+
+
     }
 }
