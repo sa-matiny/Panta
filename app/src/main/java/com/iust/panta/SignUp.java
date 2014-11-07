@@ -63,6 +63,8 @@ public class SignUp extends Activity {
         // check if Edit texts are Empty
 
 
+        mProgressView.setVisibility(View.VISIBLE);
+
         if (TextUtils.isEmpty(password2)) {
             mPassword2View.setError("تکرار گذرواژه را وارد کنید");  // sentence is wrong
             focus_view = mPassword2View;
