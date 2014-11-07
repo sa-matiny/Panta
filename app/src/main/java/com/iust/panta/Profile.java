@@ -147,18 +147,18 @@ public class Profile extends Activity {
 
         switch (item.getItemId()) {
 
-            case R.id.search:
+            case R.id.action_settings:
 
-                showToast("search Clicked");
+                showToast("setting Clicked");
 
                 return true;
 
-            case R.id.notif:
+            case R.id.action_notif:
 
                 showToast("notification Clicked");
 
                 return true;
-            case R.id.add_new:
+            case R.id.action_add:
                 showToast("add cliched");
 
             default:
@@ -166,6 +166,8 @@ public class Profile extends Activity {
                 return super.onContextItemSelected(item);
 
         }
+
+
 
     }
 
@@ -193,30 +195,26 @@ public class Profile extends Activity {
         // inf.inflate(R.menu.acts,pop.getMenu());
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
+
+   /* public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-       /* if (id == R.id.action_settings) {
-            showToast("search Clicked1");
-            return true;
-        }*/
         switch (item.getItemId()) {
 
-            case R.id.search:
+            case R.id.action_settings:
 
-                showToast("search Clicked");
+                showToast("setting Clicked");
 
                 return true;
 
-            case R.id.notif:
+            case R.id.action_notif:
 
                 showToast("notification Clicked");
 
                 return true;
-            case R.id.add_new:
+            case R.id.action_add:
                 showToast("add cliched");
 
             default:
@@ -225,5 +223,5 @@ public class Profile extends Activity {
         }
 
     }
-
+*/
 }
