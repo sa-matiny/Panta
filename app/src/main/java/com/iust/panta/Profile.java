@@ -1,6 +1,7 @@
 package com.iust.panta;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.ActionMode;
 import android.view.ContextMenu;
@@ -18,6 +19,8 @@ import com.iust.panta.Expand.adapter.ExpandListViewAdapter;
 import com.iust.panta.Expands.ExpandChildList;
 import com.iust.panta.Expands.ExpandGroupList;
 
+import org.json.JSONArray;
+
 import java.util.ArrayList;
 
 
@@ -27,12 +30,16 @@ public class Profile extends Activity {
     private ExpandListViewAdapter Expadapter;
     private ArrayList<ExpandGroupList> expGroup;
     private ExpandableListView Explist;
+    public Intent intentExtra;
+    public String[] mYprojectName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
         EditText ed = (EditText) findViewById(R.id.edittext);
+        intentExtra.getExtras();
+        mYprojectName=intentExtra.toString().substring(1,intentExtra.toString().length()-2).split(",");
         ImageButton men = (ImageButton) findViewById(R.id.Button);
         Explist = (ExpandableListView) findViewById(R.id.expandableListView);
         expGroup = SetStandardGroup();
@@ -44,6 +51,30 @@ public class Profile extends Activity {
     public ArrayList<ExpandGroupList> SetStandardGroup() {
         ArrayList<ExpandGroupList> lst = new ArrayList<ExpandGroupList>();
         ArrayList<ExpandChildList> lst2 = new ArrayList<ExpandChildList>();
+
+
+
+            for(int i=0;i<mYprojectName.length;i++)
+            {
+                ExpandGroupList gr1 = new ExpandGroupList();
+                gr1.SetName(mYprojectName[i]);
+                ExpandChildList ch1 = new ExpandChildList();
+                ch1.setName("tast1");
+                ch1.setTag(null);
+                lst2.add(ch1);
+                ExpandChildList ch1_2 = new ExpandChildList();
+                ch1_2.setName("task2");
+                ch1_2.setTag(null);
+                lst2.add(ch1_2);
+                ExpandChildList ch1_3 = new ExpandChildList();
+                ch1_3.setName("task3");
+                ch1_3.setTag(null);
+                lst2.add(ch1_3);
+                gr1.setItemes(lst2);
+                lst.add(gr1);
+        }
+
+        /*
         ExpandGroupList gr1 = new ExpandGroupList();
         gr1.SetName("پروژه");
         ExpandChildList ch1 = new ExpandChildList();
@@ -74,6 +105,7 @@ public class Profile extends Activity {
         gr2.setItemes(lst2);
         lst.add(gr1);
         lst.add(gr2);
+        */
         return lst;
 
     }
