@@ -13,8 +13,7 @@
         android:layout_height="50dp"
         android:id="@+id/Button"
         android:layout_gravity="right"
-        android:icon="@drawable/ic_action_overflow"
-        android:src="@drawable/ic_action_overflow" />
+         />
 
 
     <EditText

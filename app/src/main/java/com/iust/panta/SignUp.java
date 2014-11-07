@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.view.inputmethod.InputMethodManager;
@@ -28,6 +29,7 @@ public class SignUp extends Activity {
     private EditText mPasswordView;
     private EditText mPassword2View;
     private ProgressBar mProgressView;
+    private Button mButtonView;
     private int password_size = 2; // dynamic
     private boolean has_error = false;
 
@@ -43,7 +45,7 @@ public class SignUp extends Activity {
         mPasswordView = (EditText) findViewById(R.id.password);
         mPassword2View = (EditText) findViewById(R.id.rePassword);
         mProgressView = (ProgressBar) findViewById(R.id.signup_progress);
-
+        mButtonView = (Button)findViewById(R.id.signup_button);
     }
 
 
@@ -166,6 +168,7 @@ public class SignUp extends Activity {
     public void writeInSignUpTb() {
 
         if (!has_error) {
+            mButtonView.setVisibility(View.GONE);
             mProgressView.setVisibility(View.VISIBLE);
             RequestParams params = new RequestParams();
             params.put("name", mNameView.getText().toString());
@@ -185,6 +188,7 @@ public class SignUp extends Activity {
                     // called when response HTTP status is "200 OK"
                     Log.d("SUCCESS", "SUCCESS");
                     mProgressView.setVisibility(View.GONE);
+                    mButtonView.setVisibility(View.VISIBLE);
                     try {
                         Log.d("RESPONSE",new String(response));
                         JSONObject s_response= new JSONObject(new String(response));
@@ -221,6 +225,7 @@ public class SignUp extends Activity {
                     // called when response HTTP status is "4XX" (eg. 401, 403, 404)
                     Log.d("FAILED", "FAILED");
                     mProgressView.setVisibility(View.GONE);
+                    mButtonView.setVisibility(View.VISIBLE);
                     /*Log.d("statusCode", String.valueOf(statusCode));
                     Log.d("errorResponse", errorResponse.toString());
                     Log.d("HEADERS",headers.toString());*/

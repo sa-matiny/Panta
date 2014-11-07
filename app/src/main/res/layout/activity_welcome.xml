@@ -7,9 +7,8 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingBottom="@dimen/activity_vertical_margin"
     tools:context="com.iust.panta.welcome"
-    android:id="@+id/"
-    android:background="@drawable/welcome"
-    android:onClick="signup">
+    android:id="@+id/welcome"
+    android:background="@drawable/welcome">
 
 
     <TextView
@@ -23,7 +22,9 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        android:textStyle="bold"/>
+        android:textStyle="bold"
+        android:onClick="signup"
+        android:clickable="true" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -37,6 +38,7 @@
         android:layout_marginRight="100dp"
         android:textStyle="bold"
         android:layout_marginBottom="145dp"
-        android:onClick="signin" />
+        android:onClick="signin"
+        android:clickable="true" />
 
 </RelativeLayout>
