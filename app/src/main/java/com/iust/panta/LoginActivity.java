@@ -10,6 +10,7 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 
@@ -27,6 +28,7 @@ public class LoginActivity extends Activity {
     private EditText mEmailView;
     private EditText mPasswordView;
     private ProgressBar mProgressView;
+    private Button mButtonView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,8 +38,7 @@ public class LoginActivity extends Activity {
         mEmailView = (EditText) findViewById(R.id.email);
         mPasswordView = (EditText) findViewById(R.id.password);
         mProgressView = (ProgressBar)findViewById(R.id.login_progress);
-
-
+        mButtonView = (Button)findViewById(R.id.email_sign_in_button);
 
     }
 
@@ -89,6 +90,7 @@ public class LoginActivity extends Activity {
             // form field with an error.
             focusView.requestFocus();
         } else {
+            mButtonView.setVisibility(View.GONE);
             mProgressView.setVisibility(View.VISIBLE);
             // Show a progress spinner, and kick off a background task to
             // perform the user login attempt.
@@ -108,6 +110,7 @@ public class LoginActivity extends Activity {
                 @Override
                 public void onSuccess(int statusCode, Header[] headers, byte[] response){
                     mProgressView.setVisibility(View.GONE);
+                    mButtonView.setVisibility(View.VISIBLE);
                     try {
                         Log.d("RESPONSE",new String(response));
                         JSONObject s_response= new JSONObject(new String(response));
@@ -124,7 +127,7 @@ public class LoginActivity extends Activity {
                         {
                             AlertDialog.Builder dlg = new AlertDialog.Builder(LoginActivity.this);
                             dlg.setCancelable(false);
-                            dlg.setMessage("خطا! پست الکترونیکی یا گذر واژه نادرست است");
+                            dlg.setMessage("خطا! پست الکترونیکی یا گذرواژه نادرست است");
                             dlg.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
@@ -143,6 +146,7 @@ public class LoginActivity extends Activity {
                 @Override
                 public void onFailure(int statusCode, Header[] headers, byte[] errorResponse, Throwable e) {
                     mProgressView.setVisibility(View.GONE);
+                    mButtonView.setVisibility(View.VISIBLE);
                     AlertDialog.Builder builder = new AlertDialog.Builder(LoginActivity.this);
                     builder.setCancelable(false);
                     builder.setMessage("خطا! دوباره وارد شوید");
@@ -165,10 +169,6 @@ public class LoginActivity extends Activity {
         return email.contains("@");
     }
 
-    public void GoRegister(View view) {
-        Intent intent = new Intent(this,SignUp.class);
-        startActivity(intent);
-    }
 
     public void ClickOnLoginBody(View view) // this for hiding Keyboard
     {

@@ -3,11 +3,9 @@
 
     <string name="app_name">Panta</string>
     <string name="title_activity_sign_up">SignUp</string>
-
     <string name="title_activity_profile">Profile</string>
-
-
-
-
+    <string name="title_activity_welcome">welcome</string>
+    <string name="signup">ثبت نام</string>
+    <string name="signin">ورود</string>
 
 </resources>
