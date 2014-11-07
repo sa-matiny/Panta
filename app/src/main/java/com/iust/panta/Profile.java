@@ -14,12 +14,13 @@ import android.widget.ExpandableListView;
 import android.widget.ImageButton;
 import android.widget.PopupMenu;
 import android.widget.Toast;
-
 import com.iust.panta.Expand.adapter.ExpandListViewAdapter;
 import com.iust.panta.Expands.ExpandChildList;
 import com.iust.panta.Expands.ExpandGroupList;
-
+import android.util.Log;
 import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 
@@ -30,8 +31,8 @@ public class Profile extends Activity {
     private ExpandListViewAdapter Expadapter;
     private ArrayList<ExpandGroupList> expGroup;
     private ExpandableListView Explist;
-    public Intent intentExtra;
-    public String[] mYprojectName;
+    public String[] l;
+    public String mYprojectName;
     public boolean f_data;
 
     @Override
@@ -39,18 +40,28 @@ public class Profile extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
         EditText ed = (EditText) findViewById(R.id.edittext);
-        f_data=true;
+        //f_data=true;
         try {
+            Intent intent=getIntent();
+            mYprojectName=intent.getExtras().getString("projects").replace("}","");
+            mYprojectName.replace("{","");
+            l=mYprojectName.substring(1,mYprojectName.length()).split(",");
+            Log.d("mine",l[3].substring(2,l[3].length()-1).split(":")[1]);
+            if(l!=null) {
+                expGroup = SetStandardGroup(true);
+            }
+            else {expGroup = SetStandardGroup(false);}
 
-            intentExtra.getExtras();
-            mYprojectName = intentExtra.toString().substring(1, intentExtra.toString().length() - 2).split(",");
+          //  mYprojectName = intentExtra.toString().substring(1, intentExtra.toString().length() - 2).split(",");
+          //  mYprojectName = intentExtra.getStringArrayExtra("projects");
+
         }
         catch(NullPointerException npe) {
             f_data=false;
         }
         ImageButton men = (ImageButton) findViewById(R.id.Button);
         Explist = (ExpandableListView) findViewById(R.id.expandableListView);
-        expGroup = SetStandardGroup(f_data);
+
         Expadapter = new ExpandListViewAdapter(Profile.this, expGroup);
         Explist.setAdapter(Expadapter);
         registerForContextMenu(men);
@@ -62,9 +73,10 @@ public class Profile extends Activity {
 
         if (flag) {
 
-            for (int i = 0; i < mYprojectName.length; i++) {
+           // for (int i = 0; i <l.length; i++) {
                 ExpandGroupList gr1 = new ExpandGroupList();
-                gr1.SetName(mYprojectName[i]);
+                String temp=l[3].substring(2,l[3].length()).split(":")[1];
+                gr1.SetName(temp);
                 ExpandChildList ch1 = new ExpandChildList();
                 ch1.setName("tast1");
                 ch1.setTag(null);
@@ -79,7 +91,7 @@ public class Profile extends Activity {
                 lst2.add(ch1_3);
                 gr1.setItemes(lst2);
                 lst.add(gr1);
-            }
+
         }
 
         else {
