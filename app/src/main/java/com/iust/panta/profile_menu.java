@@ -5,8 +5,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
-
-public class MnU extends Activity {
+public class profile_menu extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
