@@ -165,10 +165,6 @@ public class LoginActivity extends Activity {
         return email.contains("@");
     }
 
-    public void GoRegister(View view) {
-        Intent intent = new Intent(this,SignUp.class);
-        startActivity(intent);
-    }
 
     public void ClickOnLoginBody(View view) // this for hiding Keyboard
     {

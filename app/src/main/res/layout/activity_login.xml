@@ -56,19 +56,6 @@
         android:textStyle="bold"
         android:textSize="20sp"/>
 
-    <TextView
-        android:id="@+id/email_sign_up_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:text="@string/action_sign_up"
-        android:layout_gravity="center_horizontal"
-        android:textStyle="bold"
-        android:layout_marginTop="20dp"
-        android:clickable="true"
-        android:onClick="GoRegister"
-        android:textColor="#033649"
-        android:textSize="15sp" />
 
     <ProgressBar
         android:id="@+id/login_progress"
