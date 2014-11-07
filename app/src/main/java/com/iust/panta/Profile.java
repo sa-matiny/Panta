@@ -32,30 +32,37 @@ public class Profile extends Activity {
     private ExpandableListView Explist;
     public Intent intentExtra;
     public String[] mYprojectName;
+    public boolean f_data;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
         EditText ed = (EditText) findViewById(R.id.edittext);
-        intentExtra.getExtras();
-        mYprojectName=intentExtra.toString().substring(1,intentExtra.toString().length()-2).split(",");
+        f_data=true;
+        try {
+
+            intentExtra.getExtras();
+            mYprojectName = intentExtra.toString().substring(1, intentExtra.toString().length() - 2).split(",");
+        }
+        catch(NullPointerException npe) {
+            f_data=false;
+        }
         ImageButton men = (ImageButton) findViewById(R.id.Button);
         Explist = (ExpandableListView) findViewById(R.id.expandableListView);
-        expGroup = SetStandardGroup();
+        expGroup = SetStandardGroup(f_data);
         Expadapter = new ExpandListViewAdapter(Profile.this, expGroup);
         Explist.setAdapter(Expadapter);
         registerForContextMenu(men);
     }
 
-    public ArrayList<ExpandGroupList> SetStandardGroup() {
+    public ArrayList<ExpandGroupList> SetStandardGroup(boolean flag) {
         ArrayList<ExpandGroupList> lst = new ArrayList<ExpandGroupList>();
         ArrayList<ExpandChildList> lst2 = new ArrayList<ExpandChildList>();
 
+        if (flag) {
 
-
-            for(int i=0;i<mYprojectName.length;i++)
-            {
+            for (int i = 0; i < mYprojectName.length; i++) {
                 ExpandGroupList gr1 = new ExpandGroupList();
                 gr1.SetName(mYprojectName[i]);
                 ExpandChildList ch1 = new ExpandChildList();
@@ -72,40 +79,41 @@ public class Profile extends Activity {
                 lst2.add(ch1_3);
                 gr1.setItemes(lst2);
                 lst.add(gr1);
+            }
         }
 
-        /*
-        ExpandGroupList gr1 = new ExpandGroupList();
-        gr1.SetName("پروژه");
-        ExpandChildList ch1 = new ExpandChildList();
-        ch1.setName("tast1");
-        ch1.setTag(null);
-        lst2.add(ch1);
-        ExpandChildList ch1_2 = new ExpandChildList();
-        ch1_2.setName("task2");
-        ch1_2.setTag(null);
-        lst2.add(ch1_2);
-        ExpandChildList ch1_3 = new ExpandChildList();
-        ch1_3.setName("task3");
-        ch1_3.setTag(null);
-        lst2.add(ch1_3);
-        gr1.setItemes(lst2);
-        // lst.add(gr1);
-        lst2 = new ArrayList<ExpandChildList>();
-        ExpandGroupList gr2 = new ExpandGroupList();
-        gr2.SetName("اون یکی پروژه");
-        ExpandChildList ch2_1 = new ExpandChildList();
-        ch2_1.setName("tast1");
-        ch2_1.setTag(null);
-        lst2.add(ch2_1);
-        ExpandChildList ch2_2 = new ExpandChildList();
-        ch2_2.setName("task2");
-        ch2_2.setTag(null);
-        lst2.add(ch2_2);
-        gr2.setItemes(lst2);
-        lst.add(gr1);
-        lst.add(gr2);
-        */
+        else {
+            ExpandGroupList gr1 = new ExpandGroupList();
+            gr1.SetName("پروژه");
+            ExpandChildList ch1 = new ExpandChildList();
+            ch1.setName("tast1");
+            ch1.setTag(null);
+            lst2.add(ch1);
+            ExpandChildList ch1_2 = new ExpandChildList();
+            ch1_2.setName("task2");
+            ch1_2.setTag(null);
+            lst2.add(ch1_2);
+            ExpandChildList ch1_3 = new ExpandChildList();
+            ch1_3.setName("task3");
+            ch1_3.setTag(null);
+            lst2.add(ch1_3);
+            gr1.setItemes(lst2);
+            // lst.add(gr1);
+            lst2 = new ArrayList<ExpandChildList>();
+            ExpandGroupList gr2 = new ExpandGroupList();
+            gr2.SetName("اون یکی پروژه");
+            ExpandChildList ch2_1 = new ExpandChildList();
+            ch2_1.setName("tast1");
+            ch2_1.setTag(null);
+            lst2.add(ch2_1);
+            ExpandChildList ch2_2 = new ExpandChildList();
+            ch2_2.setName("task2");
+            ch2_2.setTag(null);
+            lst2.add(ch2_2);
+            gr2.setItemes(lst2);
+            lst.add(gr1);
+            lst.add(gr2);
+        }
         return lst;
 
     }
