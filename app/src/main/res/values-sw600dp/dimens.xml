@@ -2,8 +2,8 @@
 <resources>
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
-    <dimen name="button_width">342dp</dimen>
-    <dimen name="button_height">85dp</dimen>
-    <dimen name="edittext_width">480dp</dimen>
-    <dimen name="font">30sp</dimen>
+    <dimen name="button_width">225dp</dimen>
+    <dimen name="button_height">63dp</dimen>
+    <dimen name="edittext_width">450dp</dimen>
+    <dimen name="font">25sp</dimen>
     </resources>
