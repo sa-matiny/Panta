@@ -82,9 +82,9 @@ public class Profile extends Activity {
 
         }
         catch(NullPointerException npe) {
-            f_data=false;
+            f_data = false;
             expGroup = SetStandardGroup(f_data);
-            Log.d("exep","Nabud");
+            Log.d("exep", "Nabud");
         }
        // ImageButton men = (ImageButton) findViewById(R.id.Button);
         Explist = (ExpandableListView) findViewById(R.id.expandableListView);
