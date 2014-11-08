@@ -40,17 +40,35 @@ public class Profile extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
         EditText ed = (EditText) findViewById(R.id.edittext);
-        //f_data=true;
+        f_data=false;
         try {
             Intent intent=getIntent();
-            mYprojectName=intent.getExtras().getString("projects").replace("}","");
-            mYprojectName.replace("{","");
-            l=mYprojectName.substring(1,mYprojectName.length()).split(",");
-            Log.d("mine",l[3].substring(2,l[3].length()-1).split(":")[1]);
-            if(l!=null) {
-                expGroup = SetStandardGroup(true);
+            Log.d("try",intent.getExtras().getString("projects"));
+
+
+
+                mYprojectName = intent.getExtras().getString("projects").replace("}", "");
+                mYprojectName.replace("{", "");
+               Log.d("projectname", mYprojectName.toString());
+            if(!mYprojectName.toString().equals("[]")) {
+                f_data = true;
+                l = mYprojectName.substring(1, mYprojectName.length()-1).split(",");
+
+                Log.d("l0 chie", l[0]);
+                Log.d("l1 chie", l[1]);
+                Log.d("l2 chie", l[2]);
+                Log.d("l3 chie",l[3]);
+
+
+
+                Log.d("mine", l[3].substring(2, l[3].length() - 1).split(":")[1]);
+                expGroup = SetStandardGroup(f_data);
             }
-            else {expGroup = SetStandardGroup(false);}
+            else {
+                f_data=false;
+                expGroup = SetStandardGroup(f_data);
+            }
+           // else {expGroup = SetStandardGroup(f_data);}
 
           //  mYprojectName = intentExtra.toString().substring(1, intentExtra.toString().length() - 2).split(",");
           //  mYprojectName = intentExtra.getStringArrayExtra("projects");
@@ -58,6 +76,8 @@ public class Profile extends Activity {
         }
         catch(NullPointerException npe) {
             f_data=false;
+            expGroup = SetStandardGroup(f_data);
+            Log.d("exep","Nabud");
         }
         ImageButton men = (ImageButton) findViewById(R.id.Button);
         Explist = (ExpandableListView) findViewById(R.id.expandableListView);
@@ -72,7 +92,7 @@ public class Profile extends Activity {
         ArrayList<ExpandChildList> lst2 = new ArrayList<ExpandChildList>();
 
         if (flag) {
-
+            Log.d("try","varede stan if");
            // for (int i = 0; i <l.length; i++) {
                 ExpandGroupList gr1 = new ExpandGroupList();
                 String temp=l[3].substring(2,l[3].length()).split(":")[1];
@@ -95,6 +115,7 @@ public class Profile extends Activity {
         }
 
         else {
+            Log.d("try","varede stan else");
             ExpandGroupList gr1 = new ExpandGroupList();
             gr1.SetName("پروژه");
             ExpandChildList ch1 = new ExpandChildList();
