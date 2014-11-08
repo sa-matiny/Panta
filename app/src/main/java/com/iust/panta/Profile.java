@@ -86,12 +86,12 @@ public class Profile extends Activity {
             expGroup = SetStandardGroup(f_data);
             Log.d("exep","Nabud");
         }
-        ImageButton men = (ImageButton) findViewById(R.id.Button);
+       // ImageButton men = (ImageButton) findViewById(R.id.Button);
         Explist = (ExpandableListView) findViewById(R.id.expandableListView);
 
         Expadapter = new ExpandListViewAdapter(Profile.this, expGroup);
         Explist.setAdapter(Expadapter);
-        registerForContextMenu(men);
+        //registerForContextMenu(men);
     }
 
     public ArrayList<ExpandGroupList> SetStandardGroup(boolean flag) {
@@ -173,7 +173,7 @@ public class Profile extends Activity {
 
     }
 
-    public void onCreateContextMenu(ContextMenu m, View v, ContextMenu.ContextMenuInfo menuinf) {
+  /*  public void onCreateContextMenu(ContextMenu m, View v, ContextMenu.ContextMenuInfo menuinf) {
 
         super.onCreateContextMenu(m, v, menuinf);
 
@@ -181,9 +181,9 @@ public class Profile extends Activity {
             getMenuInflater().inflate(R.menu.mn_u, m);
 
         }
-    }
+    }*/
 
-    public boolean onContextItemSelected(MenuItem item) {
+  /*  public boolean onContextItemSelected(MenuItem item) {
 
         switch (item.getItemId()) {
 
@@ -210,7 +210,7 @@ public class Profile extends Activity {
 
 
     }
-
+    */
     public void showToast(String message) {
 
         Toast toast = Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT);
@@ -223,7 +223,7 @@ public class Profile extends Activity {
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.profile, menu);
+        inflater.inflate(R.menu.mn_u, menu);
 
         return super.onCreateOptionsMenu(menu);
     }
@@ -236,7 +236,7 @@ public class Profile extends Activity {
     }
 
 
-   /* public boolean onOptionsItemSelected(MenuItem item) {
+    public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
@@ -263,5 +263,5 @@ public class Profile extends Activity {
         }
 
     }
-*/
+
 }
