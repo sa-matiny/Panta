@@ -17,7 +17,7 @@
 
     <EditText
         android:id="@+id/email"
-        android:layout_width="280dp"
+        android:layout_width="@dimen/edittext_width"
         android:layout_height="wrap_content"
         android:hint="@string/prompt_email"
         android:inputType="textEmailAddress"
@@ -27,11 +27,12 @@
         android:longClickable="false"
         android:password="false"
         android:layout_marginTop="30dp"
-        android:gravity="right"/>
+        android:gravity="right"
+        android:textSize="@dimen/font"/>
 
     <EditText
         android:id="@+id/password"
-        android:layout_width="280dp"
+        android:layout_width="@dimen/edittext_width"
         android:layout_height="wrap_content"
         android:hint="@string/prompt_password"
         android:imeActionId="@+id/login"
@@ -41,7 +42,8 @@
         android:maxLines="1"
         android:singleLine="true"
         android:layout_marginTop="20dp"
-        android:gravity="right"/>
+        android:gravity="right"
+        android:textSize="@dimen/font" />
 
     <ProgressBar
         android:id="@+id/login_progress"
@@ -56,15 +58,15 @@
     <Button
         android:id="@+id/email_sign_in_button"
         style="?android:textAppearanceSmall"
-        android:layout_width="200dp"
-        android:layout_height="wrap_content"
+        android:layout_width="@dimen/button_width"
+        android:layout_height="@dimen/button_height"
         android:layout_marginTop="40dp"
         android:text="@string/action_sign_in"
         android:onClick="Login"
         android:background="#ff294067"
         android:textColor="#fff"
         android:textStyle="bold"
-        android:textSize="20sp"/>
+        android:textSize="@dimen/font"/>
 
 
 </LinearLayout>
