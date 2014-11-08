@@ -31,7 +31,8 @@
         <activity
             android:name=".Profile"
             android:label="@string/title_activity_profile"
-            android:theme="@style/App">
+            android:theme="@style/App"
+            android:configChanges="keyboardHidden">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.iust.panta.LoginActivity" />

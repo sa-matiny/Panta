@@ -8,7 +8,30 @@
     android:orientation="vertical">
 
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="پروژه های من"
+        android:id="@+id/project_label"
+        android:layout_below="@+id/name_label"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="25dp"
+        android:textColor="#ff294067"
+        android:textStyle="bold" />
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/notif_l"
+        android:layout_gravity="right" />
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="10dp"
+        android:id="@+id/imageView"
+        android:layout_gravity="right"
+        android:background="#ff294067" />
 
     <EditText
 
@@ -18,35 +41,11 @@
 
         android:singleLine="true"
 
-        android:layout_width="228dp"
+        android:layout_width="377dp"
         android:gravity="right"
         android:hint="جستجو...">
 
     </EditText>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="41dp"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:id="@+id/name_label"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true"
-        android:text="من" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="پروژه های من"
-        android:id="@+id/project_label"
-        android:layout_below="@+id/name_label"
-        android:layout_alignParentStart="true" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/notif_l"
-        android:layout_gravity="right" />
 
     <ExpandableListView
         android:layout_width="fill_parent"
@@ -54,7 +53,9 @@
         android:id="@+id/expandableListView"
         android:layout_alignParentTop="true"
         android:layout_alignParentRight="true"
-        android:groupIndicator="@null">
+        android:groupIndicator="@null"
+        android:layout_gravity="right"
+        android:layout_marginTop="10dp">
 
         </ExpandableListView>
 
