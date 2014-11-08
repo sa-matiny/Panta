@@ -3,6 +3,7 @@ package com.iust.panta;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.ActionMode;
 import android.view.ContextMenu;
 import android.view.Menu;
@@ -14,11 +15,11 @@ import android.widget.ExpandableListView;
 import android.widget.ImageButton;
 import android.widget.PopupMenu;
 import android.widget.Toast;
+
 import com.iust.panta.Expand.adapter.ExpandListViewAdapter;
 import com.iust.panta.Expands.ExpandChildList;
 import com.iust.panta.Expands.ExpandGroupList;
-import android.util.Log;
-import org.json.JSONArray;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -44,12 +45,18 @@ public class Profile extends Activity {
         try {
             Intent intent=getIntent();
             Log.d("try",intent.getExtras().getString("projects"));
+            JSONObject jo=new JSONObject();
 
 
 
-                mYprojectName = intent.getExtras().getString("projects").replace("}", "");
-                mYprojectName.replace("{", "");
-               Log.d("projectname", mYprojectName.toString());
+            mYprojectName = intent.getExtras().getString("projects").replace("}", "");
+            mYprojectName.replace("{", "");
+            Log.d("projectname", mYprojectName.toString());
+            try {
+                jo.put("projects", mYprojectName);
+                Log.d("Bundle",jo.toString());
+            }
+            catch (JSONException je){return;}
             if(!mYprojectName.toString().equals("[]")) {
                 f_data = true;
                 l = mYprojectName.substring(1, mYprojectName.length()-1).split(",");
