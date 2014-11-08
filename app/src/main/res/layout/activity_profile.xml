@@ -5,8 +5,7 @@
     android:id="@+id/linearL"
     tools:context="com.iust.panta.Profile"
     android:gravity="right"
-    android:orientation="vertical"
-    android:background="@color/wallet_bright_foreground_disabled_holo_light">
+    android:orientation="vertical">
 
     <ImageButton
         android:layout_width="40dp"
@@ -61,8 +60,7 @@
         android:id="@+id/expandableListView"
         android:layout_alignParentTop="true"
         android:layout_alignParentRight="true"
-        android:groupIndicator="@null"
-        android:background="@color/wallet_bright_foreground_disabled_holo_light">
+        android:groupIndicator="@null">
 
         </ExpandableListView>
 
