@@ -14,6 +14,7 @@ import android.widget.EditText;
 import android.widget.ExpandableListView;
 import android.widget.ImageButton;
 import android.widget.PopupMenu;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.iust.panta.Expand.adapter.ExpandListViewAdapter;
@@ -33,6 +34,7 @@ public class Profile extends Activity{
     private ExpandListViewAdapter Expadapter;
     private ArrayList<ExpandGroupList> expGroup;
     private ExpandableListView Explist;
+    private TextView MyName;
     public String[] l;
     public ArrayList<String> list_projects;
     public String mYprojectName;
@@ -44,20 +46,19 @@ public class Profile extends Activity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
         EditText ed = (EditText) findViewById(R.id.edittext);
+        MyName = (TextView) findViewById(R.id.name_label);
         f_data=false;
         try {
             Intent intent=getIntent();
-            Log.d("try",intent.getExtras().getString("projects"));
+
+            Log.d("try", intent.getExtras().getString("projects"));
             try {
 
 
                 JSONArray jo = new JSONArray(intent.getExtras().getString("projects"));
-                Log.d("JSONArray",jo.toString());
-                Log.d("JSONArrayindex1",jo.getString(0));
+                JSONObject info = new JSONObject(intent.getExtras().getString("user_info"));
+                MyName.setText(info.getString("name"));
                 this.job=new JSONObject(jo.getString(0));
-                Log.d("proje haaaa",job.getString("projectName"));
-
-                Log.d("khali?",Boolean.toString(job.getString("projectName").isEmpty()));
                 if(job.getString("projectName").isEmpty())
                 {
                     f_data=false;
