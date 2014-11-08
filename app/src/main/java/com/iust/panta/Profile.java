@@ -5,15 +5,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.ActionMode;
-import android.view.ContextMenu;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.EditText;
 import android.widget.ExpandableListView;
-import android.widget.ImageButton;
-import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -56,7 +52,7 @@ public class Profile extends Activity{
 
                 JSONArray jo = new JSONArray(intent.getExtras().getString("projects"));
                 JSONObject info = new JSONObject(intent.getExtras().getString("user_info"));
-                MyName.setText(info.getString("username"));
+                MyName.setText(info.getString("name"));
 
                 this.job=new JSONObject(jo.getString(0));
                 if(job.getString("projectName").isEmpty())
@@ -105,12 +101,12 @@ public class Profile extends Activity{
           //  mYprojectName = intentExtra.getStringArrayExtra("projects");
 
 
-        ImageButton men = (ImageButton) findViewById(R.id.Button);
+       // ImageButton men = (ImageButton) findViewById(R.id.Button);
         Explist = (ExpandableListView) findViewById(R.id.expandableListView);
 
         Expadapter = new ExpandListViewAdapter(Profile.this, expGroup);
         Explist.setAdapter(Expadapter);
-        registerForContextMenu(men);
+       // registerForContextMenu(men);
     }
 
     public ArrayList<ExpandGroupList> SetStandardGroup(boolean flag) {
@@ -199,7 +195,7 @@ public class Profile extends Activity{
 
     }
 
-    public void onCreateContextMenu(ContextMenu m, View v, ContextMenu.ContextMenuInfo menuinf) {
+  /*  public void onCreateContextMenu(ContextMenu m, View v, ContextMenu.ContextMenuInfo menuinf) {
 
         super.onCreateContextMenu(m, v, menuinf);
 
@@ -235,7 +231,7 @@ public class Profile extends Activity{
 
 
 
-    }
+    }*/
 
     public void showToast(String message) {
 
@@ -249,20 +245,20 @@ public class Profile extends Activity{
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.profile, menu);
+        inflater.inflate(R.menu.mn_u, menu);
 
         return super.onCreateOptionsMenu(menu);
     }
 
-    public void showPopup(View v) {
-        PopupMenu pop = new PopupMenu(this, v);
+   /* public void showPopup(View v) {
+         pop = new PopupMenu(this, v);
 
         //  MenuInflater inf=pop.getMenuInflater();
         // inf.inflate(R.menu.acts,pop.getMenu());
     }
+*/
 
-
-   /* public boolean onOptionsItemSelected(MenuItem item) {
+    public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
@@ -289,5 +285,5 @@ public class Profile extends Activity{
         }
 
     }
-*/
+
 }
