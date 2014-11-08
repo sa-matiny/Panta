@@ -5,21 +5,19 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.ActionMode;
-import android.view.ContextMenu;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.EditText;
 import android.widget.ExpandableListView;
-import android.widget.ImageButton;
-import android.widget.PopupMenu;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.iust.panta.Expand.adapter.ExpandListViewAdapter;
 import com.iust.panta.Expands.ExpandChildList;
 import com.iust.panta.Expands.ExpandGroupList;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -27,71 +25,88 @@ import java.util.ArrayList;
 
 
 
-public class Profile extends Activity {
+public class Profile extends Activity{
 
     private ExpandListViewAdapter Expadapter;
     private ArrayList<ExpandGroupList> expGroup;
     private ExpandableListView Explist;
+    private TextView MyName;
     public String[] l;
+    public ArrayList<String> list_projects;
     public String mYprojectName;
     public boolean f_data;
+    public JSONObject job;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
         EditText ed = (EditText) findViewById(R.id.edittext);
+        MyName = (TextView)findViewById(R.id.name_label);
         f_data=false;
         try {
             Intent intent=getIntent();
             Log.d("try",intent.getExtras().getString("projects"));
-            JSONObject jo=new JSONObject();
+            try {
 
 
+                JSONArray jo = new JSONArray(intent.getExtras().getString("projects"));
+                JSONObject info = new JSONObject(intent.getExtras().getString("user_info"));
+                MyName.setText(info.getString("name"));
 
-            mYprojectName = intent.getExtras().getString("projects").replace("}", "");
+                this.job=new JSONObject(jo.getString(0));
+                if(job.getString("projectName").isEmpty())
+                {
+                    f_data=false;
+                    expGroup = SetStandardGroup(f_data);
+                }
+                else {
+
+
+                    f_data=true;
+                   // list_projects.add(job.getString("projectName"));
+                    Log.d("list standard",job.getString("projectName"));
+                    expGroup=SetStandardGroup(f_data);
+
+                }
+
+
+            }
+            catch (JSONException jsone){f_data=false;
+                expGroup = SetStandardGroup(f_data);
+                Log.d("exep","Nabud");}
+
+        }
+        catch(NullPointerException npe) {
+            return;
+        }
+
+         /*   mYprojectName = intent.getExtras().getString("projects").replace("}", "");
             mYprojectName.replace("{", "");
             Log.d("projectname", mYprojectName.toString());
-            try {
-                jo.put("projects", mYprojectName);
-                Log.d("Bundle",jo.toString());
-            }
-            catch (JSONException je){return;}
+
+
             if(!mYprojectName.toString().equals("[]")) {
                 f_data = true;
                 l = mYprojectName.substring(1, mYprojectName.length()-1).split(",");
-
-                Log.d("l0 chie", l[0]);
-                Log.d("l1 chie", l[1]);
-                Log.d("l2 chie", l[2]);
-                Log.d("l3 chie",l[3]);
-
-
-
-                Log.d("mine", l[3].substring(2, l[3].length() - 1).split(":")[1]);
                 expGroup = SetStandardGroup(f_data);
             }
             else {
                 f_data=false;
                 expGroup = SetStandardGroup(f_data);
-            }
+            }*/
            // else {expGroup = SetStandardGroup(f_data);}
 
           //  mYprojectName = intentExtra.toString().substring(1, intentExtra.toString().length() - 2).split(",");
           //  mYprojectName = intentExtra.getStringArrayExtra("projects");
 
-        }
-        catch(NullPointerException npe) {
-            f_data = false;
-            expGroup = SetStandardGroup(f_data);
-            Log.d("exep", "Nabud");
-        }
+
        // ImageButton men = (ImageButton) findViewById(R.id.Button);
         Explist = (ExpandableListView) findViewById(R.id.expandableListView);
 
         Expadapter = new ExpandListViewAdapter(Profile.this, expGroup);
         Explist.setAdapter(Expadapter);
-        //registerForContextMenu(men);
+       // registerForContextMenu(men);
     }
 
     public ArrayList<ExpandGroupList> SetStandardGroup(boolean flag) {
@@ -100,24 +115,31 @@ public class Profile extends Activity {
 
         if (flag) {
             Log.d("try","varede stan if");
-           // for (int i = 0; i <l.length; i++) {
-                ExpandGroupList gr1 = new ExpandGroupList();
-                String temp=l[3].substring(2,l[3].length()).split(":")[1];
-                gr1.SetName(temp);
-                ExpandChildList ch1 = new ExpandChildList();
-                ch1.setName("tast1");
-                ch1.setTag(null);
-                lst2.add(ch1);
-                ExpandChildList ch1_2 = new ExpandChildList();
-                ch1_2.setName("task2");
-                ch1_2.setTag(null);
-                lst2.add(ch1_2);
-                ExpandChildList ch1_3 = new ExpandChildList();
-                ch1_3.setName("task3");
-                ch1_3.setTag(null);
-                lst2.add(ch1_3);
-                gr1.setItemes(lst2);
-                lst.add(gr1);
+            try {
+
+
+               // for (int i = 0; i < job.getString("projectName").length(); i++) {
+                    ExpandGroupList gr1 = new ExpandGroupList();
+                    //String temp=l[3].substring(2,l[3].length()).split(":")[1];
+                    String temp = job.getString("projectName");
+                    gr1.SetName(temp);
+                    ExpandChildList ch1 = new ExpandChildList();
+                    ch1.setName("tast1");
+                    ch1.setTag(null);
+                    lst2.add(ch1);
+                    ExpandChildList ch1_2 = new ExpandChildList();
+                    ch1_2.setName("task2");
+                    ch1_2.setTag(null);
+                    lst2.add(ch1_2);
+                    ExpandChildList ch1_3 = new ExpandChildList();
+                    ch1_3.setName("task3");
+                    ch1_3.setTag(null);
+                    lst2.add(ch1_3);
+                    gr1.setItemes(lst2);
+                    lst.add(gr1);
+
+            }
+            catch (JSONException jsonexp){ }
 
         }
 
@@ -181,9 +203,9 @@ public class Profile extends Activity {
             getMenuInflater().inflate(R.menu.mn_u, m);
 
         }
-    }*/
+    }
 
-  /*  public boolean onContextItemSelected(MenuItem item) {
+    public boolean onContextItemSelected(MenuItem item) {
 
         switch (item.getItemId()) {
 
@@ -209,8 +231,8 @@ public class Profile extends Activity {
 
 
 
-    }
-    */
+    }*/
+
     public void showToast(String message) {
 
         Toast toast = Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT);
@@ -228,13 +250,13 @@ public class Profile extends Activity {
         return super.onCreateOptionsMenu(menu);
     }
 
-    public void showPopup(View v) {
-        PopupMenu pop = new PopupMenu(this, v);
+   /* public void showPopup(View v) {
+         pop = new PopupMenu(this, v);
 
         //  MenuInflater inf=pop.getMenuInflater();
         // inf.inflate(R.menu.acts,pop.getMenu());
     }
-
+*/
 
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
