@@ -18,13 +18,15 @@
         android:text="@string/signup"
         android:id="@+id/textView"
         android:layout_marginRight="70dp"
-        android:layout_marginBottom="145dp"
+        android:layout_marginBottom="154dp"
+        android:textStyle="bold"
+        android:onClick="signup"
+        android:clickable="true"
+        android:textSize="@dimen/font"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        android:textStyle="bold"
-        android:onClick="signup"
-        android:clickable="true" />
+        android:gravity="center" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -39,6 +41,8 @@
         android:textStyle="bold"
         android:layout_marginBottom="145dp"
         android:onClick="signin"
-        android:clickable="true" />
+        android:clickable="true"
+        android:textSize="@dimen/font"
+        android:gravity="center" />
 
 </RelativeLayout>

@@ -41,7 +41,7 @@
 
         android:singleLine="true"
 
-        android:layout_width="377dp"
+        android:layout_width="match_parent"
         android:gravity="right"
         android:hint="جستجو...">
 
