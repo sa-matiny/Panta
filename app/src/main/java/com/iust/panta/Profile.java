@@ -29,40 +29,41 @@ public class Profile extends Activity{
     private ExpandListViewAdapter Expadapter;
     private ArrayList<ExpandGroupList> expGroup;
     private ExpandableListView Explist;
-    public String[] l;
-    public ArrayList<String> list_projects;
-    public String mYprojectName;
     public boolean f_data;
     public JSONObject job;
+    public ArrayList<String> list;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
         EditText ed = (EditText) findViewById(R.id.edittext);
+
         f_data=false;
         try {
             Intent intent=getIntent();
             Log.d("try",intent.getExtras().getString("projects"));
-            try {
+            JSONArray unyekijo =new JSONArray(intent.getExtras().getString("projects"));
 
+                Log.d("array",unyekijo.toString());
 
-                JSONArray jo = new JSONArray(intent.getExtras().getString("projects"));
                 JSONObject info = new JSONObject(intent.getExtras().getString("user_info"));
                 setTitle(info.getString("name"));
-
-                this.job=new JSONObject(jo.getString(0));
-                if(job.getString("projectName").isEmpty())
+                list=new ArrayList<String>();
+                for(int i=0;i<unyekijo.length();i++)
                 {
+
+                    JSONObject temp=new JSONObject(unyekijo.getString(i));
+                    list.add(temp.getString("projectName"));
+                }
+                if(list.isEmpty())
+                {
+                    Log.d("flag","umadam");
                     f_data=false;
                     expGroup = SetStandardGroup(f_data);
                 }
                 else {
-
-
                     f_data=true;
-                   // list_projects.add(job.getString("projectName"));
-                    Log.d("list standard",job.getString("projectName"));
                     expGroup=SetStandardGroup(f_data);
 
                 }
@@ -73,32 +74,12 @@ public class Profile extends Activity{
                 expGroup = SetStandardGroup(f_data);
                 Log.d("exep","Nabud");}
 
-        }
+
         catch(NullPointerException npe) {
             return;
         }
 
-         /*   mYprojectName = intent.getExtras().getString("projects").replace("}", "");
-            mYprojectName.replace("{", "");
-            Log.d("projectname", mYprojectName.toString());
 
-
-            if(!mYprojectName.toString().equals("[]")) {
-                f_data = true;
-                l = mYprojectName.substring(1, mYprojectName.length()-1).split(",");
-                expGroup = SetStandardGroup(f_data);
-            }
-            else {
-                f_data=false;
-                expGroup = SetStandardGroup(f_data);
-            }*/
-           // else {expGroup = SetStandardGroup(f_data);}
-
-          //  mYprojectName = intentExtra.toString().substring(1, intentExtra.toString().length() - 2).split(",");
-          //  mYprojectName = intentExtra.getStringArrayExtra("projects");
-
-
-       // ImageButton men = (ImageButton) findViewById(R.id.Button);
         Explist = (ExpandableListView) findViewById(R.id.expandableListView);
 
         Expadapter = new ExpandListViewAdapter(Profile.this, expGroup);
@@ -107,19 +88,17 @@ public class Profile extends Activity{
     }
 
     public ArrayList<ExpandGroupList> SetStandardGroup(boolean flag) {
+
         ArrayList<ExpandGroupList> lst = new ArrayList<ExpandGroupList>();
-        ArrayList<ExpandChildList> lst2 = new ArrayList<ExpandChildList>();
 
         if (flag) {
             Log.d("try", "varede stan if");
-            try {
 
+            for (int i = 0; i < this.list.size(); i++) {
 
-                // for (int i = 0; i < job.getString("projectName").length(); i++) {
+                ArrayList<ExpandChildList> lst2 = new ArrayList<ExpandChildList>();
                 ExpandGroupList gr1 = new ExpandGroupList();
-                //String temp=l[3].substring(2,l[3].length()).split(":")[1];
-                String temp = job.getString("projectName");
-                gr1.SetName(temp);
+                gr1.SetName(list.get(i));
                 ExpandChildList ch1 = new ExpandChildList();
                 ch1.setName("tast1");
                 ch1.setTag(null);
@@ -128,19 +107,15 @@ public class Profile extends Activity{
                 ch1_2.setName("task2");
                 ch1_2.setTag(null);
                 lst2.add(ch1_2);
-                ExpandChildList ch1_3 = new ExpandChildList();
-                ch1_3.setName("task3");
-                ch1_3.setTag(null);
-                lst2.add(ch1_3);
                 gr1.setItemes(lst2);
                 lst.add(gr1);
-
-            } catch (JSONException jsonexp) {
             }
-
         }
 
+
+
         else {
+            ArrayList<ExpandChildList> lst2 = new ArrayList<ExpandChildList>();
             Log.d("try","varede stan else");
             ExpandGroupList gr1 = new ExpandGroupList();
             gr1.SetName("پروژه");
