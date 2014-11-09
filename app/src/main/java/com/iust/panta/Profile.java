@@ -111,32 +111,32 @@ public class Profile extends Activity{
         ArrayList<ExpandChildList> lst2 = new ArrayList<ExpandChildList>();
 
         if (flag) {
-            Log.d("try","varede stan if");
+            Log.d("try", "varede stan if");
             try {
 
 
-               // for (int i = 0; i < job.getString("projectName").length(); i++) {
-                    ExpandGroupList gr1 = new ExpandGroupList();
-                    //String temp=l[3].substring(2,l[3].length()).split(":")[1];
-                    String temp = job.getString("projectName");
-                    gr1.SetName(temp);
-                    ExpandChildList ch1 = new ExpandChildList();
-                    ch1.setName("tast1");
-                    ch1.setTag(null);
-                    lst2.add(ch1);
-                    ExpandChildList ch1_2 = new ExpandChildList();
-                    ch1_2.setName("task2");
-                    ch1_2.setTag(null);
-                    lst2.add(ch1_2);
-                    ExpandChildList ch1_3 = new ExpandChildList();
-                    ch1_3.setName("task3");
-                    ch1_3.setTag(null);
-                    lst2.add(ch1_3);
-                    gr1.setItemes(lst2);
-                    lst.add(gr1);
+                // for (int i = 0; i < job.getString("projectName").length(); i++) {
+                ExpandGroupList gr1 = new ExpandGroupList();
+                //String temp=l[3].substring(2,l[3].length()).split(":")[1];
+                String temp = job.getString("projectName");
+                gr1.SetName(temp);
+                ExpandChildList ch1 = new ExpandChildList();
+                ch1.setName("tast1");
+                ch1.setTag(null);
+                lst2.add(ch1);
+                ExpandChildList ch1_2 = new ExpandChildList();
+                ch1_2.setName("task2");
+                ch1_2.setTag(null);
+                lst2.add(ch1_2);
+                ExpandChildList ch1_3 = new ExpandChildList();
+                ch1_3.setName("task3");
+                ch1_3.setTag(null);
+                lst2.add(ch1_3);
+                gr1.setItemes(lst2);
+                lst.add(gr1);
 
+            } catch (JSONException jsonexp) {
             }
-            catch (JSONException jsonexp){ }
 
         }
 
