@@ -12,6 +12,7 @@
         android:layout_height="wrap_content"
         android:textSize="22dip"
         android:gravity="right"
+        android:layout_marginRight="10dp"
         />
 
 </LinearLayout>
