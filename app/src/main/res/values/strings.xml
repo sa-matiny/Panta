@@ -8,7 +8,5 @@
     <string name="signup">ثبت نام</string>
     <string name="signin">ورود</string>
     <string name="title_activity_project_card">ProjectCard</string>
-    <string name="hello_world">Hello world!</string>
-    <string name="action_settings">Settings</string>
 
 </resources>

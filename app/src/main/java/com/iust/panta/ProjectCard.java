@@ -17,7 +17,7 @@ public class  ProjectCard extends FragmentActivity implements
     private TabsPagerAdapter mAdapter;
     private ActionBar actionBar;
     // Tab titles
-    private String[] tabs = { "Top Rated", "Games", "Movies" };
+    private String[] tabs = { "پروژه", "وظایف", "اعضا" };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
