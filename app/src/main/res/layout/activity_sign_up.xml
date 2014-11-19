@@ -15,7 +15,8 @@
     android:onClick="ClickOnSignUpBody"
     android:baselineAligned="false"
     android:focusable="false"
-    android:focusableInTouchMode="false">
+    android:focusableInTouchMode="false"
+    android:background="#F1ECDF">
 
     <EditText
         android:layout_width="@dimen/edittext_width"
@@ -75,8 +76,8 @@
         android:layout_marginTop="40dp"
         android:clickable="true"
         android:onClick="Sign_up"
-        android:background="#ff294067"
-        android:textColor="#fff"
+        android:background="#E87605"
+        android:textColor="#F1ECDF"
         android:textStyle="bold"
         android:textSize="@dimen/font"/>
 

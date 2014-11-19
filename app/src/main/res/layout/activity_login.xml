@@ -11,7 +11,8 @@
     android:id="@+id/login"
     android:gravity="center_horizontal"
     android:clickable="true"
-    android:onClick="ClickOnLoginBody">
+    android:onClick="ClickOnLoginBody"
+    android:background="#F1ECDF">
 
     <!-- Login progress -->
 
@@ -63,10 +64,16 @@
         android:layout_marginTop="40dp"
         android:text="@string/action_sign_in"
         android:onClick="Login"
-        android:background="#ff294067"
-        android:textColor="#fff"
+        android:background="#E87605"
+        android:textColor="#F1ECDF"
         android:textStyle="bold"
         android:textSize="@dimen/font"/>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"></LinearLayout>
 
 
 </LinearLayout>

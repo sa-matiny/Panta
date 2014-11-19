@@ -5,7 +5,9 @@
     android:id="@+id/linearL"
     tools:context="com.iust.panta.Profile"
     android:gravity="right"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:baselineAligned="false"
+    android:background="#F1ECDF">
 
 
     <TextView
@@ -32,7 +34,7 @@
         android:layout_height="10dp"
         android:id="@+id/imageView"
         android:layout_gravity="right"
-        android:background="#ff294067" />
+        android:background="#E87605" />
 
     <EditText
 
@@ -59,22 +61,6 @@
         android:layout_marginTop="10dp">
 
         </ExpandableListView>
-
-
-    <TextView
-
-    android:id="@+id/text1"
-
-    android:layout_width="fill_parent"
-
-    android:layout_height="match_parent"
-
-    android:text="Hold For contextual menu"
-
-    android:padding="4dip"
-    android:layout_gravity="right"
-
-    />
 
 
 </LinearLayout>
