@@ -7,6 +7,7 @@
 
     <style name="App" parent="android:Theme.Holo.Light.DarkActionBar">
         <item name="android:actionBarStyle">@style/MyActionBar</item>
+        <item name="android:actionBarTabBarStyle">@style/MyTab</item>
     </style>
 
     <style name="MyActionBar" parent="@android:style/Widget.Holo.Light.ActionBar">
@@ -16,6 +17,10 @@
 
     <style name="AppTheme.ActionBar.TitleTextStyle" parent="@android:style/TextAppearance.StatusBar.Title">
         <item name="android:textColor">#fff</item>
+    </style>
+
+    <style name="MyTab">
+        <item name="android:background">@color/actionbar</item>
     </style>
 
 </resources>

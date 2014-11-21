@@ -2,7 +2,7 @@
 <resources>
 
     <color name="background">#F1ECDF</color>
-    <color name="actionbar">#E87605</color>
+    <color name="actionbar">#ff294067</color>
     <color name="text1">#ff294067</color>
 
 </resources>
