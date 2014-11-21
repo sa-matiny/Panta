@@ -6,4 +6,5 @@
     <dimen name="button_height">63dp</dimen>
     <dimen name="edittext_width">450dp</dimen>
     <dimen name="font">25sp</dimen>
+    <dimen name="label">?android:attr/textAppearanceLarge</dimen>
     </resources>
