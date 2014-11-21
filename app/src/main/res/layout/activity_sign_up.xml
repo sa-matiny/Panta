@@ -16,7 +16,7 @@
     android:baselineAligned="false"
     android:focusable="false"
     android:focusableInTouchMode="false"
-    android:background="#F1ECDF">
+    android:background="@color/background">
 
     <EditText
         android:layout_width="@dimen/edittext_width"
