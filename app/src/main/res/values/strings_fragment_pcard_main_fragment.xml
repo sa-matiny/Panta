@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="project_name">نام پروژه : </string>
+    <string name="project_manager">مدیر پروژه : </string>
+    <string name="project_progress">پیشرفت پروژه : </string>
+    <string name="project_info">شرح پروژه : </string>
+
+</resources>
