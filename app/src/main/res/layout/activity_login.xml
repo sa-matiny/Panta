@@ -64,8 +64,8 @@
         android:layout_marginTop="40dp"
         android:text="@string/action_sign_in"
         android:onClick="Login"
-        android:background="#E87605"
-        android:textColor="#F1ECDF"
+        android:background="@color/actionbar"
+        android:textColor="@color/background"
         android:textStyle="bold"
         android:textSize="@dimen/font"/>
 

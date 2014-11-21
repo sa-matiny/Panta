@@ -76,8 +76,8 @@
         android:layout_marginTop="40dp"
         android:clickable="true"
         android:onClick="Sign_up"
-        android:background="#E87605"
-        android:textColor="#F1ECDF"
+        android:background="@color/actionbar"
+        android:textColor="@color/background"
         android:textStyle="bold"
         android:textSize="@dimen/font"/>
 
