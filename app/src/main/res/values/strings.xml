@@ -7,6 +7,6 @@
     <string name="title_activity_login">Login</string>
     <string name="signup">ثبت نام</string>
     <string name="signin">ورود</string>
-    <string name="title_activity_project_card">ProjectCard</string>
+    <string name="title_activity_project_card">اطلاعات پروژه</string>
 
 </resources>

@@ -16,7 +16,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="@dimen/label"
+        android:textSize="@dimen/font"
         android:text="@string/project_name"
         android:id="@+id/label1"
         android:textColor="@color/text1"
@@ -28,17 +28,18 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="@dimen/label"
+        android:textSize="@dimen/font"
         android:id="@+id/pro_name"
         android:layout_gravity="right"
         android:layout_alignBottom="@+id/label1"
         android:layout_toLeftOf="@+id/label1"
-        android:layout_toStartOf="@+id/label1" />
+        android:layout_toStartOf="@+id/label1"
+        android:layout_marginRight="50dp" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="@dimen/label"
+        android:textSize="@dimen/font"
         android:text="@string/project_manager"
         android:id="@+id/label2"
         android:textColor="@color/text1"
@@ -50,16 +51,17 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="@dimen/label"
+        android:textSize="@dimen/font"
         android:id="@+id/pro_manager"
         android:layout_alignBottom="@+id/label2"
         android:layout_toLeftOf="@+id/label2"
-        android:layout_toStartOf="@+id/label2" />
+        android:layout_toStartOf="@+id/label2"
+        android:layout_marginRight="50dp"/>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="@dimen/label"
+        android:textSize="@dimen/font"
         android:text="@string/project_progress"
         android:id="@+id/label3"
         android:layout_below="@+id/label2"
@@ -71,16 +73,17 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="@dimen/label"
+        android:textSize="@dimen/font"
         android:id="@+id/pro_progress"
         android:layout_alignBottom="@+id/label3"
         android:layout_toLeftOf="@+id/label3"
-        android:layout_toStartOf="@+id/label3" />
+        android:layout_toStartOf="@+id/label3"
+        android:layout_marginRight="50dp"/>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="@dimen/label"
+        android:textSize="@dimen/font"
         android:text="@string/project_info"
         android:id="@+id/label4"
         android:layout_below="@+id/label3"
@@ -92,10 +95,11 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="@dimen/label"
+        android:textSize="@dimen/font"
         android:id="@+id/pro_info"
         android:layout_below="@+id/label4"
         android:layout_alignParentRight="true"
-        android:layout_marginTop="10dp" />
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="50dp"/>
 
 </RelativeLayout>
