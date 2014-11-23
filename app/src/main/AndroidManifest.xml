@@ -13,7 +13,7 @@
         android:debuggable="true"
         android:icon="@drawable/logo"
         android:label="@string/app_name"
-        android:supportsRtl="true">
+        android:supportsRtl="true" >
         <activity
             android:name=".LoginActivity"
             android:label="@string/title_activity_login"
@@ -39,9 +39,7 @@
             android:name=".Welcome"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme"
-            >
-
+            android:theme="@style/AppTheme" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -52,7 +50,12 @@
         <activity
             android:name=".ProjectCard"
             android:label="@string/title_activity_project_card"
-            android:theme="@style/App">
+            android:theme="@style/App" >
+        </activity>
+        <activity
+            android:name=".AddTask"
+            android:label="@string/title_activity_add_task"
+            android:theme="@style/App" >
         </activity>
     </application>
 
