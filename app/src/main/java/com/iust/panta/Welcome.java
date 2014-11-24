@@ -6,7 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 
 
-public class FirstPage extends Activity {
+public class Welcome extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
