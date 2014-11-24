@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="action_add_task">اضافه کردن وظیفه</string>
+    <string name="action_add_member">اضافه کردن عضو</string>
 </resources>

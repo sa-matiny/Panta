@@ -12,10 +12,10 @@ import android.widget.TextView;
 
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
-import com.loopj.android.http.RequestHandle;
 import com.loopj.android.http.RequestParams;
 
 import org.apache.http.Header;
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -39,9 +39,9 @@ public class PCardMainFragment extends Fragment {
         mProInfo = (TextView) rootView.findViewById(R.id.pro_info);
 
         RequestParams params = new RequestParams();
-        params.put("projectID",1);
+        params.put("projectID", 1);
         AsyncHttpClient client = new AsyncHttpClient();
-        RequestHandle post = client.post("http://104.236.33.128:8800/projectInfo/", params, new AsyncHttpResponseHandler() {
+        client.post("http://104.236.33.128:8800/projectInfo/", params, new AsyncHttpResponseHandler() {
 
             @Override
             public void onStart() {
@@ -53,12 +53,11 @@ public class PCardMainFragment extends Fragment {
                 try {
                     Log.d("RESPONSE", new String(response));
                     JSONObject s_response = new JSONObject(new String(response));
-                    if (s_response.getBoolean("successful")) {
-                        //TODO: SETTEXT fot text view
-
-                    } else {
-                        System.out.println("Software error");
-                    }
+                    //TODO: SETTEXT fot text view
+                    JSONArray pro_info = s_response.getJSONArray("projectInfo");
+                    Log.d("array", pro_info.toString());
+                    Log.d("proname", pro_info.toString());
+                    mProName.setText(pro_info.getString(1));
 
                 } catch (JSONException e) {
                     e.printStackTrace();

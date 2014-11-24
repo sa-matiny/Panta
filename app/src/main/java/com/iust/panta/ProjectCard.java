@@ -2,7 +2,9 @@ package com.iust.panta;
 
 import android.app.ActionBar;
 import android.app.ActionBar.Tab;
+import android.app.AlertDialog;
 import android.app.FragmentTransaction;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -13,6 +15,7 @@ import android.support.v4.view.ViewPager;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.EditText;
 
 public class  ProjectCard extends FragmentActivity implements
         ActionBar.TabListener {
@@ -21,7 +24,7 @@ public class  ProjectCard extends FragmentActivity implements
     private TabsPagerAdapter mAdapter;
     private ActionBar actionBar;
     // Tab titles
-    private String[] tabs = { "معرفی پروژه", "وظایف", "اعضا" };
+    private String[] tabs = {"معرفی پروژه", "وظایف", "اعضا"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -129,13 +132,30 @@ public class  ProjectCard extends FragmentActivity implements
         switch (id) {
 
             case R.id.action_addtask:
-                Intent intent = new Intent(this,AddTask.class);
+                Intent intent = new Intent(this, AddTask.class);
                 startActivity(intent);
                 return true;
+
+            case R.id.action_addmember:
+                AlertDialog.Builder add_member = new AlertDialog.Builder(this);
+                final EditText input = new EditText(this);
+                add_member.setMessage("ایمیل عضو جدید را وارد کنید :");
+                add_member.setView(input);
+                add_member.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        String m_Text = input.getText().toString();
+                    }
+                });
+                add_member.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                });
+                add_member.create().show();
         }
-
         return super.onOptionsItemSelected(item);
-
     }
 }
 
