@@ -7,5 +7,13 @@
     <string name="title_activity_login">Login</string>
     <string name="title_activity_project_card">اطلاعات پروژه</string>
     <string name="title_activity_add_task">اضافه کردن وظیفه</string>
+    <string name="title_activity_home">Home</string>
+    <string name="Home_section">Home</string>
+    <string name="Setting_section">Setting</string>
+    <string name="add_section">Add new project</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="action_example">Example action</string>
+    <string name="action_settings">Settings</string>
 
 </resources>

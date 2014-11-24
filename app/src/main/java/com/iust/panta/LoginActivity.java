@@ -116,7 +116,7 @@ public class LoginActivity extends Activity {
                         JSONObject s_response= new JSONObject(new String(response));
                         if(s_response.getBoolean("successful"))
                         {
-                            Intent intent = new Intent(LoginActivity.this,Profile.class);
+                            Intent intent = new Intent(LoginActivity.this,Home.class);
                             Log.d("array",s_response.getJSONArray("projects").toString());
                             intent.putExtra("projects",s_response.getJSONArray("projects").toString());
                             intent.putExtra("user_info",s_response.getJSONObject("user_info").toString());

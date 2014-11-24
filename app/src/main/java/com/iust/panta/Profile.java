@@ -79,8 +79,8 @@ public class Profile extends Activity{
             return;
         }
 
-
-        Explist = (ExpandableListView) findViewById(R.id.expandableListView);
+Log.d("message","expgroupamadast");
+        Explist = (ExpandableListView) findViewById(R.id.Final_list);
 
         Expadapter = new ExpandListViewAdapter(Profile.this, expGroup);
         Explist.setAdapter(Expadapter);

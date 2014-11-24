@@ -53,7 +53,7 @@
     <ExpandableListView
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:id="@+id/expandableListView"
+        android:id="@+id/List_projects"
         android:layout_alignParentTop="true"
         android:layout_alignParentRight="true"
         android:groupIndicator="@null"

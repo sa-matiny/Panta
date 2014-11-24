@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="action_settings">Settings</string>
     <string name="action_search" > search </string>
     <string name="action_notif">notification</string>
     <string name="action_add"> Add new project </string>
+    <string name="serch_eddit_text">جستجو...</string>
+    <string name="label_name">پروژه های من </string>
+    <string name="seprator_bar">seprator bar</string>
 </resources>

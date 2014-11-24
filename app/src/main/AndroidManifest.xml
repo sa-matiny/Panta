@@ -36,7 +36,7 @@
                 android:value="com.iust.panta.LoginActivity" />
         </activity>
         <activity
-            android:name=".Welcome"
+            android:name=".welcome"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme" >
@@ -45,6 +45,7 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
 
         </activity>
         <activity
@@ -56,6 +57,10 @@
             android:name=".AddTask"
             android:label="@string/title_activity_add_task"
             android:theme="@style/App" >
+        </activity>
+        <activity
+            android:name=".Home"
+            android:label="@string/title_activity_home" >
         </activity>
     </application>
 

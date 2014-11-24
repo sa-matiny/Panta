@@ -195,7 +195,7 @@ public class SignUp extends Activity {
 
                         // JSONArray
                         if (s_response.getBoolean("successful")) {
-                            Intent intent = new Intent(SignUp.this, Profile.class);
+                            Intent intent = new Intent(SignUp.this, Home.class);
                             Log.d("array",s_response.getJSONArray("projects").toString());
                             intent.putExtra("projects",s_response.getJSONArray("projects").toString());
                             intent.putExtra("user_info",s_response.getJSONObject("user_info").toString());
