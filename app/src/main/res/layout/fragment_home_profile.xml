@@ -10,60 +10,59 @@
 
 
     <TextView
+        android:id="@+id/project_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="@string/label_name"
-        android:id="@+id/project_label"
-        android:textColor="#ff294067"
-        android:textStyle="bold"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginTop="46dp" />
-
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="46dp"
+        android:text="@string/label_name"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="#ff294067"
+        android:textStyle="bold" />
 
 
     <ImageView
+        android:id="@+id/imageView"
         android:layout_width="match_parent"
         android:layout_height="10dp"
-        android:id="@+id/imageView"
-        android:layout_gravity="right"
-        android:background="#ff294067"
-        android:layout_marginTop="35dp"
-        android:layout_below="@+id/project_label"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
+        android:layout_below="@+id/project_label"
+        android:layout_gravity="right"
+        android:layout_marginTop="35dp"
+        android:background="#ff294067"
         android:contentDescription="@string/seprator_bar" />
 
     <EditText
 
         android:id="@+id/edittext"
 
+        android:layout_width="match_parent"
+
         android:layout_height="wrap_content"
 
-        android:singleLine="true"
-
-        android:layout_width="match_parent"
-        android:gravity="right"
-        android:hint="@string/serch_eddit_text"
-        android:layout_below="@+id/imageView"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_marginTop="20dp">
+        android:layout_below="@+id/imageView"
+        android:layout_marginTop="20dp"
+        android:gravity="right"
+        android:hint="@string/serch_eddit_text"
+        android:singleLine="true">
 
     </EditText>
 
     <ExpandableListView
+        android:id="@+id/Final_list"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:id="@+id/Final_list"
-        android:groupIndicator="@null"
-        android:layout_gravity="right"
-        android:layout_alignRight="@+id/project_label"
         android:layout_alignEnd="@+id/project_label"
+        android:layout_alignRight="@+id/project_label"
         android:layout_below="@+id/edittext"
-        android:layout_marginTop="10dp">
+        android:layout_gravity="right"
+        android:layout_marginTop="10dp"
+        android:groupIndicator="@null">
 
     </ExpandableListView>
 </RelativeLayout>

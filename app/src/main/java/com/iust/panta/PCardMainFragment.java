@@ -30,7 +30,7 @@ public class PCardMainFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        final View rootView = inflater.inflate(R.layout.fragment_pcard_main_fragment, container, false);
+        final View rootView = inflater.inflate(R.layout.fragment_pcard_main, container, false);
 
         mProName = (TextView) rootView.findViewById(R.id.pro_name);
         mProManager = (TextView) rootView.findViewById(R.id.pro_manager);
