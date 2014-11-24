@@ -14,6 +14,7 @@
         <item name="android:background">@color/actionbar</item>
         <item name="android:titleTextStyle">@style/AppTheme.ActionBar.TitleTextStyle</item>
         <item name="android:layoutDirection">rtl</item>
+        <item name="android:reqNavigation"></item>
     </style>
 
     <style name="AppTheme.ActionBar.TitleTextStyle" parent="@android:style/TextAppearance.StatusBar.Title">

@@ -15,7 +15,6 @@ import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 
 import org.apache.http.Header;
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -53,11 +52,11 @@ public class PCardMainFragment extends Fragment {
                 try {
                     Log.d("RESPONSE", new String(response));
                     JSONObject s_response = new JSONObject(new String(response));
-                    //TODO: SETTEXT fot text view
-                    JSONArray pro_info = s_response.getJSONArray("projectInfo");
-                    Log.d("array", pro_info.toString());
-                    Log.d("proname", pro_info.toString());
-                    mProName.setText(pro_info.getString(1));
+                    JSONObject pro_info = s_response.getJSONObject("projectInfo");
+                    mProName.setText(pro_info.getString("projectName"));
+                    mProManager.setText(pro_info.getString("managerName"));
+                    mProProgress.setText(pro_info.getString("progress"));
+                    mProInfo.setText(pro_info.getString("project_info"));
 
                 } catch (JSONException e) {
                     e.printStackTrace();
