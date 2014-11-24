@@ -12,10 +12,19 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.EditText;
+
+import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.AsyncHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
+
+import org.apache.http.Header;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 public class  ProjectCard extends FragmentActivity implements
         ActionBar.TabListener {
@@ -139,12 +148,69 @@ public class  ProjectCard extends FragmentActivity implements
             case R.id.action_addmember:
                 AlertDialog.Builder add_member = new AlertDialog.Builder(this);
                 final EditText input = new EditText(this);
-                add_member.setMessage("ایمیل عضو جدید را وارد کنید :");
+                System.out.println(input.getInputType());
+                add_member.setMessage("پست الکترونیکی عضو جدید را وارد کنید :");
                 add_member.setView(input);
                 add_member.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        String m_Text = input.getText().toString();
+                        RequestParams params = new RequestParams();
+                        params.put("projectID", 1);
+                        params.put("username",input.getText().toString());
+                        AsyncHttpClient client = new AsyncHttpClient();
+                        client.post("http://104.236.33.128:8800/addMember/", params, new AsyncHttpResponseHandler() {
+
+                            @Override
+                            public void onStart() {
+                                System.out.println("Start");
+                            }
+
+                            @Override
+                            public void onSuccess(int statusCode, Header[] headers, byte[] response) {
+                                try {
+                                    Log.d("RESPONSE", new String(response));
+                                    JSONObject s_response = new JSONObject(new String(response));
+                                    if (!s_response.getBoolean("successful")) {
+                                        if (s_response.getString("error").equals("1")) {
+                                            input.setError("قبلا اضافه شده است");
+                                        }
+                                        if (s_response.getString("error").equals("2")) {
+                                            input.setError("پست الکترونیکی موجود نیست");
+                                        }
+                                        AlertDialog.Builder dlg = new AlertDialog.Builder(ProjectCard.this);
+                                        dlg.setCancelable(false);
+                                        dlg.setMessage(input.getError());
+                                        dlg.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                                            @Override
+                                            public void onClick(DialogInterface dialog, int which) {
+                                                dialog.cancel();
+                                            }
+                                        });
+                                        dlg.create().show();
+                                    }
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+
+                                @Override
+                            public void onFailure(int statusCode, Header[] headers, byte[] errorResponse, Throwable e) {
+                                AlertDialog.Builder builder = new AlertDialog.Builder(ProjectCard.this);
+                                builder.setCancelable(false);
+                                Log.d("error",errorResponse.toString());
+                                builder.setMessage("خطا! اتصال به اینترنت با مشکل مواجه است");
+                                builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        dialog.cancel();
+                                    }
+                                });
+                                AlertDialog alert = builder.create();
+                                alert.show();
+
+                            }
+
+                        });
                     }
                 });
                 add_member.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
