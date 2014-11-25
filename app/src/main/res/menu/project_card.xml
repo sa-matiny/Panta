@@ -3,11 +3,17 @@
     tools:context="com.iust.panta.ProjectCard"
     >
     <item android:id="@+id/action_addtask"
-        android:title="@string/action_add_task"
         android:orderInCategory="100"
-        android:showAsAction="never" />
+        android:showAsAction="never"
+        android:title="@string/action_add_task" />
     <item android:id="@+id/action_addmember"
-        android:title="@string/action_add_member"
         android:orderInCategory="100"
-        android:showAsAction="never" />
+        android:showAsAction="never"
+        android:title="@string/action_add_member" />
+
+    <item
+        android:id="@+id/action_deletepro"
+        android:orderInCategory="100"
+        android:showAsAction="never"
+        android:title="@string/action_delete_project" />
 </menu>
