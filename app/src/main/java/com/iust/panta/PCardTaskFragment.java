@@ -31,6 +31,7 @@ public class PCardTaskFragment extends Fragment {
 
     private ListView listView;
     private   ArrayList<String> array;
+    private  View rootView;
     @Override
 
 
@@ -38,7 +39,7 @@ public class PCardTaskFragment extends Fragment {
                              Bundle savedInstanceState) {
 
 
-        View rootView = inflater.inflate(R.layout.fragment_pcard_task, container, false);
+       rootView= inflater.inflate(R.layout.fragment_pcard_task, container, false);
 
         listView=(ListView)rootView.findViewById(R.id.listView);
         array= new ArrayList<String>();
@@ -55,7 +56,7 @@ public class PCardTaskFragment extends Fragment {
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] response) {
                 try {
-                    Log.d("My__RESPONSE", new String(response));
+                   // Log.d("My__RESPONSE", new String(response));
 
                    JSONObject jobj=new JSONObject(new String(response));
                     JSONArray projects= jobj.getJSONArray("project_tasks");
@@ -65,20 +66,11 @@ public class PCardTaskFragment extends Fragment {
                     {
                         array.add(projects.getJSONObject(i).getString("taskName"));
 
-                        Log.d("array :",array.get(i));
+                       // Log.d("array :",array.get(i));
                     }
                     ArrayAdapter<String> ArrayItems =new ArrayAdapter<String>(PCardTaskFragment.this.getActivity(),android.R.layout.simple_list_item_1,array);
 
                     listView.setAdapter(ArrayItems);
-
-
-
-
-                 //   string
-                /*    mProName.setText(pro_info.getString("projectName"));
-                    mProManager.setText(pro_info.getString("managerName"));
-                    mProProgress.setText(pro_info.getString("progress"));
-                    mProInfo.setText(pro_info.getString("project_info"));*/
 
                 }
                 catch (JSONException e) {
@@ -88,7 +80,7 @@ public class PCardTaskFragment extends Fragment {
 
             @Override
             public void onFailure(int statusCode, Header[] headers, byte[] errorResponse, Throwable e) {
-                /*
+
                 AlertDialog.Builder builder = new AlertDialog.Builder(rootView.getContext());
                 builder.setCancelable(false);
                 builder.setMessage("خطا! اتصال به اینترنت با مشکل مواجه است");
@@ -99,9 +91,9 @@ public class PCardTaskFragment extends Fragment {
                     }
                 });
                 AlertDialog alert = builder.create();
-                alert.show();*/
+                alert.show();
 
-                Log.d("problemm",new String("in catching"));
+              //  Log.d("problemm",new String("in catching"));
             }
 
         });
