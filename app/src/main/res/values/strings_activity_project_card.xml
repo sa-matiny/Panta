@@ -2,4 +2,5 @@
 <resources>
     <string name="action_add_task">اضافه کردن وظیفه</string>
     <string name="action_add_member">اضافه کردن عضو</string>
+    <string name="action_delete_project">حذف پروژه</string>
 </resources>

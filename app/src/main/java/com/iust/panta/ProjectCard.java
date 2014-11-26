@@ -92,39 +92,6 @@ public class  ProjectCard extends FragmentActivity implements
     public void onTabUnselected(Tab tab, FragmentTransaction ft) {
     }
 
-
-    public class TabsPagerAdapter extends FragmentPagerAdapter {
-
-        public TabsPagerAdapter(FragmentManager fm) {
-            super(fm);
-        }
-
-        @Override
-        public Fragment getItem(int index) {
-
-            switch (index) {
-                case 0:
-                    // Top Rated fragment activity
-                    return new PCardMainFragment();
-                case 1:
-                    // Games fragment activity
-                    return new PCardTaskFragment();
-                case 2:
-                    // Movies fragment activity
-                    return new PCardMembersFragment();
-            }
-
-            return null;
-        }
-
-        @Override
-        public int getCount() {
-            // get item count - equal to number of tabs
-            return 3;
-        }
-
-    }
-
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         MenuInflater inflater = getMenuInflater();
@@ -156,7 +123,7 @@ public class  ProjectCard extends FragmentActivity implements
                     public void onClick(DialogInterface dialog, int which) {
                         RequestParams params = new RequestParams();
                         params.put("projectID", 1);
-                        params.put("username",input.getText().toString());
+                        params.put("username", input.getText().toString());
                         AsyncHttpClient client = new AsyncHttpClient();
                         client.post("http://104.236.33.128:8800/addMember/", params, new AsyncHttpResponseHandler() {
 
@@ -193,11 +160,11 @@ public class  ProjectCard extends FragmentActivity implements
                                 }
                             }
 
-                                @Override
+                            @Override
                             public void onFailure(int statusCode, Header[] headers, byte[] errorResponse, Throwable e) {
                                 AlertDialog.Builder builder = new AlertDialog.Builder(ProjectCard.this);
                                 builder.setCancelable(false);
-                                Log.d("error",errorResponse.toString());
+                                Log.d("error", errorResponse.toString());
                                 builder.setMessage("خطا! اتصال به اینترنت با مشکل مواجه است");
                                 builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                                     @Override
@@ -220,8 +187,43 @@ public class  ProjectCard extends FragmentActivity implements
                     }
                 });
                 add_member.create().show();
+
+            case R.id.action_deletepro:
+                return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    public class TabsPagerAdapter extends FragmentPagerAdapter {
+
+        public TabsPagerAdapter(FragmentManager fm) {
+            super(fm);
+        }
+
+        @Override
+        public Fragment getItem(int index) {
+
+            switch (index) {
+                case 0:
+                    // Top Rated fragment activity
+                    return new PCardMainFragment();
+                case 1:
+                    // Games fragment activity
+                    return new PCardTaskFragment();
+                case 2:
+                    // Movies fragment activity
+                    return new PCardMembersFragment();
+            }
+
+            return null;
+        }
+
+        @Override
+        public int getCount() {
+            // get item count - equal to number of tabs
+            return 3;
+        }
+
     }
 }
 
