@@ -54,12 +54,12 @@ public class PCardTaskFragment extends Fragment {
                      Log.d("My__RESPONSE", new String(response));
 
                     JSONObject jobj=new JSONObject(new String(response));
-                    JSONArray projects= jobj.getJSONArray("project_tasks");
+                    JSONArray ProjectTasksInformation= jobj.getJSONArray("project_tasks");
 
                   //  Dictionary<int,int> indexToTaskId=new Dictionary<int, int>() ;
-                    for (int i=0; i<projects.length();i++)
+                    for (int i=0; i<ProjectTasksInformation.length();i++)
                     {
-                        taskNameArray.add(projects.getJSONObject(i).getString("taskName"));
+                        taskNameArray.add(ProjectTasksInformation.getJSONObject(i).getString("taskName"));
 
                 
                     }

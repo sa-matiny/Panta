@@ -36,7 +36,7 @@ public class PCardMembersFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        // Intialize
+        // Initialize
         rootView = inflater.inflate(R.layout.fragment_pcard_members, container, false);
         listView = (ListView) rootView.findViewById(R.id.listView);
 
@@ -57,12 +57,12 @@ public class PCardMembersFragment extends Fragment {
                     Log.d("My__RESPONSE", new String(response));
 
                     JSONObject jobj = new JSONObject(new String(response));
-                    JSONArray projects = jobj.getJSONArray("project_users");
-                    Log.d("PROJECTaRRAY", (projects).toString());
+                    JSONArray ProjectMembersInformation = jobj.getJSONArray("project_users");
+                    Log.d("ProjectInfromation", (ProjectMembersInformation).toString());
                     //  Dictionary<int,int> indexToTaskId=new Dictionary<int, int>() ;
                     memberArray = new ArrayList<String>();
-                    for (int i = 0; i < projects.length(); i++) {
-                        memberArray.add(projects.getJSONObject(i).getString("name"));
+                    for (int i = 0; i < ProjectMembersInformation.length(); i++) {
+                        memberArray.add(ProjectMembersInformation.getJSONObject(i).getString("name"));
                         // Log.d("my members",projects.get(i).toString());
 
                     }
