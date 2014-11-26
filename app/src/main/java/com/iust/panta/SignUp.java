@@ -194,13 +194,15 @@ public class SignUp extends Activity {
                         JSONObject s_response= new JSONObject(new String(response));
 
                         // JSONArray
-                        if (s_response.getBoolean("successful")) {
+                        if (s_response.getBoolean("successful"))
+                        {
                             Intent intent = new Intent(SignUp.this, Home.class);
                             Log.d("array",s_response.getJSONArray("projects").toString());
                             intent.putExtra("projects",s_response.getJSONArray("projects").toString());
                             intent.putExtra("user_info",s_response.getJSONObject("user_info").toString());
                             finish();
                             startActivity(intent);
+
 
                         } else {
                             AlertDialog.Builder dlg = new AlertDialog.Builder(SignUp.this);

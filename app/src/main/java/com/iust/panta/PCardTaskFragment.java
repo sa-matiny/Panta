@@ -1,10 +1,10 @@
 package com.iust.panta;
 
+import android.util.Log;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,18 +19,13 @@ import org.apache.http.Header;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import android.content.Intent;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.Dictionary;
-import java.util.Iterator;
-import java.util.List;
 
 public class PCardTaskFragment extends Fragment {
 
     private ListView listView;
-    private   ArrayList<String> array;
+    private   ArrayList<String> taskNameArray;
     private  View rootView;
     @Override
 
@@ -42,7 +37,7 @@ public class PCardTaskFragment extends Fragment {
        rootView= inflater.inflate(R.layout.fragment_pcard_task, container, false);
 
         listView=(ListView)rootView.findViewById(R.id.listView);
-        array= new ArrayList<String>();
+        taskNameArray = new ArrayList<String>();
         RequestParams params = new RequestParams();
         params.put("projectID", 1);
         AsyncHttpClient client = new AsyncHttpClient();
@@ -56,19 +51,19 @@ public class PCardTaskFragment extends Fragment {
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] response) {
                 try {
-                   // Log.d("My__RESPONSE", new String(response));
+                     Log.d("My__RESPONSE", new String(response));
 
-                   JSONObject jobj=new JSONObject(new String(response));
-                    JSONArray projects= jobj.getJSONArray("project_tasks");
+                    JSONObject jobj=new JSONObject(new String(response));
+                    JSONArray ProjectTasksInformation= jobj.getJSONArray("project_tasks");
 
                   //  Dictionary<int,int> indexToTaskId=new Dictionary<int, int>() ;
-                    for (int i=0; i<projects.length();i++)
+                    for (int i=0; i<ProjectTasksInformation.length();i++)
                     {
-                        array.add(projects.getJSONObject(i).getString("taskName"));
+                        taskNameArray.add(ProjectTasksInformation.getJSONObject(i).getString("taskName"));
 
-                       // Log.d("array :",array.get(i));
+                
                     }
-                    ArrayAdapter<String> ArrayItems =new ArrayAdapter<String>(PCardTaskFragment.this.getActivity(),android.R.layout.simple_list_item_1,array);
+                    ArrayAdapter<String> ArrayItems =new ArrayAdapter<String>(PCardTaskFragment.this.getActivity(),android.R.layout.simple_list_item_1, taskNameArray);
 
                     listView.setAdapter(ArrayItems);
 
