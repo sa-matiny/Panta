@@ -28,8 +28,8 @@ public class AddTask extends Activity {
     private TextView TUserNameView;
     private EditText EUserNameView;
 
-    private TextView TProjectIDView;
-    private EditText EProjectIDView;
+   // private TextView TProjectIDView;
+    //private EditText EProjectIDView;
 
     private TextView TTaskNameView;
     private EditText ETaskNameView;
@@ -47,13 +47,13 @@ public class AddTask extends Activity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_project);
+        setContentView(R.layout.activity_add_task);
 
         TUserNameView = (TextView) findViewById(R.id.TUserName);
         EUserNameView = (EditText) findViewById(R.id.EUserName);
 
-        TProjectIDView = (TextView) findViewById(R.id.TProjectId);
-        EProjectIDView = (EditText) findViewById(R.id.EProjectId);
+   //     TProjectIDView = (TextView) findViewById(R.id.TProjectId);
+     //   EProjectIDView = (EditText) findViewById(R.id.EProjectId);
 
         TTaskNameView = (TextView) findViewById(R.id.TTaskName);
         ETaskNameView = (EditText) findViewById(R.id.ETaskName);
@@ -68,13 +68,13 @@ public class AddTask extends Activity {
         InputMethodManager imm = (InputMethodManager) getSystemService(
                 Context.INPUT_METHOD_SERVICE);
         imm.hideSoftInputFromWindow(EUserNameView.getWindowToken(), 0);
-        imm.hideSoftInputFromWindow(EProjectIDView.getWindowToken(), 0);
+    //    imm.hideSoftInputFromWindow(EProjectIDView.getWindowToken(), 0);
         imm.hideSoftInputFromWindow(ETaskNameView.getWindowToken(), 0);
         imm.hideSoftInputFromWindow(ETaskInfoView.getWindowToken(), 0);
 
         //set null error
         EUserNameView.setError(null);
-        EProjectIDView.setError(null);
+      //  EProjectIDView.setError(null);
         ETaskNameView.setError(null);
         ETaskInfoView.setError(null);
 
@@ -83,7 +83,7 @@ public class AddTask extends Activity {
         //set variable
         this.has_error = false;
         String EUserName = EUserNameView.getText().toString();
-        String EProjectID = EProjectIDView.getText().toString();
+        //String EProjectID = EProjectIDView.getText().toString();
         String ETaskName = ETaskNameView.getText().toString();
         String ETaskInfo = ETaskInfoView.getText().toString();
 
@@ -102,12 +102,12 @@ public class AddTask extends Activity {
 
 
         }
-        if (TextUtils.isEmpty(EProjectID)) {
+    /*    if (TextUtils.isEmpty(EProjectID)) {
             EProjectIDView.setError("شناسه پروژه را وارد کنید");
             focus_view = EProjectIDView;
             focus_view.requestFocus();
             this.has_error = true;}
-
+*/
         if (TextUtils.isEmpty(ETaskName)) {
             ETaskNameView.setError("نام وظیفه را وارد کنید");
             focus_view = ETaskNameView;
@@ -137,7 +137,7 @@ public class AddTask extends Activity {
             ProgressView.setVisibility(View.VISIBLE);
             RequestParams params = new RequestParams();
             params.put("Username",EUserNameView.getText().toString());
-            params.put("projectID", EProjectIDView.getText().toString());
+        //    params.put("projectID", EProjectIDView.getText().toString());
             params.put("taskName", ETaskNameView.getText().toString());
             params.put("task_info", ETaskInfoView.getText().toString());
             params.put("year",String.valueOf(datePicker.getYear()));
@@ -234,7 +234,7 @@ public class AddTask extends Activity {
         InputMethodManager imm = (InputMethodManager)getSystemService(
                 Context.INPUT_METHOD_SERVICE);
         imm.hideSoftInputFromWindow(EUserNameView.getWindowToken(), 0);
-        imm.hideSoftInputFromWindow(EProjectIDView.getWindowToken(), 0);
+       // imm.hideSoftInputFromWindow(EProjectIDView.getWindowToken(), 0);
         imm.hideSoftInputFromWindow(ETaskNameView.getWindowToken(), 0);
         imm.hideSoftInputFromWindow(ETaskInfoView.getWindowToken(), 0);
     }

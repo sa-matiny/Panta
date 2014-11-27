@@ -1,5 +1,5 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/add_task"
+    android:id="@+id/addtask"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/background"
@@ -50,38 +50,6 @@
                 android:layout_toLeftOf="@+id/TUserName" />
 
             <TextView
-                android:id="@+id/TProjectId"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center_vertical|center_horizontal"
-                android:layout_gravity="right"
-                android:layout_alignParentEnd="false"
-                android:layout_alignParentRight="true"
-                android:paddingLeft="40dp"
-                android:paddingRight="1dp"
-                android:textSize="@dimen/font"
-                android:layout_marginTop="80dp"
-                android:text="شناسه پروژه"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:textColor="@color/text1"
-                android:textStyle="bold"
-                android:layout_alignParentTop="true" />
-
-            <EditText
-                android:layout_height="wrap_content"
-                android:layout_width="match_parent"
-                android:id="@+id/EProjectId"
-                android:inputType="text"
-                android:ems="10"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                android:background="#ffffff"
-                android:layout_marginTop="82dp"
-                android:layout_toStartOf="@+id/TProjectId"
-                android:layout_toLeftOf="@+id/TProjectId" />
-
-            <TextView
                 android:id="@+id/TTaskName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -92,7 +60,7 @@
                 android:paddingLeft="40dp"
                 android:paddingRight="1dp"
                 android:textSize="@dimen/font"
-                android:layout_marginTop="120dp"
+                android:layout_marginTop="80dp"
                 android:text="نام وظیفه"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:textColor="@color/text1"
@@ -109,9 +77,10 @@
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
                 android:background="#ffffff"
-                android:layout_marginTop="122dp"
+                android:layout_marginTop="82dp"
                 android:layout_toStartOf="@+id/TTaskName"
-                android:layout_toLeftOf="@+id/TTaskName" />
+                android:layout_toLeftOf="@+id/TTaskName"
+                android:layout_alignParentEnd="false" />
 
 
             <TextView
@@ -126,8 +95,8 @@
                 android:paddingLeft="20dp"
                 android:paddingRight="10dp"
                 android:textSize="@dimen/font"
-                android:layout_marginTop="160dp"
-                android:text="اطلاعات پروژه"
+                android:layout_marginTop="120dp"
+                android:text="شرح وظیفه"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:textColor="@color/text1"
                 android:textStyle="bold" />
@@ -143,7 +112,7 @@
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
                 android:background="#ffffff"
-                android:layout_marginTop="192dp"
+                android:layout_marginTop="152dp"
                 android:layout_alignRight="@+id/TTaskInfo"
                 android:layout_alignEnd="@+id/TTaskInfo" />
 
