@@ -16,5 +16,10 @@
     <string name="title_activity_task_card">TaskCard</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
+    <string name="TC_name">نام مسئول وظیفه </string>
+    <string name="TC_userName">نام کاربری </string>
+    <string name="TC_taskName">نام وظیفه </string>
+    <string name="TC_taskDescription">شرح وظیفه </string>
+
 
 </resources>

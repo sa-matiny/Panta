@@ -25,6 +25,7 @@
             android:label="@string/title_activity_sign_up"
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="adjustResize|stateVisible" >
+
         </activity>
         <activity
             android:name=".Welcome"
@@ -37,11 +38,8 @@
             android:name=".ProjectCard"
             android:label="@string/title_activity_project_card"
             android:theme="@style/App" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+
         </activity>
         <activity
             android:name=".AddTask"
@@ -57,6 +55,13 @@
         <activity
             android:name=".TaskCard"
             android:label="@string/title_activity_task_card" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+
+
         </activity>
 
     </application>
