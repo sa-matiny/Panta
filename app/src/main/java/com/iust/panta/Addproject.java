@@ -14,6 +14,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -72,6 +73,7 @@ public class Addproject extends Activity {
         InputMethodManager imm = (InputMethodManager) getSystemService(
                 Context.INPUT_METHOD_SERVICE);
         imm.hideSoftInputFromWindow(EprojectNameView.getWindowToken(), 0);
+        imm.hideSoftInputFromWindow(EprojectInfoview.getWindowToken(), 0);
 
         //set null error
         EprojectNameView.setError(null);
@@ -125,13 +127,17 @@ public class Addproject extends Activity {
     }
 
     public void writeInAddProjectTb() {
+        DatePicker datePicker=(DatePicker) findViewById(R.id.datePicker);
         if (!has_error) {
             ButtonView.setVisibility(View.GONE);
             ProgressView.setVisibility(View.VISIBLE);
             RequestParams params = new RequestParams();
             params.put("projectName", EprojectNameView.getText().toString());
-            params.put("username","a@y.com");
+            params.put("username","fari@yahoo.com");
             params.put("project_info", EprojectInfoview.getText().toString());
+            params.put("year",String.valueOf(datePicker.getYear()));
+            params.put("month",String.valueOf(datePicker.getMonth()));
+            params.put("day",String.valueOf(datePicker.getDayOfMonth()));
             AsyncHttpClient client = new AsyncHttpClient();
             client.post("http://104.236.33.128:8800/addProject/", params, new AsyncHttpResponseHandler() {
 
@@ -189,7 +195,7 @@ public class Addproject extends Activity {
                 public void onFailure(int statusCode, Header[] headers, byte[] errorResponse, Throwable e) {
 
                     Log.d("statuscode",String.valueOf(statusCode));
-                    Log.d("FAILED", new String(errorResponse));
+                    //Log.d("FAILED", new String(errorResponse));
                     ProgressView.setVisibility(View.GONE);
                     ButtonView.setVisibility(View.VISIBLE);
                     AlertDialog.Builder builder = new AlertDialog.Builder(Addproject.this);
