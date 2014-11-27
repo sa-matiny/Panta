@@ -38,6 +38,11 @@
             android:name=".ProjectCard"
             android:label="@string/title_activity_project_card"
             android:theme="@style/App" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
 
 
         </activity>
@@ -52,14 +57,11 @@
             android:label="@string/title_activity_home"
             android:theme="@style/App" >
         </activity>
+
         <activity
             android:name=".TaskCard"
-            android:label="@string/title_activity_task_card" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+            android:label="@string/title_activity_task_card"
+            android:theme="@style/App">
 
 
         </activity>
