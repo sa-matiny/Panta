@@ -38,6 +38,8 @@ public class Addproject extends Activity {
     private TextView TprojectInfoView;
     private EditText EprojectInfoview;
 
+    //private
+
     private Button ButtonView;
     private ProgressBar ProgressView;
     private boolean has_error = false;
@@ -54,6 +56,7 @@ public class Addproject extends Activity {
 
 //        TmanagerView = (TextView) findViewById(R.id.Tmanager);
   //      Emanagerview = (EditText) findViewById(R.id.Emanager);
+
 
 
         TprojectInfoView = (TextView) findViewById(R.id.TprojectInfo);
@@ -130,7 +133,7 @@ public class Addproject extends Activity {
             params.put("username","a@y.com");
             params.put("project_info", EprojectInfoview.getText().toString());
             AsyncHttpClient client = new AsyncHttpClient();
-            client.post("http://172.17.11.14:8800/addProject/", params, new AsyncHttpResponseHandler() {
+            client.post("http://104.236.33.128:8800/addProject/", params, new AsyncHttpResponseHandler() {
 
                 @Override
                 public void onStart() {
@@ -185,7 +188,8 @@ public class Addproject extends Activity {
                 @Override
                 public void onFailure(int statusCode, Header[] headers, byte[] errorResponse, Throwable e) {
 
-                    Log.d("FAILED", "FAILED");
+                    Log.d("statuscode",String.valueOf(statusCode));
+                    Log.d("FAILED", new String(errorResponse));
                     ProgressView.setVisibility(View.GONE);
                     ButtonView.setVisibility(View.VISIBLE);
                     AlertDialog.Builder builder = new AlertDialog.Builder(Addproject.this);
