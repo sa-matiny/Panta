@@ -1,5 +1,5 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/project_main"
+    android:id="@+id/project"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/background"
@@ -109,13 +109,15 @@
         style="?android:textAppearanceSmall"
         android:text="ثبت پروژه"
         android:id="@+id/add_project_button"
-        android:layout_marginTop="400dp"
+        android:layout_marginTop="83dp"
         android:clickable="true"
-        android:onClick="add_project"
+        android:onClick="AddProject"
         android:textStyle="bold"
         android:background="@color/actionbar"
         android:textColor="@color/background"
-        android:textSize="@dimen/font"/>
+        android:textSize="@dimen/font"
+        android:layout_below="@+id/EprojectInfo"
+        android:layout_centerHorizontal="true" />
 
 
 

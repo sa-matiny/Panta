@@ -1,7 +1,7 @@
 package com.iust.panta;
 
 /**
- * Created by Fariba on 11/26/2014.
+ * Created by Mahla on 11/26/2014.
  */
 
 import android.app.Activity;
@@ -127,10 +127,10 @@ public class Addproject extends Activity {
             ProgressView.setVisibility(View.VISIBLE);
             RequestParams params = new RequestParams();
             params.put("projectName", EprojectNameView.getText().toString());
-         //   params.put("username", Emanagerview.getText().toString());
+            params.put("username","a@y.com");
             params.put("project_info", EprojectInfoview.getText().toString());
             AsyncHttpClient client = new AsyncHttpClient();
-            client.post("http://104.236.33.128:8800/register/", params, new AsyncHttpResponseHandler() {
+            client.post("http://172.17.11.14:8800/addProject/", params, new AsyncHttpResponseHandler() {
 
                 @Override
                 public void onStart() {
@@ -167,7 +167,7 @@ public class Addproject extends Activity {
                         else {
                             AlertDialog.Builder dlg = new AlertDialog.Builder(Addproject.this);
                             dlg.setCancelable(false);
-                            dlg.setMessage("خطا");
+                            dlg.setMessage("خطای اطلاعات کاربر");
                             dlg.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
@@ -185,7 +185,6 @@ public class Addproject extends Activity {
                 @Override
                 public void onFailure(int statusCode, Header[] headers, byte[] errorResponse, Throwable e) {
 
-                    // called when response HTTP status is "4XX" (eg. 401, 403, 404)
                     Log.d("FAILED", "FAILED");
                     ProgressView.setVisibility(View.GONE);
                     ButtonView.setVisibility(View.VISIBLE);
