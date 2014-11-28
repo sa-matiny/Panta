@@ -1,7 +1,19 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:id="@+id/scrollView"
+    android:layout_alignParentRight="true"
+    android:layout_alignParentEnd="true"
+    android:layout_alignParentLeft="true"
+    android:layout_alignParentStart="true"
+    android:layout_alignParentTop="true"
+    android:layout_alignParentBottom="true"
+    android:fillViewport="false">
+<RelativeLayout
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:paddingStart="@dimen/activity_horizontal_margin"
     android:paddingEnd="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
@@ -9,18 +21,9 @@
     tools:context="com.iust.panta.TaskCard"
     android:theme="@style/AppTheme"
     android:background="@color/background"
-   >
 
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/scrollView"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentBottom="true" />
+>
+
 
     <TextView
         android:layout_width="wrap_content"
@@ -32,7 +35,10 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:textIsSelectable="false"
-        android:textSize="15dp" />
+        android:textSize="15sp"
+        android:layout_toEndOf="@+id/linearLayout"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -41,11 +47,13 @@
         android:text="@string/TC_userName"
         android:id="@+id/textView2"
         android:textColor="#ff020056"
-        android:textSize="15dp"
+        android:textSize="18dp"
         android:layout_below="@+id/textView"
         android:layout_alignRight="@+id/textView"
         android:layout_alignEnd="@+id/textView"
-        android:layout_marginTop="32dp" />
+        android:layout_marginTop="32dp"
+        android:layout_alignLeft="@+id/textView"
+        android:layout_alignStart="@+id/textView" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -54,52 +62,14 @@
         android:text="@string/TC_taskName"
         android:id="@+id/textView3"
         android:textColor="#ff020056"
-        android:textSize="15dp"
+        android:textSize="18dp"
         android:layout_marginTop="32dp"
         android:layout_below="@+id/textView2"
         android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/TaskOwenerUserName"
+        android:layout_alignParentEnd="true"
+        android:layout_toEndOf="@+id/linearLayout"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:background="#fffeffe4"
-        android:layout_alignBottom="@+id/textView2"
-        android:textSize="18dp"
-        android:layout_toStartOf="@+id/textView"
-        android:layout_alignTop="@+id/textView2"
-        android:layout_alignRight="@+id/TaskOwenersName"
-        android:layout_alignEnd="@+id/TaskOwenersName" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/TaskName"
-        android:layout_toStartOf="@+id/textView"
-        android:layout_alignTop="@+id/textView3"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:textSize="18dp"
-        android:background="#fffeffe4"
-        android:autoText="false"
-        android:layout_toLeftOf="@+id/textView"
-        android:layout_alignBottom="@+id/textView3" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/TaskOwenersName"
-        android:layout_alignParentTop="true"
-        android:layout_toStartOf="@+id/UserCheckBox"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:background="#fffeffdc"
-        android:textSize="20dp"
-        android:layout_toLeftOf="@+id/UserCheckBox"
-        android:layout_above="@+id/textView2" />
+        android:layout_alignParentStart="true" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -108,33 +78,13 @@
         android:text="@string/TC_taskDescription"
         android:id="@+id/textView4"
         android:textColor="#ff020056"
-        android:textSize="15dp"
+        android:textSize="18dp"
         android:layout_below="@+id/textView8"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginTop="33dp" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="New Text"
-        android:id="@+id/textView5"
-        android:layout_alignRight="@+id/textView4"
-        android:layout_alignEnd="@+id/textView4"
-        android:layout_marginRight="37dp" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/TaskDescription"
-        android:layout_below="@+id/textView4"
-        android:layout_alignRight="@+id/textView4"
-        android:layout_alignEnd="@+id/textView4"
+        android:layout_marginTop="33dp"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:background="#fffbf3fb"
-        android:textSize="18dp"
-        android:layout_alignParentBottom="true" />
+        android:layout_alignParentStart="true" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -142,40 +92,13 @@
         android:text="وضعیت"
         android:id="@+id/textView7"
         android:textColor="#ff020056"
-        android:textSize="15dp"
+        android:textSize="18dp"
         android:layout_below="@+id/textView3"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginTop="35dp" />
-
-    <CheckBox
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/UserCheckBox"
-        android:layout_alignTop="@+id/textView7"
-        android:layout_alignRight="@+id/TaskName"
-        android:layout_alignEnd="@+id/TaskName"
-        android:background="#fffbf3fb"
-        style="@style/WalletFragmentDefaultDetailsHeaderTextAppearance"
-        android:checked="false"
-        android:focusableInTouchMode="false"
-        android:focusable="false"
-        android:layout_alignBottom="@+id/textView7" />
-
-    <CheckBox
-        style="@style/WalletFragmentDefaultDetailsHeaderTextAppearance"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/ManagerCheckBox"
-        android:background="#fffbf3fb"
-        android:layout_alignTop="@+id/UserCheckBox"
+        android:layout_marginTop="35dp"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginLeft="57dp"
-        android:layout_alignBottom="@+id/UserCheckBox"
-        android:checked="false"
-        android:focusableInTouchMode="false"
-        android:focusable="false" />
+        android:layout_alignParentStart="true" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -187,19 +110,150 @@
         android:layout_alignEnd="@+id/textView7"
         android:layout_marginTop="46dp"
         android:textColor="#ff020056"
-        android:textSize="15dp" />
+        android:textSize="18dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
     <TextView
+        android:layout_width="143dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/TaskDescription"
+        android:background="@color/background"
+        android:textSize="18dp"
+        android:textColor="@color/text1"
+        android:layout_below="@+id/textView4"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true" />
+
+    <LinearLayout
+        android:orientation="vertical"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/TaskDeadline"
-        android:layout_alignTop="@+id/textView8"
-        android:layout_toEndOf="@+id/ManagerCheckBox"
-        android:layout_alignRight="@+id/UserCheckBox"
-        android:layout_alignEnd="@+id/UserCheckBox"
-        android:background="#fffbf3fb"
-        android:textSize="18dp"
-        android:layout_above="@+id/textView4"
-        android:layout_toRightOf="@+id/ManagerCheckBox" />
+        android:weightSum="1"
+        android:id="@+id/linearLayout"
+        android:layout_alignParentLeft="false"
+        android:layout_alignParentStart="true"
+        android:layout_alignBottom="@+id/textView4"
+        android:layout_alignParentTop="true">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="42dp"
+            android:id="@+id/TaskOwenersName"
+            android:layout_alignParentTop="true"
+            android:layout_toStartOf="@+id/UserCheckBox"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:background="@color/background"
+            android:textSize="20dp"
+            android:textColor="#f8000000"
+            android:layout_above="@+id/textView2"
+            android:layout_marginTop="2dp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="42dp"
+            android:id="@+id/TaskOwenerUserName"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:background="@color/background"
+            android:textSize="18dp"
+            android:layout_toStartOf="@+id/UserCheckBox"
+            android:layout_alignTop="@+id/textView2"
+            android:textColor="#f8000000"
+            android:layout_above="@+id/TaskName"
+            android:layout_alignRight="@+id/TaskName"
+            android:layout_alignEnd="@+id/TaskName"
+            android:layout_marginTop="2dp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="42dp"
+            android:id="@+id/TaskName"
+            android:layout_toStartOf="@+id/ManagerCheckBox"
+            android:textSize="18dp"
+            android:background="@color/background"
+            android:autoText="false"
+            android:textColor="#f8000000"
+            android:layout_alignTop="@+id/textView3"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_weight="0.17"
+            android:layout_marginTop="4dp" />
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toStartOf="@+id/textView8"
+            android:layout_alignTop="@+id/textView7"
+            android:layout_toLeftOf="@+id/textView8"
+            android:layout_marginTop="22dp">
+
+            <CheckBox
+                style="@style/WalletFragmentDefaultDetailsHeaderTextAppearance"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/ManagerCheckBox"
+                android:background="#fffbf3fb"
+
+                android:checked="false"
+                android:focusableInTouchMode="false"
+                android:focusable="false"
+                android:clickable="false"
+                android:enabled="false"
+                android:maxHeight="25dp"
+                android:maxWidth="25dp"
+                android:minHeight="25dp"
+                android:minWidth="25dp"
+                android:contentDescription="تایید مدیر"
+                android:button="@drawable/cb_selector"
+                android:layout_toStartOf="@+id/textView8"
+                android:layout_alignWithParentIfMissing="false"
+                android:layout_alignTop="@+id/UserCheckBox"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_marginLeft="2dp"
+                android:layout_marginRight="120dp" />
+
+            <CheckBox
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/UserCheckBox"
+                android:background="#fffbf3fb"
+                style="@style/WalletFragmentDefaultDetailsHeaderTextAppearance"
+                android:button="@drawable/cb_selector"
+                android:focusableInTouchMode="false"
+                android:focusable="false"
+                android:maxHeight="25dp"
+                android:maxWidth="25dp"
+                android:minHeight="25dp"
+                android:minWidth="25dp"
+                android:layout_alignTop="@+id/textView7"
+                android:layout_toRightOf="@+id/linearLayout"
+                android:layout_toEndOf="@+id/linearLayout" />
+
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="42dp"
+            android:id="@+id/TaskDeadline"
+            android:layout_toEndOf="@+id/TaskName"
+            android:background="@color/background"
+            android:textSize="18dp"
+            android:textColor="#f8000000"
+            android:layout_toStartOf="@+id/textView7"
+            android:layout_alignTop="@+id/textView8"
+            android:layout_toLeftOf="@+id/textView7"
+            android:layout_marginTop="48dp"
+            android:layout_marginBottom="10dp" />
+
+    </LinearLayout>
+
 
 </RelativeLayout>
+</ScrollView>

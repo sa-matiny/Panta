@@ -1,14 +1,14 @@
 package com.iust.panta;
 
-import com.iust.panta.R;
+//import com.iust.panta.R;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.TextView;
 
@@ -17,7 +17,6 @@ import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 
 import org.apache.http.Header;
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -37,11 +36,18 @@ public class TaskCard extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        setContentView(R.layout.activity_task_card);
+        //taskOwnerName= new TextView();
 
 
         taskOwnerName= (TextView)findViewById(R.id.TaskOwenersName);
+       // taskOwnerName.setText("test");
+    //    Log.d("Iwant CHeck ",taskOwnerName.toString());
 
         taskOwnerUsername= (TextView)findViewById(R.id.TaskOwenerUserName);
+
+
+
 
         taskName= (TextView)findViewById(R.id.TaskName);
 
@@ -68,23 +74,38 @@ public class TaskCard extends Activity {
                 try {
                     Log.d("My__RESPONSE", new String(response));
 
-                    JSONObject jobj=new JSONObject(new String(response));
-                    JSONArray ProjectTasksInformation= jobj.getJSONArray("project_tasks");
-/*
-                    //  Dictionary<int,int> indexToTaskId=new Dictionary<int, int>() ;
-                    for (int i=0; i<ProjectTasksInformation.length();i++)
+                    JSONObject jobj_1=new JSONObject(new String(response));
+                    JSONObject jobj=jobj_1.getJSONObject("taskInfo");
+                //    Log.d("obj",jobj.toString());
+                    taskOwnerUsername.setText( jobj.getString("username"));
+
+                   taskName.setText( jobj.getString("taskName"));
+                    taskDescription.setText( jobj.getString("task_info"));
+                    taskDeadline.setText(jobj.getString("deadline"));
+
+                    if(jobj.getString("status").equals("1"))
                     {
-                        taskNameArray.add(ProjectTasksInformation.getJSONObject(i).getString("taskName"));
+                        userCheckBox.setChecked(true);
+                        managerCheckBox.setChecked(true);
+
+                     //   managerCheckBox.setdrawa
+
+                     //  Drawable d= getResources().getDrawable(R.drawable.graycheck  );
 
 
+                        managerCheckBox.setButtonDrawable(R.drawable.graycheck);
+
+                        managerCheckBox.setClickable(false);
                     }
-                    ArrayAdapter<String> ArrayItems =new ArrayAdapter<String>(PCardTaskFragment.this.getActivity(),android.R.layout.simple_list_item_1, taskNameArray);
 
-                    listView.setAdapter(ArrayItems);*/
+
+
+
 
                 }
                 catch (JSONException e) {
                     e.printStackTrace();
+                    Log.d("Problem in catching ","hichi");
                 }
             }
 
@@ -108,7 +129,7 @@ public class TaskCard extends Activity {
 
         });
 
-        setContentView(R.layout.activity_task_card);
+
     }
 
 
