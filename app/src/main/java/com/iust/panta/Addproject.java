@@ -33,13 +33,8 @@ public class Addproject extends Activity {
     private TextView TprojectNameView;
     private EditText EprojectNameView;
 
- //   private TextView TmanagerView;
-   // private EditText Emanagerview;
-
     private TextView TprojectInfoView;
     private EditText EprojectInfoview;
-
-    //private
 
     private Button ButtonView;
     private ProgressBar ProgressView;
@@ -54,12 +49,6 @@ public class Addproject extends Activity {
         TprojectNameView = (TextView) findViewById(R.id.Tprojectname);
         EprojectNameView = (EditText) findViewById(R.id.Eprojectname);
 
-
-//        TmanagerView = (TextView) findViewById(R.id.Tmanager);
-  //      Emanagerview = (EditText) findViewById(R.id.Emanager);
-
-
-
         TprojectInfoView = (TextView) findViewById(R.id.TprojectInfo);
         EprojectInfoview = (EditText) findViewById(R.id.EprojectInfo);
 
@@ -68,7 +57,7 @@ public class Addproject extends Activity {
     }
 
 
-    public void AddProject(View view) {
+    public void Addproject(View view) {
 
         InputMethodManager imm = (InputMethodManager) getSystemService(
                 Context.INPUT_METHOD_SERVICE);
@@ -77,7 +66,7 @@ public class Addproject extends Activity {
 
         //set null error
         EprojectNameView.setError(null);
-   //     Emanagerview.setError(null);
+        //     Emanagerview.setError(null);
         EprojectInfoview.setError(null);
 
 
@@ -85,7 +74,6 @@ public class Addproject extends Activity {
         //set variable
         this.has_error = false;
         String EprojectName = EprojectNameView.getText().toString();
-     //   String Emanager = Emanagerview.getText().toString();
         String EprojectInfo = EprojectInfoview.getText().toString();
 
         View focus_view;
@@ -93,7 +81,6 @@ public class Addproject extends Activity {
 
 
         // check if Edit texts are Empty
-        //    ProgressView.setVisibility(View.VISIBLE);
 
         if (TextUtils.isEmpty(EprojectName)) {
             EprojectNameView.setError("نام پروژه را وارد کنید");
@@ -103,16 +90,6 @@ public class Addproject extends Activity {
 
 
         }
-
-    /*    if (TextUtils.isEmpty(Emanager)) {
-            Emanagerview.setError("نام مدیر را وارد کنید");
-            focus_view = Emanagerview;
-            focus_view.requestFocus();
-            this.has_error = true;
-
-
-        }*/
-
         if (TextUtils.isEmpty(EprojectInfo)) {
             EprojectInfoview.setError("اطلاعاتی درباره پروژه ارائه دهید");
             focus_view = EprojectInfoview;
@@ -200,7 +177,7 @@ public class Addproject extends Activity {
                     ButtonView.setVisibility(View.VISIBLE);
                     AlertDialog.Builder builder = new AlertDialog.Builder(Addproject.this);
                     builder.setCancelable(false);
-                    builder.setMessage("خطا!");
+                    builder.setMessage("خطای سرور");
                     builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
@@ -230,7 +207,6 @@ public class Addproject extends Activity {
         InputMethodManager imm = (InputMethodManager)getSystemService(
                 Context.INPUT_METHOD_SERVICE);
         imm.hideSoftInputFromWindow(EprojectNameView.getWindowToken(), 0);
-   //     imm.hideSoftInputFromWindow(Emanagerview.getWindowToken(), 0);
         imm.hideSoftInputFromWindow(EprojectInfoview.getWindowToken(), 0);
 
     }
