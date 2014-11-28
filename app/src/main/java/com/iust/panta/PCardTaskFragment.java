@@ -1,5 +1,7 @@
 package com.iust.panta;
 
+
+
 import android.util.Log;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -10,7 +12,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.ArrayAdapter;
+import android.widget.AdapterView;
+import android.content.Intent;
 
+import android.widget.Toast;
+
+import com.iust.panta.interface1.InterfaceCommiunication;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
@@ -26,7 +33,9 @@ public class PCardTaskFragment extends Fragment {
 
     private ListView listView;
     private   ArrayList<String> taskNameArray;
+    private ArrayList<Integer>  taskID;
     private  View rootView;
+    //private OnItemClickListener onItemClickListener ;
     @Override
 
 
@@ -38,6 +47,7 @@ public class PCardTaskFragment extends Fragment {
 
         listView=(ListView)rootView.findViewById(R.id.listView);
         taskNameArray = new ArrayList<String>();
+        taskID=new ArrayList<Integer>();
         RequestParams params = new RequestParams();
         params.put("projectID", 1);
         AsyncHttpClient client = new AsyncHttpClient();
@@ -56,10 +66,12 @@ public class PCardTaskFragment extends Fragment {
                     JSONObject jobj=new JSONObject(new String(response));
                     JSONArray ProjectTasksInformation= jobj.getJSONArray("project_tasks");
 
+
                   //  Dictionary<int,int> indexToTaskId=new Dictionary<int, int>() ;
                     for (int i=0; i<ProjectTasksInformation.length();i++)
                     {
                         taskNameArray.add(ProjectTasksInformation.getJSONObject(i).getString("taskName"));
+                        taskID.add(ProjectTasksInformation.getJSONObject(i).getInt("taskID"));
 
                 
                     }
@@ -95,6 +107,37 @@ public class PCardTaskFragment extends Fragment {
         // this.get activity is for fragments
 
 
+
+  //  listView
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position,long arg3) {
+
+                    Log.d("selected TaskID ","taskID"+(taskID.get(position)));
+                    Intent intent=new Intent(getActivity(),TaskCard.class);
+                    intent.putExtra("taskID",taskID.get(position));
+                    startActivity(intent);
+
+            }
+        });
         return rootView;
+
+
+
     }
+
+/*
+    @Override
+    public void testFunction1()
+    {
+        //Toast.makeTex,"Clicked",Toast.LENGTH_LONG).show();
+    }
+    @Override
+    public void testFunction2()
+    {
+        //Toast.makeTex,"Clicked",Toast.LENGTH_LONG).show();
+    }*/
 }
+
