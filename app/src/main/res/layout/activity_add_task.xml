@@ -91,7 +91,7 @@
                 android:layout_below="@+id/TTaskInfo"
                 android:layout_marginTop="20dp"
                 android:background="#ffffff"
-                android:inputType="text"
+                android:inputType="textMultiLine"
                 android:lines="3"
                 android:textSize="@dimen/font" />
 
