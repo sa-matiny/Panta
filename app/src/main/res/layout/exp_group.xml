@@ -1,15 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
-    android:layout_height="80dip"
+    android:layout_height="fill_parent"
     android:orientation="horizontal"
     android:layout_gravity="right"
-    android:gravity="right">
+    android:gravity="right"
+    android:weightSum="1">
+
+    <Button
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="New Button"
+        android:id="@+id/button"
+        android:layout_weight="16.65"
+        android:focusable="false"/>
 
     <TextView
         android:id="@+id/tvGroup"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="42dp"
         android:textSize="22dip"
         android:gravity="right"
         android:layout_marginRight="10dp"

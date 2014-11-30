@@ -43,24 +43,28 @@ public class Home extends Activity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_home);
+        Log.d("11111111111","1111111111");
 
-        mNavigationDrawerFragment = (NavigationDrawerFragment)
-                getFragmentManager().findFragmentById(R.id.navigation_drawer);
+
+
+
+        Log.d("55555","5555555");
+
         mTitle = getTitle();
 
         // Set up the drawer.
-        mNavigationDrawerFragment.setUp(
-                R.id.navigation_drawer,
-                (DrawerLayout) findViewById(R.id.drawer_layout));
+
+
+
+
+
 
         f_data=false;
 
         try {
            // Log.d("test","inja");
             Intent intent = getIntent();
-           // Log.d("try",intent.getExtras().getString("projects"));
+            Log.d("try",intent.getExtras().getString("projects"));
             JSONArray unyekijo =new JSONArray(intent.getExtras().getString("projects"));
 
            // Log.d("array",unyekijo.toString());
@@ -74,9 +78,11 @@ public class Home extends Activity
                 JSONObject temp=new JSONObject(unyekijo.getString(i));
                 list.add(temp.getString("projectName"));
             }
+
+            Log.d("myList",list.toString());
             if(list.isEmpty())
             {
-               // Log.d("flag","umadam");
+
                 f_data=false;
                 expGroup = SetStandardGroup(f_data);
             }
@@ -100,6 +106,8 @@ public class Home extends Activity
             expGroup=SetStandardGroup(f_data);
             return;
         }
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_home);
        // Log.d("resid b exlist","ok");
         try {
             Explist = (ExpandableListView) findViewById(R.id.Final_list);
@@ -112,11 +120,20 @@ public class Home extends Activity
             Log.d("asan moshkel chie",expGroup.toString());}
         //Log.d("try", "injammmm");
 
+        Log.d("2","2");
         // registerForContextMenu(men);
+        mNavigationDrawerFragment = (NavigationDrawerFragment)
+                getFragmentManager().findFragmentById(R.id.navigation_drawer);
+
+        mNavigationDrawerFragment.setUp(
+                R.id.navigation_drawer,
+                (DrawerLayout) findViewById(R.id.drawer_layout));
     }
 
     public ArrayList<ExpandGroupList> SetStandardGroup(boolean flag) {
 
+
+        Log.d("3","3");
         ArrayList<ExpandGroupList> lst = new ArrayList<ExpandGroupList>();
 
         if (flag) {
@@ -183,12 +200,21 @@ public class Home extends Activity
     @Override
     public void onNavigationDrawerItemSelected(int position) {
 
+        Log.d("4","4");
         Fragment objfrag= null;
+        Bundle bundle =new Bundle();
+        Log.d("Selected******","selected");
+
         switch (position)
         {
-            case 0:
+            case 0: {
                 objfrag = new HomeProfileFragment();
+                //Log.d("Mylist in case",list.toString());
+                bundle.putStringArrayList("Projects",list);
+                Log.i("Bundle",bundle.toString());
+                objfrag.setArguments(bundle);
 
+            }
                 break;
             case 1:
                 objfrag = new HomeAddProjectFragment();
@@ -197,7 +223,14 @@ public class Home extends Activity
                 objfrag = new HomeSettingFragment();
                 break;
             default:
+            {
                 objfrag = new HomeProfileFragment();
+                Log.d("defult Mylist in case",list.toString());
+                bundle.putStringArrayList("Projects",list);
+                Log.i("defult Bundle",bundle.toString());
+                objfrag.setArguments(bundle);
+
+            }
                 break;
 
         }

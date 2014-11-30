@@ -5,14 +5,35 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.util.Log;
 
 /**
  * Created by Rayehe on 11/23/2014.
  */
 public class HomeProfileFragment extends Fragment {
 
+    private Bundle bundle;
+
+    @Override
+    public void onCreate(Bundle savedInstanceState)
+    {
+        super.onCreate(savedInstanceState);
+
+        bundle=new Bundle();
+
+        bundle=this.getArguments();
+
+        Log.d("GetBundle",bundle.toString());
+
+    }
+
+    @Override
+
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle saveInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_home_profile, container, false);
+
+
+
 
         return rootView;
     }
