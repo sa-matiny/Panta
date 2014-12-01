@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.iust.panta.Expands.ExpandChildList;
 import com.iust.panta.Expands.ExpandGroupList;
+import com.iust.panta.Home;
 import com.iust.panta.HomeProfileFragment;
 import com.iust.panta.ProjectCard;
 import com.iust.panta.R;
@@ -92,8 +93,12 @@ public class ExpandListViewAdapter extends BaseExpandableListAdapter {
             @Override
             public void onClick(View view) {
 
-                String idd=id;
-                Log.d("clicked", idd);
+                int idd=Integer.parseInt(id);
+
+                Log.d("clicked", Integer.toString(idd));
+                Intent intent=new Intent(context,ProjectCard.class);
+                intent.putExtra("projectId",idd);
+                context.startActivity(intent);
 
 
             }
