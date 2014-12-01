@@ -27,7 +27,7 @@ import org.apache.http.Header;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class  ProjectCard extends FragmentActivity implements
+public class ProjectCard extends FragmentActivity implements
         ActionBar.TabListener {
 
     private ViewPager viewPager;
@@ -53,15 +53,9 @@ public class  ProjectCard extends FragmentActivity implements
         msg_main = new Bundle();
         msg_member = new Bundle();
         msg_task = new Bundle();
-        <<<<<<<Updated upstream
-        msg_main.putInt("projectID", 1);
-        msg_task.putInt("projectID", 1);
-        msg_member.putInt("projectID", 1);
-        =======
         msg_main.putInt("projectID", projectID);
         msg_member.putInt("projectID", projectID);
         msg_task.putInt("projectID", projectID);
-        >>>>>>>Stashed changes
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_project_card);
