@@ -32,49 +32,126 @@ public class  ProjectCard extends FragmentActivity implements
     private ViewPager viewPager;
     private TabsPagerAdapter mAdapter;
     private ActionBar actionBar;
+    private Bundle msg_main;
+    private Bundle msg_task;
+    private Bundle msg_member;
+    private boolean fail;
+
     // Tab titles
     private String[] tabs = {"معرفی پروژه", "وظایف", "اعضا"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        //Bundel msg for projectID
+        msg_main = new Bundle();
+        msg_member = new Bundle();
+        msg_task = new Bundle();
+        msg_main.putInt("projectID", 1);
+        msg_main.putInt("projectID", 1);
+        msg_main.putInt("projectID", 1);
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_project_card);
 
-        // Initilization
-        viewPager = (ViewPager) findViewById(R.id.pager);
-        actionBar = getActionBar();
-        mAdapter = new TabsPagerAdapter(getSupportFragmentManager());
-
-        viewPager.setAdapter(mAdapter);
-        actionBar.setHomeButtonEnabled(false);
-        actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
-
-        // Adding Tabs
-        for (String tab_name : tabs) {
-            actionBar.addTab(actionBar.newTab().setText(tab_name)
-                    .setTabListener(this));
-        }
-
-        /**
-         * on swiping the viewpager make respective tab selected
-         * */
-        viewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+        RequestParams params = new RequestParams();
+        params.put("projectID", 1);
+        AsyncHttpClient client = new AsyncHttpClient();
+        Log.d("111", "1144444444");
+        client.post("http://104.236.33.128:8800/projectInfo/", params, new AsyncHttpResponseHandler() {
 
             @Override
-            public void onPageSelected(int position) {
-                // on changing the page
-                // make respected tab selected
-                actionBar.setSelectedNavigationItem(position);
+            public void onStart() {
+                System.out.println("****Start");
             }
 
             @Override
-            public void onPageScrolled(int arg0, float arg1, int arg2) {
+            public void onSuccess(int statusCode, Header[] headers, byte[] response) {
+                System.out.println("kheili khariii");
+                try {
+                    Log.d("RESPONSE", new String(response));
+                    JSONObject s_response = new JSONObject(new String(response));
+                    JSONObject pro_info = s_response.getJSONObject("projectInfo");
+                    //Main
+                    msg_main.putByteArray("response", response);
+                    //Task
+                    msg_task.putString("managerUser", pro_info.getString("managerUser"));
+                    msg_task.putString("managerName", pro_info.getString("managerName"));
+                    //Member
+                    msg_member.putString("managerUser", pro_info.getString("managerUser"));
+                    msg_member.putString("managerName", pro_info.getString("managerName"));
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                    System.out.println("Catch");
+                }
             }
 
             @Override
-            public void onPageScrollStateChanged(int arg0) {
+            public void onFailure(int statusCode, Header[] headers, byte[] errorResponse, Throwable e) {
+                System.out.println("Fail");
+                AlertDialog.Builder builder = new AlertDialog.Builder(ProjectCard.this);
+                builder.setCancelable(false);
+                builder.setMessage("خطا! اتصال به اینترنت با مشکل مواجه است");
+                builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                });
+                AlertDialog alert = builder.create();
+                alert.show();
+
             }
+
+
+            @Override
+            public void onFinish() {
+                System.out.println("Finish");
+                // Completed the request (either success or failure)
+
+
+                Log.d("22", "22");
+                // Initilization
+                viewPager = (ViewPager) findViewById(R.id.pager);
+                actionBar = getActionBar();
+                mAdapter = new TabsPagerAdapter(getSupportFragmentManager());
+
+                viewPager.setAdapter(mAdapter);
+                actionBar.setHomeButtonEnabled(false);
+                actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
+
+
+                // Adding Tabs
+                for (String tab_name : tabs) {
+                    actionBar.addTab(actionBar.newTab().setText(tab_name)
+                            .setTabListener(ProjectCard.this));
+                }
+
+                /**
+                 * on swiping the viewpager make respective tab selected
+                 * */
+                viewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+
+                    @Override
+                    public void onPageSelected(int position) {
+                        // on changing the page
+                        // make respected tab selected
+                        actionBar.setSelectedNavigationItem(position);
+                    }
+
+                    @Override
+                    public void onPageScrolled(int arg0, float arg1, int arg2) {
+                    }
+
+                    @Override
+                    public void onPageScrollStateChanged(int arg0) {
+                    }
+                });
+            }
+
         });
+
     }
 
     @Override
@@ -109,6 +186,8 @@ public class  ProjectCard extends FragmentActivity implements
 
             case R.id.action_addtask:
                 Intent intent = new Intent(this, AddTask.class);
+                // TODO PROJECTID
+                intent.putExtra("projectID", 1);
                 startActivity(intent);
                 return true;
 
@@ -205,14 +284,19 @@ public class  ProjectCard extends FragmentActivity implements
 
             switch (index) {
                 case 0:
-                    // Top Rated fragment activity
-                    return new PCardMainFragment();
+                    Fragment PCardMain = new PCardMainFragment();
+                    PCardMain.setArguments(msg_main);
+                    return PCardMain;
+
                 case 1:
-                    // Games fragment activity
-                    return new PCardTaskFragment();
+                    Fragment PCardTask = new PCardTaskFragment();
+                    PCardTask.setArguments(msg_task);
+                    return PCardTask;
+
                 case 2:
-                    // Movies fragment activity
-                    return new PCardMembersFragment();
+                    Fragment PCardMembers = new PCardMembersFragment();
+                    PCardMembers.setArguments(msg_member);
+                    return PCardMembers;
             }
 
             return null;
@@ -225,5 +309,6 @@ public class  ProjectCard extends FragmentActivity implements
         }
 
     }
+
 }
 

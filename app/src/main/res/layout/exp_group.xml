@@ -7,12 +7,12 @@
     android:gravity="right"
     android:weightSum="1">
 
+
     <Button
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="New Button"
-        android:id="@+id/button"
-        android:layout_weight="16.65"
+        android:layout_width="wrap_content"
+        android:layout_height="65dp"
+        android:text="ورود به کارت پروژه"
+        android:id="@+id/enter_card"
         android:focusable="false"/>
 
     <TextView
@@ -22,6 +22,7 @@
         android:textSize="22dip"
         android:gravity="right"
         android:layout_marginRight="10dp"
+        android:focusable="false"
         />
 
 </LinearLayout>
