@@ -39,68 +39,80 @@ public class HomeAddProjectFragment extends Fragment {
 
     private DatePicker datePicker;
 
-    private boolean has_error = false;
+    private Bundle msg;
+
     public View onCreateView(LayoutInflater inflater,ViewGroup container, Bundle saveInstanceState){
-        View rootView = inflater.inflate(R.layout.fragment_home_add_project, container, false);
+        final View rootView = inflater.inflate(R.layout.fragment_home_add_project, container, false);
         TprojectNameView = (TextView) rootView.findViewById(R.id.Tprojectname);
         EprojectNameView = (EditText) rootView.findViewById(R.id.Eprojectname);
 
         TprojectInfoView = (TextView) rootView.findViewById(R.id.TprojectInfo);
         EprojectInfoview = (EditText) rootView.findViewById(R.id.EprojectInfo);
 
+        msg = new Bundle();
+        msg = getArguments();
+
         ButtonView = (Button) rootView.findViewById(R.id.add_project_button);
+        ButtonView.setOnClickListener(new View.OnClickListener()
+
+        {
+            @Override
+            public void onClick(View view) {
+
+                //set null error
+                EprojectNameView.setError(null);
+                //     Emanagerview.setError(null);
+                EprojectInfoview.setError(null);
+
+
+                //set variable
+                boolean has_error = false;
+                String EprojectName = EprojectNameView.getText().toString();
+                String EprojectInfo = EprojectInfoview.getText().toString();
+
+                View focus_view;
+                ProgressView.setVisibility(View.VISIBLE);
+
+
+                // check if Edit texts are Empty
+
+                if (TextUtils.isEmpty(EprojectName)) {
+                    EprojectNameView.setError("نام پروژه را وارد کنید");
+                    focus_view = EprojectNameView;
+                    focus_view.requestFocus();
+                    has_error = true;
+
+
+                }
+                if (TextUtils.isEmpty(EprojectInfo)) {
+                    EprojectInfoview.setError("اطلاعاتی درباره پروژه ارائه دهید");
+                    focus_view = EprojectInfoview;
+                    focus_view.requestFocus();
+                    has_error = true;
+
+
+                }
+                if (has_error)
+                    ProgressView.setVisibility(View.GONE);
+
+                writeInAddProjectTb(has_error);
+
+            }
+        });
         ProgressView = (ProgressBar) rootView.findViewById(R.id.AddProject_progress);
         datePicker = (DatePicker) rootView.findViewById(R.id.datePicker);
 
         return rootView;
     }
 
-    public void Addproject(View view) {
-        //set null error
-        EprojectNameView.setError(null);
-        //     Emanagerview.setError(null);
-        EprojectInfoview.setError(null);
 
-
-        //set variable
-        this.has_error = false;
-        String EprojectName = EprojectNameView.getText().toString();
-        String EprojectInfo = EprojectInfoview.getText().toString();
-
-        View focus_view;
-        ProgressView.setVisibility(View.VISIBLE);
-
-
-        // check if Edit texts are Empty
-
-        if (TextUtils.isEmpty(EprojectName)) {
-            EprojectNameView.setError("نام پروژه را وارد کنید");
-            focus_view = EprojectNameView;
-            focus_view.requestFocus();
-            this.has_error = true;
-
-
-        }
-        if (TextUtils.isEmpty(EprojectInfo)) {
-            EprojectInfoview.setError("اطلاعاتی درباره پروژه ارائه دهید");
-            focus_view = EprojectInfoview;
-            focus_view.requestFocus();
-            this.has_error = true;
-
-
-        }
-        if (this.has_error)
-            ProgressView.setVisibility(View.GONE);
-        writeInAddProjectTb();
-    }
-
-    public void writeInAddProjectTb() {
+    public void writeInAddProjectTb(boolean has_error) {
         if (!has_error) {
             ButtonView.setVisibility(View.GONE);
             ProgressView.setVisibility(View.VISIBLE);
             RequestParams params = new RequestParams();
             params.put("projectName", EprojectNameView.getText().toString());
-            params.put("username", "fari@yahoo.com");
+            params.put("username", msg.getString("username"));
             params.put("project_info", EprojectInfoview.getText().toString());
             params.put("year", String.valueOf(datePicker.getYear()));
             params.put("month", String.valueOf(datePicker.getMonth()));

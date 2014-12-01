@@ -62,7 +62,7 @@ public class ProjectCard extends FragmentActivity implements
 
 
         RequestParams params = new RequestParams();
-        params.put("projectID", 1);
+        params.put("projectID", projectID);
         AsyncHttpClient client = new AsyncHttpClient();
         client.post("http://104.236.33.128:8800/projectInfo/", params, new AsyncHttpResponseHandler() {
 
@@ -79,7 +79,8 @@ public class ProjectCard extends FragmentActivity implements
                     JSONObject pro_info = s_response.getJSONObject("projectInfo");
 
                     manager = new Boolean(false);
-                    if (pro_info.getString("managerUser").equals("user")) {
+                    // TODO : set username
+                    if (pro_info.getString("managerUser").equals("smatinfar50@gmail.com")) {
                         manager = true;
                     }
 
@@ -203,7 +204,6 @@ public class ProjectCard extends FragmentActivity implements
                     break;
                 }
                 Intent intent = new Intent(this, AddTask.class);
-                // TODO PROJECTID
                 intent.putExtra("projectID", projectID);
                 startActivity(intent);
                 return true;

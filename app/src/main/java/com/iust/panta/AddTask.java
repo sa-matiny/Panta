@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -37,6 +38,7 @@ public class AddTask extends Activity {
     private Button ButtonView;
     private ProgressBar ProgressView;
     private boolean has_error = false;
+    private int projectID;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -54,6 +56,9 @@ public class AddTask extends Activity {
 
         ButtonView = (Button) findViewById(R.id.add_Task_button);
         ProgressView = (ProgressBar) findViewById(R.id.AddTask_progress);
+
+        Intent intent = getIntent();
+        projectID = intent.getExtras().getInt("projectID");
 
     }
 
@@ -120,7 +125,7 @@ public class AddTask extends Activity {
             ProgressView.setVisibility(View.VISIBLE);
             RequestParams params = new RequestParams();
             params.put("username", EUserNameView.getText().toString());
-            params.put("projectID", "1");
+            params.put("projectID", projectID);
             params.put("taskName", ETaskNameView.getText().toString());
             params.put("task_info", ETaskInfoView.getText().toString());
             params.put("year", String.valueOf(datePicker.getYear()));

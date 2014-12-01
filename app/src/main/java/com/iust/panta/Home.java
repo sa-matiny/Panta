@@ -28,6 +28,8 @@ public class Home extends Activity
     public boolean f_data;
     public ArrayList<String> list;
     public String name;
+    public Bundle data;
+    public String userName;
     /**
      * Fragment managing the behaviors, interactions and presentation of the navigation drawer.
      */
@@ -39,7 +41,6 @@ public class Home extends Activity
     private ExpandListViewAdapter Expadapter;
     private ArrayList<ExpandGroupList> expGroup;
     private ExpandableListView Explist;
-    public Bundle data;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,6 +74,7 @@ public class Home extends Activity
 
             JSONObject info = new JSONObject(intent.getExtras().getString("user_info"));
             setTitle(info.getString("name"));
+            userName = new String(info.getString("username"));
             list=new ArrayList<String>();
             for(int i=0;i<unyekijo.length();i++)
             {
@@ -219,7 +221,9 @@ public class Home extends Activity
             }
                 break;
             case 1:
+                bundle.putString("username", userName);
                 objfrag = new HomeAddProjectFragment();
+                objfrag.setArguments(bundle);
                 break;
             case 2:
                 objfrag = new HomeSettingFragment();
