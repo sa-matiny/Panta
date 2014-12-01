@@ -39,6 +39,7 @@ public class Home extends Activity
     private ExpandListViewAdapter Expadapter;
     private ArrayList<ExpandGroupList> expGroup;
     private ExpandableListView Explist;
+    public Bundle data;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,7 +67,8 @@ public class Home extends Activity
             Intent intent = getIntent();
             Log.d("try",intent.getExtras().getString("projects"));
             JSONArray unyekijo =new JSONArray(intent.getExtras().getString("projects"));
-
+            data=intent.getExtras();
+            Log.d("b",data.getString("projects"));
            // Log.d("array",unyekijo.toString());
 
             JSONObject info = new JSONObject(intent.getExtras().getString("user_info"));
@@ -210,7 +212,7 @@ public class Home extends Activity
             case 0: {
                 objfrag = new HomeProfileFragment();
                 //Log.d("Mylist in case",list.toString());
-                bundle.putStringArrayList("Projects",list);
+                bundle.putBundle("Projects",data);
                 Log.i("Bundle",bundle.toString());
                 objfrag.setArguments(bundle);
 

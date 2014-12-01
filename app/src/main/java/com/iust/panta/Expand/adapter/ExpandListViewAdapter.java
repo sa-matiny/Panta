@@ -1,14 +1,17 @@
 package com.iust.panta.Expand.adapter;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.iust.panta.Expands.ExpandChildList;
 import com.iust.panta.Expands.ExpandGroupList;
+import com.iust.panta.HomeProfileFragment;
 import com.iust.panta.R;
 
 import java.util.ArrayList;
@@ -68,12 +71,25 @@ public class ExpandListViewAdapter extends BaseExpandableListAdapter {
     }
     public View getGroupView(int groupPosition,boolean isLastChild,View v,ViewGroup parent){
         ExpandGroupList g=(ExpandGroupList)getGroup(groupPosition);
+        //viewHolder holder=null;
         if(v==null){
             LayoutInflater inf=(LayoutInflater)context.getSystemService(context.LAYOUT_INFLATER_SERVICE);
             v=inf.inflate(R.layout.exp_group,null);
+           /* holder=new viewHolder(v);
+              v.setTag(holder);
+              holder=(viewHolder) v.getTag();*/
         }
         TextView tv=(TextView) v.findViewById(R.id.tvGroup);
-        tv.setText(g.getName());
+        //tv.setText(g.getName());
+
+       /* v.getTag();
+        holder.getEnter().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Log.d("clicked", "enterB");
+
+            }
+        });*/
         return v;
     }
     public boolean hasStableIds(){
@@ -81,5 +97,30 @@ public class ExpandListViewAdapter extends BaseExpandableListAdapter {
     }
     public boolean isChildSelectable(int arg0, int arg1){
         return true;
+    }
+
+
+    private class viewHolder{
+        private View mRow;
+        private TextView description=null;
+        private Button enter=null;
+        public viewHolder(View row){
+            mRow=row;
+        }
+        public TextView getDescription(){
+            if(description==null)
+            {
+                description=(TextView) mRow.findViewById(R.id.tvGroup);
+            }
+            return description;
+        }
+        public Button getEnter(){
+            if(enter==null)
+            {
+                enter=(Button) mRow.findViewById(R.id.enter_card);
+
+            }
+            return enter;
+        }
     }
 }
