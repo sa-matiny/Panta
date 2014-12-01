@@ -1,6 +1,7 @@
 package com.iust.panta.Expand.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +13,7 @@ import android.widget.TextView;
 import com.iust.panta.Expands.ExpandChildList;
 import com.iust.panta.Expands.ExpandGroupList;
 import com.iust.panta.HomeProfileFragment;
+import com.iust.panta.ProjectCard;
 import com.iust.panta.R;
 
 import java.util.ArrayList;
@@ -71,25 +73,31 @@ public class ExpandListViewAdapter extends BaseExpandableListAdapter {
     }
     public View getGroupView(int groupPosition,boolean isLastChild,View v,ViewGroup parent){
         ExpandGroupList g=(ExpandGroupList)getGroup(groupPosition);
-        //viewHolder holder=null;
+        final String id=((ExpandGroupList) getGroup(groupPosition)).getId();
+        Button button=null;
         if(v==null){
             LayoutInflater inf=(LayoutInflater)context.getSystemService(context.LAYOUT_INFLATER_SERVICE);
             v=inf.inflate(R.layout.exp_group,null);
-           /* holder=new viewHolder(v);
+
+         /*   holder=new viewHolder(v);
               v.setTag(holder);
               holder=(viewHolder) v.getTag();*/
         }
+        button=(Button) v.findViewById(R.id.enter_card);
         TextView tv=(TextView) v.findViewById(R.id.tvGroup);
-        //tv.setText(g.getName());
+        tv.setText(g.getName());
 
-       /* v.getTag();
-        holder.getEnter().setOnClickListener(new View.OnClickListener() {
+        v.getTag();
+        button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.d("clicked", "enterB");
+
+                String idd=id;
+                Log.d("clicked", idd);
+
 
             }
-        });*/
+        });
         return v;
     }
     public boolean hasStableIds(){

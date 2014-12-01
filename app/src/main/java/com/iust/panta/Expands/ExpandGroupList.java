@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 public class ExpandGroupList {
     private String name;
+    private String Id;
     private ArrayList<ExpandChildList> Itemes;
 
     public String getName(){
@@ -18,5 +19,7 @@ public class ExpandGroupList {
     public void setItemes(ArrayList<ExpandChildList> Items){
         this.Itemes=Items;
     }
+    public String getId(){return Id;}
+    public void setId(String id){this.Id=id;}
 
 }

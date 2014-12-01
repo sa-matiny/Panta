@@ -127,6 +127,7 @@ public class HomeProfileFragment extends Fragment {
                     ArrayList<ExpandChildList> lst2 = new ArrayList<ExpandChildList>();
                     ExpandGroupList gr1 = new ExpandGroupList();
                     gr1.SetName(key);
+                    gr1.setId(project_name.get(key));
                     ExpandChildList ch1 = new ExpandChildList();
                     ch1.setName("tast1");
                     ch1.setTag(null);
