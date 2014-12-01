@@ -17,6 +17,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
@@ -35,7 +36,8 @@ public class  ProjectCard extends FragmentActivity implements
     private Bundle msg_main;
     private Bundle msg_task;
     private Bundle msg_member;
-    private boolean fail;
+    private Boolean manager;
+    private int projectID;
 
     // Tab titles
     private String[] tabs = {"معرفی پروژه", "وظایف", "اعضا"};
@@ -43,35 +45,50 @@ public class  ProjectCard extends FragmentActivity implements
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
+        Intent intent = getIntent();
+        projectID = intent.getExtras().getInt("projectId");
+
+
         //Bundel msg for projectID
         msg_main = new Bundle();
         msg_member = new Bundle();
         msg_task = new Bundle();
+        <<<<<<<Updated upstream
         msg_main.putInt("projectID", 1);
         msg_task.putInt("projectID", 1);
         msg_member.putInt("projectID", 1);
+        =======
+        msg_main.putInt("projectID", projectID);
+        msg_member.putInt("projectID", projectID);
+        msg_task.putInt("projectID", projectID);
+        >>>>>>>Stashed changes
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_project_card);
 
+
         RequestParams params = new RequestParams();
         params.put("projectID", 1);
         AsyncHttpClient client = new AsyncHttpClient();
-        Log.d("111", "1144444444");
         client.post("http://104.236.33.128:8800/projectInfo/", params, new AsyncHttpResponseHandler() {
 
             @Override
             public void onStart() {
-                System.out.println("****Start");
+                System.out.println("Start");
             }
 
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] response) {
-                System.out.println("kheili khariii");
                 try {
                     Log.d("RESPONSE", new String(response));
                     JSONObject s_response = new JSONObject(new String(response));
                     JSONObject pro_info = s_response.getJSONObject("projectInfo");
+
+                    manager = new Boolean(false);
+                    if (pro_info.getString("managerUser").equals("user")) {
+                        manager = true;
+                    }
+
                     //Main
                     msg_main.putByteArray("response", response);
                     //Task
@@ -186,13 +203,22 @@ public class  ProjectCard extends FragmentActivity implements
         switch (id) {
 
             case R.id.action_addtask:
+                Log.d("me", manager.toString());
+                if (!manager) {
+                    Toast.makeText(getApplicationContext(), "تنها مدیر پروژه می تواند وظیفه اضافه کند", Toast.LENGTH_LONG).show();
+                    break;
+                }
                 Intent intent = new Intent(this, AddTask.class);
                 // TODO PROJECTID
-                intent.putExtra("projectID", 1);
+                intent.putExtra("projectID", projectID);
                 startActivity(intent);
                 return true;
 
             case R.id.action_addmember:
+                if (!manager) {
+                    Toast.makeText(getApplicationContext(), "تنها مدیر پروژه می تواند عضو اضافه کند", Toast.LENGTH_LONG).show();
+                    break;
+                }
                 AlertDialog.Builder add_member = new AlertDialog.Builder(this);
                 final EditText input = new EditText(this);
                 System.out.println(input.getInputType());
