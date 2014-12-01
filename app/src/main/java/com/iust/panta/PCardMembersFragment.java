@@ -31,6 +31,8 @@ public class PCardMembersFragment extends Fragment {
     private ListView listView;
     private ArrayList<String> memberArray;
 
+   private String managerUser;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -39,6 +41,9 @@ public class PCardMembersFragment extends Fragment {
         // Initialize
         rootView = inflater.inflate(R.layout.fragment_pcard_members, container, false);
         listView = (ListView) rootView.findViewById(R.id.listView);
+
+
+
 
         // RequestParam
         RequestParams params = new RequestParams();

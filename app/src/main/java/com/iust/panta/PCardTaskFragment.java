@@ -15,9 +15,6 @@ import android.widget.ArrayAdapter;
 import android.widget.AdapterView;
 import android.content.Intent;
 
-import android.widget.Toast;
-
-import com.iust.panta.interface1.InterfaceCommiunication;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
@@ -33,8 +30,12 @@ public class PCardTaskFragment extends Fragment {
 
     private ListView listView;
     private   ArrayList<String> taskNameArray;
-    private ArrayList<Integer>  taskID;
+    private ArrayList<Integer> taskIDArrayList;
+    private Integer projectID;
+    private String managerUser;
     private  View rootView;
+
+   private  Bundle bundle;
     //private OnItemClickListener onItemClickListener ;
     @Override
 
@@ -47,9 +48,20 @@ public class PCardTaskFragment extends Fragment {
 
         listView=(ListView)rootView.findViewById(R.id.listView);
         taskNameArray = new ArrayList<String>();
-        taskID=new ArrayList<Integer>();
+        taskIDArrayList =new ArrayList<Integer>();
+        bundle =new Bundle();
+        bundle=getArguments();
+
+        managerUser=new String();
+
+        projectID=bundle.getInt("projectID");
+
+        managerUser=bundle.getString("managerUser");
+
+        //Todo geting UserName from Login;
+
         RequestParams params = new RequestParams();
-        params.put("projectID", 1);
+        params.put("projectID", projectID);
         AsyncHttpClient client = new AsyncHttpClient();
         client.post("http://104.236.33.128:8800//project_tasks/", params, new AsyncHttpResponseHandler() {
 
@@ -71,7 +83,7 @@ public class PCardTaskFragment extends Fragment {
                     for (int i=0; i<ProjectTasksInformation.length();i++)
                     {
                         taskNameArray.add(ProjectTasksInformation.getJSONObject(i).getString("taskName"));
-                        taskID.add(ProjectTasksInformation.getJSONObject(i).getInt("taskID"));
+                        taskIDArrayList.add(ProjectTasksInformation.getJSONObject(i).getInt("taskIDArrayList"));
 
                 
                     }
@@ -115,9 +127,9 @@ public class PCardTaskFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position,long arg3) {
 
-                    Log.d("selected TaskID ","taskID"+(taskID.get(position)));
+                    Log.d("selected TaskID ","taskIDArrayList"+(taskIDArrayList.get(position)));
                     Intent intent=new Intent(getActivity(),TaskCard.class);
-                    intent.putExtra("taskID",taskID.get(position));
+                    intent.putExtra("taskIDArrayList", taskIDArrayList.get(position));
                     startActivity(intent);
 
             }
