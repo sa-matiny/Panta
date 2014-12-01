@@ -4,16 +4,14 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.util.Log;
-
 
 import com.loopj.android.http.AsyncHttpClient;
-import com.loopj.android.http.AsyncHttpRequest;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 
@@ -54,7 +52,7 @@ public class PCardMembersFragment extends Fragment {
             public void onSuccess(int statusCode, Header[] headers, byte[] response) {
                 try {
 
-                    Log.d("My__RESPONSE", new String(response));
+                    Log.d("My_Member__RESPONSE", new String(response));
 
                     JSONObject jobj = new JSONObject(new String(response));
                     JSONArray ProjectMembersInformation = jobj.getJSONArray("project_users");
@@ -71,8 +69,7 @@ public class PCardMembersFragment extends Fragment {
 
                     listView.setAdapter(ArrayItems);
 
-                }
-                catch (JSONException e) {
+                } catch (JSONException e) {
                     e.printStackTrace();
                 }
             }
