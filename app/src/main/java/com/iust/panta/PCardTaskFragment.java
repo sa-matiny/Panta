@@ -56,6 +56,7 @@ public class PCardTaskFragment extends Fragment {
 
         projectID=bundle.getInt("projectID");
 
+
         managerUser=bundle.getString("managerUser");
 
         //Todo geting UserName from Login;
@@ -83,7 +84,7 @@ public class PCardTaskFragment extends Fragment {
                     for (int i=0; i<ProjectTasksInformation.length();i++)
                     {
                         taskNameArray.add(ProjectTasksInformation.getJSONObject(i).getString("taskName"));
-                        taskIDArrayList.add(ProjectTasksInformation.getJSONObject(i).getInt("taskIDArrayList"));
+                        taskIDArrayList.add(ProjectTasksInformation.getJSONObject(i).getInt("taskID"));
 
                 
                     }
@@ -129,7 +130,7 @@ public class PCardTaskFragment extends Fragment {
 
                     Log.d("selected TaskID ","taskIDArrayList"+(taskIDArrayList.get(position)));
                     Intent intent=new Intent(getActivity(),TaskCard.class);
-                    intent.putExtra("taskIDArrayList", taskIDArrayList.get(position));
+                    intent.putExtra("taskID", taskIDArrayList.get(position));
                     startActivity(intent);
 
             }

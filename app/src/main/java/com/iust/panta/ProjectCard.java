@@ -48,8 +48,8 @@ public class  ProjectCard extends FragmentActivity implements
         msg_member = new Bundle();
         msg_task = new Bundle();
         msg_main.putInt("projectID", 1);
-        msg_main.putInt("projectID", 1);
-        msg_main.putInt("projectID", 1);
+        msg_task.putInt("projectID", 1);
+        msg_member.putInt("projectID", 1);
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_project_card);
@@ -83,6 +83,7 @@ public class  ProjectCard extends FragmentActivity implements
 
                 } catch (JSONException e) {
                     e.printStackTrace();
+
                     System.out.println("Catch");
                 }
             }
