@@ -31,8 +31,6 @@ public class PCardMembersFragment extends Fragment {
     private Bundle bundle;
     private Integer ProjectID;
 
-   private String managerUser;
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -42,9 +40,9 @@ public class PCardMembersFragment extends Fragment {
         rootView = inflater.inflate(R.layout.fragment_pcard_members, container, false);
         listView = (ListView) rootView.findViewById(R.id.listView);
 
-        bundle=new Bundle();
-        bundle= getArguments();
-        ProjectID=bundle.getInt("projectID");
+        bundle = new Bundle();
+        bundle = getArguments();
+        ProjectID = bundle.getInt("projectID");
 
 
         // RequestParam

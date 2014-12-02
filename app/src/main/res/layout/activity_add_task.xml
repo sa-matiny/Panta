@@ -10,6 +10,7 @@
     <ScrollView
         android:layout_width="fill_parent"
         android:layout_height="fill_parent">
+
         <RelativeLayout
             android:layout_width="fill_parent"
             android:layout_height="match_parent"
@@ -19,7 +20,7 @@
             android:paddingStart="@dimen/activity_horizontal_margin"
             android:paddingTop="@dimen/activity_vertical_margin">
 
-        <TextView
+            <TextView
                 android:id="@+id/TUserName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -117,7 +118,7 @@
                 android:background="@color/actionbar"
                 android:clickable="true"
                 android:onClick="AddTask"
-                android:text="ثبت وظیفه"
+                android:text="اعمال تغییرات"
                 android:textColor="@color/background"
                 android:textSize="@dimen/font"
                 android:textStyle="bold" />

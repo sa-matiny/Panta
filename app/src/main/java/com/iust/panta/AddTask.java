@@ -162,6 +162,7 @@ public class AddTask extends Activity {
                                 }
                             });
                             dlg.create().show();
+                            finish();
                         } else {
                             AlertDialog.Builder dlg = new AlertDialog.Builder(AddTask.this);
                             dlg.setCancelable(false);
@@ -210,16 +211,5 @@ public class AddTask extends Activity {
 
         }
     }
-
-
-    public void ClickOnAddTaskBody(View view) {
-
-        InputMethodManager imm = (InputMethodManager) getSystemService(
-                Context.INPUT_METHOD_SERVICE);
-        imm.hideSoftInputFromWindow(EUserNameView.getWindowToken(), 0);
-        imm.hideSoftInputFromWindow(ETaskNameView.getWindowToken(), 0);
-        imm.hideSoftInputFromWindow(ETaskInfoView.getWindowToken(), 0);
-    }
-
 
 }

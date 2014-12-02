@@ -1,19 +1,18 @@
 package com.iust.panta;
 
 
-
-import android.util.Log;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ListView;
-import android.widget.ArrayAdapter;
 import android.widget.AdapterView;
-import android.content.Intent;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
@@ -29,13 +28,14 @@ import java.util.ArrayList;
 public class PCardTaskFragment extends Fragment {
 
     private ListView listView;
-    private   ArrayList<String> taskNameArray;
+    private ArrayList<String> taskNameArray;
     private ArrayList<Integer> taskIDArrayList;
     private Integer projectID;
-    private String managerUser;
-    private  View rootView;
+    private boolean manager;
+    private View rootView;
 
-   private  Bundle bundle;
+    private Bundle bundle;
+
     //private OnItemClickListener onItemClickListener ;
     @Override
 
@@ -44,22 +44,18 @@ public class PCardTaskFragment extends Fragment {
                              Bundle savedInstanceState) {
 
 
-       rootView= inflater.inflate(R.layout.fragment_pcard_task, container, false);
+        rootView = inflater.inflate(R.layout.fragment_pcard_task, container, false);
 
-        listView=(ListView)rootView.findViewById(R.id.listView);
+        listView = (ListView) rootView.findViewById(R.id.listView);
         taskNameArray = new ArrayList<String>();
-        taskIDArrayList =new ArrayList<Integer>();
-        bundle =new Bundle();
-        bundle=getArguments();
+        taskIDArrayList = new ArrayList<Integer>();
+        bundle = new Bundle();
+        bundle = getArguments();
 
-        managerUser=new String();
+        projectID = bundle.getInt("projectID");
 
-        projectID=bundle.getInt("projectID");
+        manager = bundle.getBoolean("manager");
 
-
-        managerUser=bundle.getString("managerUser");
-
-        //Todo geting UserName from Login;
 
         RequestParams params = new RequestParams();
         params.put("projectID", projectID);
@@ -74,26 +70,24 @@ public class PCardTaskFragment extends Fragment {
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] response) {
                 try {
-                     Log.d("My__RESPONSE", new String(response));
+                    Log.d("My__RESPONSE", new String(response));
 
-                    JSONObject jobj=new JSONObject(new String(response));
-                    JSONArray ProjectTasksInformation= jobj.getJSONArray("project_tasks");
+                    JSONObject jobj = new JSONObject(new String(response));
+                    JSONArray ProjectTasksInformation = jobj.getJSONArray("project_tasks");
 
 
-                  //  Dictionary<int,int> indexToTaskId=new Dictionary<int, int>() ;
-                    for (int i=0; i<ProjectTasksInformation.length();i++)
-                    {
+                    //  Dictionary<int,int> indexToTaskId=new Dictionary<int, int>() ;
+                    for (int i = 0; i < ProjectTasksInformation.length(); i++) {
                         taskNameArray.add(ProjectTasksInformation.getJSONObject(i).getString("taskName"));
                         taskIDArrayList.add(ProjectTasksInformation.getJSONObject(i).getInt("taskID"));
 
-                
+
                     }
-                    ArrayAdapter<String> ArrayItems =new ArrayAdapter<String>(PCardTaskFragment.this.getActivity(),android.R.layout.simple_list_item_1, taskNameArray);
+                    ArrayAdapter<String> ArrayItems = new ArrayAdapter<String>(PCardTaskFragment.this.getActivity(), android.R.layout.simple_list_item_1, taskNameArray);
 
                     listView.setAdapter(ArrayItems);
 
-                }
-                catch (JSONException e) {
+                } catch (JSONException e) {
                     e.printStackTrace();
                 }
             }
@@ -113,30 +107,29 @@ public class PCardTaskFragment extends Fragment {
                 AlertDialog alert = builder.create();
                 alert.show();
 
-              //  Log.d("problemm",new String("in catching"));
+                //  Log.d("problemm",new String("in catching"));
             }
 
         });
         // this.get activity is for fragments
 
 
-
-  //  listView
+        //  listView
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position,long arg3) {
+            public void onItemClick(AdapterView<?> parent, View view, int position, long arg3) {
 
-                    Log.d("selected TaskID ","taskIDArrayList"+(taskIDArrayList.get(position)));
-                    Intent intent=new Intent(getActivity(),TaskCard.class);
-                    intent.putExtra("taskID", taskIDArrayList.get(position));
-                    startActivity(intent);
+                Log.d("selected TaskID ", "taskIDArrayList" + (taskIDArrayList.get(position)));
+                Intent intent = new Intent(getActivity(), TaskCard.class);
+                intent.putExtra("taskID", taskIDArrayList.get(position));
+                intent.putExtra("manager", manager);
+                startActivity(intent);
 
             }
         });
         return rootView;
-
 
 
     }

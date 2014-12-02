@@ -25,6 +25,7 @@ import org.json.JSONObject;
 
 public class LoginActivity extends Activity {
 
+    SqliteController controller = new SqliteController(this);
     private EditText mEmailView;
     private EditText mPasswordView;
     private ProgressBar mProgressView;
@@ -116,10 +117,16 @@ public class LoginActivity extends Activity {
                         JSONObject s_response= new JSONObject(new String(response));
                         if(s_response.getBoolean("successful"))
                         {
+
+                            JSONObject user = new JSONObject(s_response.getJSONObject("user_info").toString());
+                            controller.insertMe(user.getString("username"), user.getString("name"));
+                            JSONObject hi = controller.getMe();
+                            Log.d("hi", hi.toString());
                             Intent intent = new Intent(LoginActivity.this,Home.class);
                             Log.d("array",s_response.getJSONArray("projects").toString());
                             intent.putExtra("projects",s_response.getJSONArray("projects").toString());
                             intent.putExtra("user_info",s_response.getJSONObject("user_info").toString());
+
                             finish();
                             startActivity(intent);
 

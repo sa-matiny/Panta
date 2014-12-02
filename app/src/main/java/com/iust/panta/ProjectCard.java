@@ -39,6 +39,8 @@ public class ProjectCard extends FragmentActivity implements
     private Boolean manager;
     private int projectID;
 
+    private JSONObject pro_info;
+
     // Tab titles
     private String[] tabs = {"معرفی پروژه", "وظایف", "اعضا"};
 
@@ -47,6 +49,8 @@ public class ProjectCard extends FragmentActivity implements
 
         Intent intent = getIntent();
         projectID = intent.getExtras().getInt("projectId");
+
+        final SqliteController controller = new SqliteController(this);
 
 
         //Bundel msg for projectID
@@ -76,22 +80,26 @@ public class ProjectCard extends FragmentActivity implements
                 try {
                     Log.d("RESPONSE", new String(response));
                     JSONObject s_response = new JSONObject(new String(response));
-                    JSONObject pro_info = s_response.getJSONObject("projectInfo");
+                    pro_info = s_response.getJSONObject("projectInfo");
 
                     manager = new Boolean(false);
                     // TODO : set username
-                    if (pro_info.getString("managerUser").equals("smatinfar50@gmail.com")) {
+                    JSONObject data = controller.getMe();
+                    Log.d("meeeeeeee", data.getString("username"));
+                    if (pro_info.getString("managerUser").equals(data.getString("username"))) {
                         manager = true;
+
                     }
+                    msg_task.putBoolean("manager", manager);
 
                     //Main
                     msg_main.putByteArray("response", response);
-                    //Task
+                    /*//Task
                     msg_task.putString("managerUser", pro_info.getString("managerUser"));
                     msg_task.putString("managerName", pro_info.getString("managerName"));
                     //Member
                     msg_member.putString("managerUser", pro_info.getString("managerUser"));
-                    msg_member.putString("managerName", pro_info.getString("managerName"));
+                    msg_member.putString("managerName", pro_info.getString("managerName"));*/
 
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -222,7 +230,7 @@ public class ProjectCard extends FragmentActivity implements
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         RequestParams params = new RequestParams();
-                        params.put("projectID", 1);
+                        params.put("projectID", projectID);
                         params.put("username", input.getText().toString());
                         AsyncHttpClient client = new AsyncHttpClient();
                         client.post("http://104.236.33.128:8800/addMember/", params, new AsyncHttpResponseHandler() {
@@ -287,10 +295,86 @@ public class ProjectCard extends FragmentActivity implements
                     }
                 });
                 add_member.create().show();
+                return true;
+
+            case R.id.action_editpro:
+
+                Intent intent2 = new Intent(this, EditProject.class);
+                intent2.putExtra("projectInfo", pro_info.toString());
+                intent2.putExtra("manager", manager);
+                startActivity(intent2);
+                return true;
 
             case R.id.action_deletepro:
+                if (!manager) {
+                    Toast.makeText(getApplicationContext(), "تنها مدیر پروژه می تواند عضو اضافه کند", Toast.LENGTH_LONG).show();
+                    break;
+                }
+                final AlertDialog.Builder acc_del = new AlertDialog.Builder(this);
+                acc_del.setMessage("می خواهید پروژه را حذف کنید؟");
+                acc_del.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        RequestParams params = new RequestParams();
+                        params.put("projectID", projectID);
+                        AsyncHttpClient client = new AsyncHttpClient();
+                        client.post("http://104.236.33.128:8800/deleteProject/", params, new AsyncHttpResponseHandler() {
+
+                            @Override
+                            public void onStart() {
+                                System.out.println("Start");
+                            }
+
+                            @Override
+                            public void onSuccess(int statusCode, Header[] headers, byte[] response) {
+                                try {
+                                    Log.d("RESPONSE", new String(response));
+                                    JSONObject s_response = new JSONObject(new String(response));
+                                    if (s_response.getBoolean("successful")) {
+                                        AlertDialog.Builder dlg = new AlertDialog.Builder(ProjectCard.this);
+                                        dlg.setCancelable(false);
+                                        dlg.setMessage("پروژه حذف شد!");
+                                        dlg.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                                            @Override
+                                            public void onClick(DialogInterface dialog, int which) {
+                                                dialog.cancel();
+                                            }
+                                        });
+                                        dlg.create().show();
+                                    }
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+
+                            @Override
+                            public void onFailure(int statusCode, Header[] headers, byte[] errorResponse, Throwable e) {
+                                AlertDialog.Builder builder = new AlertDialog.Builder(ProjectCard.this);
+                                builder.setCancelable(false);
+                                Log.d("error", errorResponse.toString());
+                                builder.setMessage("خطا! اتصال به اینترنت با مشکل مواجه است");
+                                builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        dialog.cancel();
+                                    }
+                                });
+                                AlertDialog alert = builder.create();
+                                alert.show();
+                            }
+                        });
+                    }
+                });
+                acc_del.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                });
+                acc_del.create().show();
                 return true;
         }
+
         return super.onOptionsItemSelected(item);
     }
 
@@ -330,6 +414,5 @@ public class ProjectCard extends FragmentActivity implements
         }
 
     }
-
 }
 

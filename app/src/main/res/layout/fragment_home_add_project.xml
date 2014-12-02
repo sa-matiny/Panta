@@ -91,7 +91,7 @@
                 android:layout_marginTop="20dp"
                 android:background="@color/actionbar"
                 android:clickable="true"
-                android:text="ثبت پروژه"
+                android:text="اعمال تغییرات"
                 android:textColor="@color/background"
                 android:textSize="@dimen/font"
                 android:textStyle="bold" />
