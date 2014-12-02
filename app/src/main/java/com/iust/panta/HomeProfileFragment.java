@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.util.Log;
 import android.widget.ExpandableListView;
+import android.widget.Toast;
 
 import com.iust.panta.Expand.adapter.ExpandListViewAdapter;
 import com.iust.panta.Expands.ExpandChildList;
@@ -18,7 +19,6 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.jar.JarException;
 
 /**
  * Created by Rayehe on 11/23/2014.
@@ -26,12 +26,12 @@ import java.util.jar.JarException;
 public class HomeProfileFragment extends Fragment {
 
     private Bundle bundle;
-    private ExpandListViewAdapter Expadapter;
+    private ExpandListViewAdapter expandAdapter;
     private ArrayList<ExpandGroupList> expGroup;
     public ExpandableListView Explist;
-    public boolean f_data;//FLAG
-    public JSONObject job;
-    public HashMap<String ,Integer> tasks;
+
+    public boolean hasData;
+
     public HashMap<String,String> project_name;
 
     @Override
@@ -41,54 +41,40 @@ public class HomeProfileFragment extends Fragment {
         bundle = new Bundle();
 
         bundle = this.getArguments();
-        f_data=false;
+        hasData =false;
 
-        Log.d("GetBundle", bundle.toString());
+
         try {
 
 
-            Bundle yeki = new Bundle(bundle.getBundle("Projects"));
+            Bundle bundleProjectInfo = new Bundle(bundle.getBundle("Projects"));
             try {
 
 
-                JSONArray jarray = new JSONArray(yeki.getString("projects"));
-                String unyeki = yeki.getString("projects");
-                Log.d("array", yeki.toString());
-                Log.d("jarray", jarray.toString());
-
+                JSONArray objProjectInfo = new JSONArray(bundleProjectInfo.getString("projects"));
                 project_name = new HashMap<String, String>();
-                for (int i = 0; i < jarray.length(); i++) {
-
-
-                    JSONObject temp = new JSONObject(jarray.getString(i));
-                    String name = temp.getString("projectName");
-                    String Id = temp.getString("projectID");
-                    Log.d("Nm", name);
-                    // Log.d("id",Id.toString());
-
-                    //JSONObject temptemp=new JSONObject(temp.getString())
+                for (int i = 0; i < objProjectInfo.length(); i++) {
+                    JSONObject temp = new JSONObject(objProjectInfo.getString(i));
                     project_name.put(temp.getString("projectName"), temp.getString("projectID"));
                 }
-                Log.d("message", project_name.values().toString());
 
             } catch (JSONException jex) {
-                f_data=false;
-                Log.d("j", "jjj");
+                hasData =false;
+
             }
 
         } catch (NullPointerException ne) {
-            f_data=false;
+            hasData =false;
             Log.d("Null", "null exep");
         }
 
 
         if (project_name.isEmpty()) {
-            // Log.d("flag","umadam");
-            f_data = false;
-            expGroup = SetStandardGroup(f_data);
+            hasData = false;
+            expGroup = SetStandardGroup(hasData);
         } else {
-            f_data = true;
-            expGroup = SetStandardGroup(f_data);
+            hasData = true;
+            expGroup = SetStandardGroup(hasData);
 
         }
 
@@ -107,9 +93,9 @@ public class HomeProfileFragment extends Fragment {
        this.Explist = (ExpandableListView) rootView.findViewById(R.id.Final_list);
 
 
-        Expadapter = new ExpandListViewAdapter(rootView.getContext(), expGroup);
+        expandAdapter = new ExpandListViewAdapter(rootView.getContext(), expGroup);
 
-        Explist.setAdapter(Expadapter);
+        Explist.setAdapter(expandAdapter);
 
             return rootView;
         }
@@ -117,66 +103,34 @@ public class HomeProfileFragment extends Fragment {
 
         public ArrayList<ExpandGroupList> SetStandardGroup ( boolean flag){
 
-            ArrayList<ExpandGroupList> lst = new ArrayList<ExpandGroupList>();
+            ArrayList<ExpandGroupList> expandGroupArray = new ArrayList<ExpandGroupList>();
 
             if (flag) {
-                // Log.d("try", "varede stan if");
-
                 for (String key:project_name.keySet()) {
 
-                    ArrayList<ExpandChildList> lst2 = new ArrayList<ExpandChildList>();
-                    ExpandGroupList gr1 = new ExpandGroupList();
-                    gr1.SetName(key);
-                    gr1.setId(project_name.get(key));
-                    ExpandChildList ch1 = new ExpandChildList();
-                    ch1.setName("tast1");
-                    ch1.setTag(null);
-                    lst2.add(ch1);
-                    ExpandChildList ch1_2 = new ExpandChildList();
-                    ch1_2.setName("task2");
-                    ch1_2.setTag(null);
-                    lst2.add(ch1_2);
-                    gr1.setItemes(lst2);
-                    lst.add(gr1);
+                    ArrayList<ExpandChildList> expandChildArray = new ArrayList<ExpandChildList>();
+                    ExpandGroupList expandGroup = new ExpandGroupList();
+                    expandGroup.SetName(key);
+                    expandGroup.setId(project_name.get(key));
+                    ExpandChildList expandChild = new ExpandChildList();
+                    expandChild.setName("task1");
+                    expandChild.setTag(null);
+                    expandChildArray.add(expandChild);
+                    expandChild = new ExpandChildList();
+                    expandChild.setName("task2");
+                    expandChild.setTag(null);
+                    expandChildArray.add(expandChild);
+                    expandGroup.setItemes(expandChildArray);
+                    expandGroupArray.add(expandGroup);
                 }
             }
             else {
-                ArrayList<ExpandChildList> lst2 = new ArrayList<ExpandChildList>();
-                Log.d("try", "varede stan else");
-                ExpandGroupList gr1 = new ExpandGroupList();
-                gr1.SetName("پروژه");
-                ExpandChildList ch1 = new ExpandChildList();
-                ch1.setName("tast1");
-                //todo TASK HA TAGHIR KONAD
 
-                ch1.setTag(null);
-                lst2.add(ch1);
-                ExpandChildList ch1_2 = new ExpandChildList();
-                ch1_2.setName("task2");
-                ch1_2.setTag(null);
-                lst2.add(ch1_2);
-                ExpandChildList ch1_3 = new ExpandChildList();
-                ch1_3.setName("task3");
-                ch1_3.setTag(null);
-                lst2.add(ch1_3);
-                gr1.setItemes(lst2);
-                // lst.add(gr1);
-                lst2 = new ArrayList<ExpandChildList>();
-                ExpandGroupList gr2 = new ExpandGroupList();
-                gr2.SetName("اون یکی پروژه");
-                ExpandChildList ch2_1 = new ExpandChildList();
-                ch2_1.setName("tast1");
-                ch2_1.setTag(null);
-                lst2.add(ch2_1);
-                ExpandChildList ch2_2 = new ExpandChildList();
-                ch2_2.setName("task2");
-                ch2_2.setTag(null);
-                lst2.add(ch2_2);
-                gr2.setItemes(lst2);
-                lst.add(gr1);
-                lst.add(gr2);
+                Toast.makeText(this.getActivity(), "برای شما پروژه ای موجود نمی باشد .", Toast.LENGTH_LONG).show();
+
+
             }
-            return lst;
+            return expandGroupArray;
         }
 
     }

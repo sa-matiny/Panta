@@ -9,12 +9,6 @@ import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
 import android.util.Log;
 import android.view.Menu;
-import android.widget.ExpandableListView;
-
-import com.iust.panta.Expand.adapter.ExpandListViewAdapter;
-import com.iust.panta.Expands.ExpandChildList;
-import com.iust.panta.Expands.ExpandGroupList;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -24,96 +18,54 @@ import java.util.ArrayList;
 
 public class Home extends Activity
         implements NavigationDrawerFragment.NavigationDrawerCallbacks {
-
-    public boolean f_data;
-    public ArrayList<String> list;
+    public ArrayList<String> listProjectNames;
     public String name;
-    public Bundle data;
+    public Bundle bundle_data;
     public String userName;
-    /**
-     * Fragment managing the behaviors, interactions and presentation of the navigation drawer.
-     */
     private NavigationDrawerFragment mNavigationDrawerFragment;
-    /**
-     * Used to store the last screen title. For use in {@link #restoreActionBar()}.
-     */
     private CharSequence mTitle;
-    private ExpandListViewAdapter Expadapter;
-    private ArrayList<ExpandGroupList> expGroup;
-    private ExpandableListView Explist;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
+        listProjectNames = new ArrayList<String>();
+        bundle_data =new Bundle();
 
         mTitle = getTitle();
-        f_data=false;
+
 
         try {
 
             Intent intent = getIntent();
-            Log.d("try",intent.getExtras().getString("projects"));
-            JSONArray Projects_obj =new JSONArray(intent.getExtras().getString("projects"));
-            data=intent.getExtras();
-            Log.d("b",data.getString("projects"));
+            Log.d("try", intent.getExtras().getString("projects"));
+            JSONArray Projects_obj = new JSONArray(intent.getExtras().getString("projects"));
+             bundle_data =intent.getExtras();
+
+            for (int i = 0; i < Projects_obj.length(); i++) {
+
+                JSONObject temp = new JSONObject(Projects_obj.getString(i));
+                listProjectNames.add(temp.getString("projectName"));
+            }
 
 
             JSONObject info = new JSONObject(intent.getExtras().getString("user_info"));
             setTitle(info.getString("name"));
             userName = new String(info.getString("username"));
-            list=new ArrayList<String>();
-            for(int i=0;i<Projects_obj.length();i++)
-            {
-
-                JSONObject temp=new JSONObject(Projects_obj.getString(i));
-                list.add(temp.getString("projectName"));
-            }
-
-            Log.d("myList",list.toString());
-            if(list.isEmpty())
-            {
-
-                f_data=false;
-                expGroup = SetStandardGroup(f_data);
-            }
-            else {
-                f_data=true;
-                expGroup=SetStandardGroup(f_data);
-
-            }
 
 
-        }
-        catch (JSONException jsone){f_data=false;
-            expGroup = SetStandardGroup(f_data);
-           // Log.d("exep","Nabud");
-           }
 
 
-        catch(NullPointerException npe) {
+        } catch (JSONException jsone) {
 
-            f_data=false;
-            expGroup=SetStandardGroup(f_data);
-            return;
+          //  expGroup = SetStandardGroup(hasData);
+            jsone.printStackTrace();
+
+        } catch (NullPointerException npe) {
+
+           npe.printStackTrace();
         }
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-       // Log.d("resid b exlist","ok");
-        try {
-            Explist = (ExpandableListView) findViewById(R.id.Final_list);
 
-            Expadapter = new ExpandListViewAdapter(Home.this, expGroup);
-
-            Explist.setAdapter(Expadapter);
-        }
-
-
-        catch (NullPointerException nm){
-            Log.d("asan moshkel chie",expGroup.toString());}
-        //Log.d("try", "injammmm");
-
-        //Log.d("2","2");
-        // registerForContextMenu(men);
         mNavigationDrawerFragment = (NavigationDrawerFragment)
                 getFragmentManager().findFragmentById(R.id.navigation_drawer);
 
@@ -122,94 +74,21 @@ public class Home extends Activity
                 (DrawerLayout) findViewById(R.id.drawer_layout));
     }
 
-
-    public ArrayList<ExpandGroupList> SetStandardGroup(boolean flag) {
-
-
-      //  Log.d("3","3");
-        ArrayList<ExpandGroupList> lst = new ArrayList<ExpandGroupList>();
-
-        if (flag) {
-
-
-            for (int i = 0; i < this.list.size(); i++)
-            {
-
-                ArrayList<ExpandChildList> lst2 = new ArrayList<ExpandChildList>();
-                ExpandGroupList gr1 = new ExpandGroupList();
-                gr1.SetName(list.get(i));
-                ExpandChildList ch1 = new ExpandChildList();
-                ch1.setName("tast1");
-                ch1.setTag(null);
-                lst2.add(ch1);
-                ExpandChildList ch1_2 = new ExpandChildList();
-                ch1_2.setName("task2");
-                ch1_2.setTag(null);
-                lst2.add(ch1_2);
-                gr1.setItemes(lst2);
-                lst.add(gr1);
-            }
-        }
-
-
-
-        else {
-            ArrayList<ExpandChildList> lst2 = new ArrayList<ExpandChildList>();
-           // Log.d("try","varede stan else");
-            ExpandGroupList gr1 = new ExpandGroupList();
-            gr1.SetName("پروژه");
-            ExpandChildList ch1 = new ExpandChildList();
-            ch1.setName("tast1");
-            ch1.setTag(null);
-            lst2.add(ch1);
-            ExpandChildList ch1_2 = new ExpandChildList();
-            ch1_2.setName("task2");
-            ch1_2.setTag(null);
-            lst2.add(ch1_2);
-            ExpandChildList ch1_3 = new ExpandChildList();
-            ch1_3.setName("task3");
-            ch1_3.setTag(null);
-            lst2.add(ch1_3);
-            gr1.setItemes(lst2);
-            // lst.add(gr1);
-            lst2 = new ArrayList<ExpandChildList>();
-            ExpandGroupList gr2 = new ExpandGroupList();
-            gr2.SetName("اون یکی پروژه");
-            ExpandChildList ch2_1 = new ExpandChildList();
-            ch2_1.setName("tast1");
-            ch2_1.setTag(null);
-            lst2.add(ch2_1);
-            ExpandChildList ch2_2 = new ExpandChildList();
-            ch2_2.setName("task2");
-            ch2_2.setTag(null);
-            lst2.add(ch2_2);
-            gr2.setItemes(lst2);
-            lst.add(gr1);
-            lst.add(gr2);
-        }
-        return lst;
-
-}
-
     @Override
     public void onNavigationDrawerItemSelected(int position) {
 
-     //   Log.d("4","4");
-        Fragment objfrag= null;
-        Bundle bundle =new Bundle();
-        Log.d("Selected******","selected");
+        Fragment objfrag = null;
+        Bundle bundle = new Bundle();
 
-        switch (position)
-        {
-            case 0: {
+        switch (position) {
+            case 0:
+
                 objfrag = new HomeProfileFragment();
-                //Log.d("Mylist in case",list.toString());
-                bundle.putBundle("Projects",data);
-                Log.i("Bundle",bundle.toString());
+                bundle.putBundle("Projects", bundle_data);
                 objfrag.setArguments(bundle);
 
-            }
-                break;
+
+            break;
             case 1:
                 bundle.putString("username", userName);
                 objfrag = new HomeAddProjectFragment();
@@ -219,27 +98,25 @@ public class Home extends Activity
                 objfrag = new HomeSettingFragment();
                 break;
             default:
-            {
                 objfrag = new HomeProfileFragment();
-                Log.d("defult Mylist in case",list.toString());
-                bundle.putStringArrayList("Projects",list);
-                Log.i("defult Bundle",bundle.toString());
+                bundle.putBundle("Projects", bundle_data);
                 objfrag.setArguments(bundle);
 
-            }
-                break;
+
+            break;
 
         }
         // update the main content by replacing fragments
         FragmentManager fragmentManager = getFragmentManager();
         fragmentManager.beginTransaction()
                 .replace(R.id.container, objfrag)
-                .commit();    }
+                .commit();
+    }
 
     public void onSectionAttached(int number) {
         switch (number) {
             case 1:
-                mTitle=name;
+                mTitle = name;
             case 2:
                 mTitle = getString(R.string.Home_section);
                 break;
