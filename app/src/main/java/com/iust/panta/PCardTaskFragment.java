@@ -31,7 +31,7 @@ public class PCardTaskFragment extends Fragment {
     private ArrayList<String> taskNameArray;
     private ArrayList<Integer> taskIDArrayList;
     private Integer projectID;
-    private String managerUser;
+    private boolean manager;
     private View rootView;
 
     private Bundle bundle;
@@ -52,14 +52,10 @@ public class PCardTaskFragment extends Fragment {
         bundle = new Bundle();
         bundle = getArguments();
 
-        managerUser = new String();
-
         projectID = bundle.getInt("projectID");
 
+        manager = bundle.getBoolean("manager");
 
-        managerUser = bundle.getString("managerUser");
-
-        //Todo geting UserName from Login;
 
         RequestParams params = new RequestParams();
         params.put("projectID", projectID);
@@ -128,6 +124,7 @@ public class PCardTaskFragment extends Fragment {
                 Log.d("selected TaskID ", "taskIDArrayList" + (taskIDArrayList.get(position)));
                 Intent intent = new Intent(getActivity(), TaskCard.class);
                 intent.putExtra("taskID", taskIDArrayList.get(position));
+                intent.putExtra("manager", manager);
                 startActivity(intent);
 
             }

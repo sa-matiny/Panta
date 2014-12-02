@@ -84,16 +84,17 @@ public class ProjectCard extends FragmentActivity implements
                     // TODO : set username
                     if (pro_info.getString("managerUser").equals("smatinfar50@gmail.com")) {
                         manager = true;
+                        msg_task.putBoolean("manager", manager);
                     }
 
                     //Main
                     msg_main.putByteArray("response", response);
-                    //Task
+                    /*//Task
                     msg_task.putString("managerUser", pro_info.getString("managerUser"));
                     msg_task.putString("managerName", pro_info.getString("managerName"));
                     //Member
                     msg_member.putString("managerUser", pro_info.getString("managerUser"));
-                    msg_member.putString("managerName", pro_info.getString("managerName"));
+                    msg_member.putString("managerName", pro_info.getString("managerName"));*/
 
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -294,6 +295,7 @@ public class ProjectCard extends FragmentActivity implements
 
                 Intent intent2 = new Intent(this, EditProject.class);
                 intent2.putExtra("projectInfo", pro_info.toString());
+                intent2.putExtra("manager", manager);
                 startActivity(intent2);
                 return true;
 

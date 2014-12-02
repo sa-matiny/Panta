@@ -32,7 +32,7 @@ public class EditProject extends Activity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_task);
+        setContentView(R.layout.fragment_home_add_project);
 
         Intent intent = getIntent();
         try {

@@ -46,6 +46,7 @@ public class TaskCard extends Activity {
         Intent intent = getIntent();
         Bundle extras = intent.getExtras();
         taskID = extras.getInt("taskID");
+        manager = extras.getBoolean("manager");
 
         taskOwnerName = (TextView) findViewById(R.id.TaskOwenersName);
         // taskOwnerName.setText("test");
@@ -212,7 +213,6 @@ public class TaskCard extends Activity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
         if (id == R.id.action_edit_task) {
-            manager = true;
             if (!manager) {
                 Toast.makeText(getApplicationContext(), "تنها مدیر پروژه می تواند وظیفه اضافه کند", Toast.LENGTH_LONG).show();
             } else {
