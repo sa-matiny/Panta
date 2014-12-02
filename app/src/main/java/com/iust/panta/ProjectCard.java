@@ -17,6 +17,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
@@ -26,55 +27,147 @@ import org.apache.http.Header;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class  ProjectCard extends FragmentActivity implements
+public class ProjectCard extends FragmentActivity implements
         ActionBar.TabListener {
 
     private ViewPager viewPager;
     private TabsPagerAdapter mAdapter;
     private ActionBar actionBar;
+    private Bundle msg_main;
+    private Bundle msg_task;
+    private Bundle msg_member;
+    private Boolean manager;
+    private int projectID;
+
+    private JSONObject pro_info;
+
     // Tab titles
     private String[] tabs = {"معرفی پروژه", "وظایف", "اعضا"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        Intent intent = getIntent();
+        projectID = intent.getExtras().getInt("projectId");
+
+
+        //Bundel msg for projectID
+        msg_main = new Bundle();
+        msg_member = new Bundle();
+        msg_task = new Bundle();
+        msg_main.putInt("projectID", projectID);
+        msg_member.putInt("projectID", projectID);
+        msg_task.putInt("projectID", projectID);
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_project_card);
 
-        // Initilization
-        viewPager = (ViewPager) findViewById(R.id.pager);
-        actionBar = getActionBar();
-        mAdapter = new TabsPagerAdapter(getSupportFragmentManager());
 
-        viewPager.setAdapter(mAdapter);
-        actionBar.setHomeButtonEnabled(false);
-        actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
-
-        // Adding Tabs
-        for (String tab_name : tabs) {
-            actionBar.addTab(actionBar.newTab().setText(tab_name)
-                    .setTabListener(this));
-        }
-
-        /**
-         * on swiping the viewpager make respective tab selected
-         * */
-        viewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+        RequestParams params = new RequestParams();
+        params.put("projectID", projectID);
+        AsyncHttpClient client = new AsyncHttpClient();
+        client.post("http://104.236.33.128:8800/projectInfo/", params, new AsyncHttpResponseHandler() {
 
             @Override
-            public void onPageSelected(int position) {
-                // on changing the page
-                // make respected tab selected
-                actionBar.setSelectedNavigationItem(position);
+            public void onStart() {
+                System.out.println("Start");
             }
 
             @Override
-            public void onPageScrolled(int arg0, float arg1, int arg2) {
+            public void onSuccess(int statusCode, Header[] headers, byte[] response) {
+                try {
+                    Log.d("RESPONSE", new String(response));
+                    JSONObject s_response = new JSONObject(new String(response));
+                    pro_info = s_response.getJSONObject("projectInfo");
+
+                    manager = new Boolean(false);
+                    // TODO : set username
+                    if (pro_info.getString("managerUser").equals("smatinfar50@gmail.com")) {
+                        manager = true;
+                        msg_task.putBoolean("manager", manager);
+                    }
+
+                    //Main
+                    msg_main.putByteArray("response", response);
+                    /*//Task
+                    msg_task.putString("managerUser", pro_info.getString("managerUser"));
+                    msg_task.putString("managerName", pro_info.getString("managerName"));
+                    //Member
+                    msg_member.putString("managerUser", pro_info.getString("managerUser"));
+                    msg_member.putString("managerName", pro_info.getString("managerName"));*/
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+
+                    System.out.println("Catch");
+                }
             }
 
             @Override
-            public void onPageScrollStateChanged(int arg0) {
+            public void onFailure(int statusCode, Header[] headers, byte[] errorResponse, Throwable e) {
+                System.out.println("Fail");
+                AlertDialog.Builder builder = new AlertDialog.Builder(ProjectCard.this);
+                builder.setCancelable(false);
+                builder.setMessage("خطا! اتصال به اینترنت با مشکل مواجه است");
+                builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                });
+                AlertDialog alert = builder.create();
+                alert.show();
+
             }
+
+
+            @Override
+            public void onFinish() {
+                System.out.println("Finish");
+                // Completed the request (either success or failure)
+
+
+                Log.d("22", "22");
+                // Initilization
+                viewPager = (ViewPager) findViewById(R.id.pager);
+                actionBar = getActionBar();
+                mAdapter = new TabsPagerAdapter(getSupportFragmentManager());
+
+                viewPager.setAdapter(mAdapter);
+                actionBar.setHomeButtonEnabled(false);
+                actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
+
+
+                // Adding Tabs
+                for (String tab_name : tabs) {
+                    actionBar.addTab(actionBar.newTab().setText(tab_name)
+                            .setTabListener(ProjectCard.this));
+                }
+
+                /**
+                 * on swiping the viewpager make respective tab selected
+                 * */
+                viewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+
+                    @Override
+                    public void onPageSelected(int position) {
+                        // on changing the page
+                        // make respected tab selected
+                        actionBar.setSelectedNavigationItem(position);
+                    }
+
+                    @Override
+                    public void onPageScrolled(int arg0, float arg1, int arg2) {
+                    }
+
+                    @Override
+                    public void onPageScrollStateChanged(int arg0) {
+                    }
+                });
+            }
+
         });
+
     }
 
     @Override
@@ -108,11 +201,21 @@ public class  ProjectCard extends FragmentActivity implements
         switch (id) {
 
             case R.id.action_addtask:
+                Log.d("me", manager.toString());
+                if (!manager) {
+                    Toast.makeText(getApplicationContext(), "تنها مدیر پروژه می تواند وظیفه اضافه کند", Toast.LENGTH_LONG).show();
+                    break;
+                }
                 Intent intent = new Intent(this, AddTask.class);
+                intent.putExtra("projectID", projectID);
                 startActivity(intent);
                 return true;
 
             case R.id.action_addmember:
+                if (!manager) {
+                    Toast.makeText(getApplicationContext(), "تنها مدیر پروژه می تواند عضو اضافه کند", Toast.LENGTH_LONG).show();
+                    break;
+                }
                 AlertDialog.Builder add_member = new AlertDialog.Builder(this);
                 final EditText input = new EditText(this);
                 System.out.println(input.getInputType());
@@ -122,7 +225,7 @@ public class  ProjectCard extends FragmentActivity implements
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         RequestParams params = new RequestParams();
-                        params.put("projectID", 1);
+                        params.put("projectID", projectID);
                         params.put("username", input.getText().toString());
                         AsyncHttpClient client = new AsyncHttpClient();
                         client.post("http://104.236.33.128:8800/addMember/", params, new AsyncHttpResponseHandler() {
@@ -187,10 +290,21 @@ public class  ProjectCard extends FragmentActivity implements
                     }
                 });
                 add_member.create().show();
+                return true;
+
+            case R.id.action_editpro:
+
+                Intent intent2 = new Intent(this, EditProject.class);
+                intent2.putExtra("projectInfo", pro_info.toString());
+                intent2.putExtra("manager", manager);
+                startActivity(intent2);
+                return true;
 
             case R.id.action_deletepro:
                 return true;
+
         }
+
         return super.onOptionsItemSelected(item);
     }
 
@@ -205,14 +319,19 @@ public class  ProjectCard extends FragmentActivity implements
 
             switch (index) {
                 case 0:
-                    // Top Rated fragment activity
-                    return new PCardMainFragment();
+                    Fragment PCardMain = new PCardMainFragment();
+                    PCardMain.setArguments(msg_main);
+                    return PCardMain;
+
                 case 1:
-                    // Games fragment activity
-                    return new PCardTaskFragment();
+                    Fragment PCardTask = new PCardTaskFragment();
+                    PCardTask.setArguments(msg_task);
+                    return PCardTask;
+
                 case 2:
-                    // Movies fragment activity
-                    return new PCardMembersFragment();
+                    Fragment PCardMembers = new PCardMembersFragment();
+                    PCardMembers.setArguments(msg_member);
+                    return PCardMembers;
             }
 
             return null;
@@ -225,5 +344,6 @@ public class  ProjectCard extends FragmentActivity implements
         }
 
     }
+
 }
 

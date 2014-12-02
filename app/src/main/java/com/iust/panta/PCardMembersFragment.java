@@ -4,16 +4,14 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.util.Log;
-
 
 import com.loopj.android.http.AsyncHttpClient;
-import com.loopj.android.http.AsyncHttpRequest;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 
@@ -30,6 +28,8 @@ public class PCardMembersFragment extends Fragment {
     private View rootView;
     private ListView listView;
     private ArrayList<String> memberArray;
+    private Bundle bundle;
+    private Integer ProjectID;
 
 
     @Override
@@ -40,9 +40,14 @@ public class PCardMembersFragment extends Fragment {
         rootView = inflater.inflate(R.layout.fragment_pcard_members, container, false);
         listView = (ListView) rootView.findViewById(R.id.listView);
 
+        bundle = new Bundle();
+        bundle = getArguments();
+        ProjectID = bundle.getInt("projectID");
+
+
         // RequestParam
         RequestParams params = new RequestParams();
-        params.put("projectID", 1);
+        params.put("projectID", ProjectID);
         AsyncHttpClient clinet = new AsyncHttpClient();
         clinet.post("http://104.236.33.128:8800//project_users/", params, new AsyncHttpResponseHandler() {
             @Override
@@ -54,7 +59,7 @@ public class PCardMembersFragment extends Fragment {
             public void onSuccess(int statusCode, Header[] headers, byte[] response) {
                 try {
 
-                    Log.d("My__RESPONSE", new String(response));
+                    Log.d("My_Member__RESPONSE", new String(response));
 
                     JSONObject jobj = new JSONObject(new String(response));
                     JSONArray ProjectMembersInformation = jobj.getJSONArray("project_users");
@@ -71,8 +76,7 @@ public class PCardMembersFragment extends Fragment {
 
                     listView.setAdapter(ArrayItems);
 
-                }
-                catch (JSONException e) {
+                } catch (JSONException e) {
                     e.printStackTrace();
                 }
             }
