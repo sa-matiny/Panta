@@ -290,6 +290,7 @@ public class ProjectCard extends FragmentActivity implements
                     }
                 });
                 add_member.create().show();
+                return true;
 
             case R.id.action_editpro:
 
@@ -303,6 +304,7 @@ public class ProjectCard extends FragmentActivity implements
                 return true;
 
         }
+
         return super.onOptionsItemSelected(item);
     }
 
