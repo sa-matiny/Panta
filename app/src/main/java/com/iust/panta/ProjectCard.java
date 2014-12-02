@@ -50,6 +50,8 @@ public class ProjectCard extends FragmentActivity implements
         Intent intent = getIntent();
         projectID = intent.getExtras().getInt("projectId");
 
+        final SqliteController controller = new SqliteController(this);
+
 
         //Bundel msg for projectID
         msg_main = new Bundle();
@@ -82,10 +84,13 @@ public class ProjectCard extends FragmentActivity implements
 
                     manager = new Boolean(false);
                     // TODO : set username
-                    if (pro_info.getString("managerUser").equals("smatinfar50@gmail.com")) {
+                    JSONObject data = controller.getMe();
+                    Log.d("meeeeeeee", data.getString("username"));
+                    if (pro_info.getString("managerUser").equals(data.getString("username"))) {
                         manager = true;
-                        msg_task.putBoolean("manager", manager);
+
                     }
+                    msg_task.putBoolean("manager", manager);
 
                     //Main
                     msg_main.putByteArray("response", response);

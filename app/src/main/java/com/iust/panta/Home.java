@@ -2,8 +2,10 @@ package com.iust.panta;
 
 import android.app.ActionBar;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.Fragment;
 import android.app.FragmentManager;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
@@ -30,6 +32,7 @@ public class Home extends Activity
     public String name;
     public Bundle data;
     public String userName;
+    SqliteController controller = new SqliteController(this);
     /**
      * Fragment managing the behaviors, interactions and presentation of the navigation drawer.
      */
@@ -272,4 +275,24 @@ public class Home extends Activity
         return super.onCreateOptionsMenu(menu);
     }
 
+    @Override
+    public void onBackPressed() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage("می خواهید از برنامه خارج شوید؟");
+        builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+                controller.deleteMe();
+
+                Intent intent = new Intent(Intent.ACTION_MAIN);
+                intent.addCategory(Intent.CATEGORY_HOME);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                finish();
+                startActivity(intent);
+            }
+        });
+        builder.create().show();
+
+    }
 }
