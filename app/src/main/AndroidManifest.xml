@@ -19,6 +19,11 @@
             android:label="@string/title_activity_login"
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="adjustResize|stateVisible" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
 
         </activity>
         <activity
@@ -62,11 +67,6 @@
             android:name=".EditProject"
             android:label="@string/title_activity_edit_project"
             android:theme="@style/App">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
 
         </activity>
 
