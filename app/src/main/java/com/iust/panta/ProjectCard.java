@@ -39,6 +39,8 @@ public class ProjectCard extends FragmentActivity implements
     private Boolean manager;
     private int projectID;
 
+    private JSONObject pro_info;
+
     // Tab titles
     private String[] tabs = {"معرفی پروژه", "وظایف", "اعضا"};
 
@@ -76,7 +78,7 @@ public class ProjectCard extends FragmentActivity implements
                 try {
                     Log.d("RESPONSE", new String(response));
                     JSONObject s_response = new JSONObject(new String(response));
-                    JSONObject pro_info = s_response.getJSONObject("projectInfo");
+                    pro_info = s_response.getJSONObject("projectInfo");
 
                     manager = new Boolean(false);
                     // TODO : set username
@@ -288,8 +290,16 @@ public class ProjectCard extends FragmentActivity implements
                 });
                 add_member.create().show();
 
+            case R.id.action_editpro:
+
+                Intent intent2 = new Intent(this, EditProject.class);
+                intent2.putExtra("projectInfo", pro_info.toString());
+                startActivity(intent2);
+                return true;
+
             case R.id.action_deletepro:
                 return true;
+
         }
         return super.onOptionsItemSelected(item);
     }

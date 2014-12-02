@@ -55,6 +55,21 @@
             android:theme="@style/App" >
 
         </activity>
+
+        <activity
+            android:name=".EditTask"
+            android:label="@string/title_activity_edit_task"
+            android:theme="@style/App">
+
+        </activity>
+
+        <activity
+            android:name=".EditProject"
+            android:label="@string/title_activity_edit_project"
+            android:theme="@style/App">
+
+        </activity>
+
         <activity
             android:name=".Home"
             android:label="@string/title_activity_home"
