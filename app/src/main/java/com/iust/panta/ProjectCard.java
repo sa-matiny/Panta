@@ -225,7 +225,7 @@ public class ProjectCard extends FragmentActivity implements
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         RequestParams params = new RequestParams();
-                        params.put("projectID", 1);
+                        params.put("projectID", projectID);
                         params.put("username", input.getText().toString());
                         AsyncHttpClient client = new AsyncHttpClient();
                         client.post("http://104.236.33.128:8800/addMember/", params, new AsyncHttpResponseHandler() {
