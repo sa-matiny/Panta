@@ -306,8 +306,73 @@ public class ProjectCard extends FragmentActivity implements
                 return true;
 
             case R.id.action_deletepro:
-                return true;
+                if (!manager) {
+                    Toast.makeText(getApplicationContext(), "تنها مدیر پروژه می تواند عضو اضافه کند", Toast.LENGTH_LONG).show();
+                    break;
+                }
+                final AlertDialog.Builder acc_del = new AlertDialog.Builder(this);
+                acc_del.setMessage("می خواهید پروژه را حذف کنید؟");
+                acc_del.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        RequestParams params = new RequestParams();
+                        params.put("projectID", projectID);
+                        AsyncHttpClient client = new AsyncHttpClient();
+                        client.post("http://104.236.33.128:8800/deleteProject/", params, new AsyncHttpResponseHandler() {
 
+                            @Override
+                            public void onStart() {
+                                System.out.println("Start");
+                            }
+
+                            @Override
+                            public void onSuccess(int statusCode, Header[] headers, byte[] response) {
+                                try {
+                                    Log.d("RESPONSE", new String(response));
+                                    JSONObject s_response = new JSONObject(new String(response));
+                                    if (s_response.getBoolean("successful")) {
+                                        AlertDialog.Builder dlg = new AlertDialog.Builder(ProjectCard.this);
+                                        dlg.setCancelable(false);
+                                        dlg.setMessage("پروژه حذف شد!");
+                                        dlg.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                                            @Override
+                                            public void onClick(DialogInterface dialog, int which) {
+                                                dialog.cancel();
+                                            }
+                                        });
+                                        dlg.create().show();
+                                    }
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+
+                            @Override
+                            public void onFailure(int statusCode, Header[] headers, byte[] errorResponse, Throwable e) {
+                                AlertDialog.Builder builder = new AlertDialog.Builder(ProjectCard.this);
+                                builder.setCancelable(false);
+                                Log.d("error", errorResponse.toString());
+                                builder.setMessage("خطا! اتصال به اینترنت با مشکل مواجه است");
+                                builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        dialog.cancel();
+                                    }
+                                });
+                                AlertDialog alert = builder.create();
+                                alert.show();
+                            }
+                        });
+                    }
+                });
+                acc_del.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                });
+                acc_del.create().show();
+                return true;
         }
 
         return super.onOptionsItemSelected(item);
@@ -349,6 +414,5 @@ public class ProjectCard extends FragmentActivity implements
         }
 
     }
-
 }
 
