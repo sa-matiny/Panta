@@ -45,41 +45,27 @@ public class Home extends Activity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
-        Log.d("11111111111","1111111111");
-
-
-
-
-        Log.d("55555","5555555");
 
         mTitle = getTitle();
-
-        // Set up the drawer.
-
-
-
-
-
-
         f_data=false;
 
         try {
-           // Log.d("test","inja");
+
             Intent intent = getIntent();
             Log.d("try",intent.getExtras().getString("projects"));
-            JSONArray unyekijo =new JSONArray(intent.getExtras().getString("projects"));
+            JSONArray Projects_obj =new JSONArray(intent.getExtras().getString("projects"));
             data=intent.getExtras();
             Log.d("b",data.getString("projects"));
-           // Log.d("array",unyekijo.toString());
+
 
             JSONObject info = new JSONObject(intent.getExtras().getString("user_info"));
             setTitle(info.getString("name"));
             userName = new String(info.getString("username"));
             list=new ArrayList<String>();
-            for(int i=0;i<unyekijo.length();i++)
+            for(int i=0;i<Projects_obj.length();i++)
             {
 
-                JSONObject temp=new JSONObject(unyekijo.getString(i));
+                JSONObject temp=new JSONObject(Projects_obj.getString(i));
                 list.add(temp.getString("projectName"));
             }
 
@@ -120,11 +106,13 @@ public class Home extends Activity
 
             Explist.setAdapter(Expadapter);
         }
+
+
         catch (NullPointerException nm){
             Log.d("asan moshkel chie",expGroup.toString());}
         //Log.d("try", "injammmm");
 
-        Log.d("2","2");
+        //Log.d("2","2");
         // registerForContextMenu(men);
         mNavigationDrawerFragment = (NavigationDrawerFragment)
                 getFragmentManager().findFragmentById(R.id.navigation_drawer);
@@ -134,16 +122,18 @@ public class Home extends Activity
                 (DrawerLayout) findViewById(R.id.drawer_layout));
     }
 
+
     public ArrayList<ExpandGroupList> SetStandardGroup(boolean flag) {
 
 
-        Log.d("3","3");
+      //  Log.d("3","3");
         ArrayList<ExpandGroupList> lst = new ArrayList<ExpandGroupList>();
 
         if (flag) {
-           // Log.d("try", "varede stan if");
 
-            for (int i = 0; i < this.list.size(); i++) {
+
+            for (int i = 0; i < this.list.size(); i++)
+            {
 
                 ArrayList<ExpandChildList> lst2 = new ArrayList<ExpandChildList>();
                 ExpandGroupList gr1 = new ExpandGroupList();
@@ -204,7 +194,7 @@ public class Home extends Activity
     @Override
     public void onNavigationDrawerItemSelected(int position) {
 
-        Log.d("4","4");
+     //   Log.d("4","4");
         Fragment objfrag= null;
         Bundle bundle =new Bundle();
         Log.d("Selected******","selected");

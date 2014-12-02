@@ -29,7 +29,7 @@ public class HomeProfileFragment extends Fragment {
     private ExpandListViewAdapter Expadapter;
     private ArrayList<ExpandGroupList> expGroup;
     public ExpandableListView Explist;
-    public boolean f_data;
+    public boolean f_data;//FLAG
     public JSONObject job;
     public HashMap<String ,Integer> tasks;
     public HashMap<String,String> project_name;
@@ -139,13 +139,16 @@ public class HomeProfileFragment extends Fragment {
                     gr1.setItemes(lst2);
                     lst.add(gr1);
                 }
-            } else {
+            }
+            else {
                 ArrayList<ExpandChildList> lst2 = new ArrayList<ExpandChildList>();
                 Log.d("try", "varede stan else");
                 ExpandGroupList gr1 = new ExpandGroupList();
                 gr1.SetName("پروژه");
                 ExpandChildList ch1 = new ExpandChildList();
                 ch1.setName("tast1");
+                //todo TASK HA TAGHIR KONAD
+
                 ch1.setTag(null);
                 lst2.add(ch1);
                 ExpandChildList ch1_2 = new ExpandChildList();

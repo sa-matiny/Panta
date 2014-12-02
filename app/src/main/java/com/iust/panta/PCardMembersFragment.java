@@ -28,6 +28,8 @@ public class PCardMembersFragment extends Fragment {
     private View rootView;
     private ListView listView;
     private ArrayList<String> memberArray;
+    private Bundle bundle;
+    private Integer ProjectID;
 
    private String managerUser;
 
@@ -40,12 +42,14 @@ public class PCardMembersFragment extends Fragment {
         rootView = inflater.inflate(R.layout.fragment_pcard_members, container, false);
         listView = (ListView) rootView.findViewById(R.id.listView);
 
-
+        bundle=new Bundle();
+        bundle= getArguments();
+        ProjectID=bundle.getInt("projectID");
 
 
         // RequestParam
         RequestParams params = new RequestParams();
-        params.put("projectID", 1);
+        params.put("projectID", ProjectID);
         AsyncHttpClient clinet = new AsyncHttpClient();
         clinet.post("http://104.236.33.128:8800//project_users/", params, new AsyncHttpResponseHandler() {
             @Override
