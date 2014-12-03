@@ -157,9 +157,9 @@ public class EditProject extends Activity {
     }
 
 
-    public void EditProject(View view) {
-        final String EprojectNameView = ((EditText) findViewById(R.id.editprojectname)).getText().toString();
-        final String EprojectInfoView = ((EditText) findViewById(R.id.editprojectinfo)).getText().toString();
+    public void AddProject(View view) {
+        final String EprojectNameView = ((EditText) findViewById(R.id.Eprojectname)).getText().toString();
+        final String EprojectInfoView = ((EditText) findViewById(R.id.EprojectInfo)).getText().toString();
         RequestParams params = new RequestParams();
 
         params.put("projectID", projectID);

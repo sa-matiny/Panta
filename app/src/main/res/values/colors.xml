@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <color name="background">#F1ECDF</color>
+    <color name="background">@color/wallet_bright_foreground_holo_dark</color>
     <color name="actionbar">#ff294067</color>
     <color name="text1">#ff294067</color>
 
