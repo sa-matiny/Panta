@@ -17,7 +17,7 @@
         android:background="@color/wallet_bright_foreground_holo_dark"
         android:focusable="false"
         android:text="جزئیات"
-        android:textColor="@color/wallet_holo_blue_light"
+        android:textColor="@color/light_blue"
         android:textSize="20dip" />
 
     <TextView

@@ -4,5 +4,6 @@
     <color name="background">@color/wallet_bright_foreground_holo_dark</color>
     <color name="actionbar">#ff294067</color>
     <color name="text1">#ff294067</color>
+    <color name="light_blue">@color/wallet_holo_blue_light</color>
 
 </resources>
