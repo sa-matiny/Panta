@@ -71,7 +71,7 @@ public class EditProject extends Activity {
         RequestParams params = new RequestParams();
         params.put("projectID", projectID);
         AsyncHttpClient client = new AsyncHttpClient();
-        client.post("http://104.236.33.128:8800//taskInfo/", params, new AsyncHttpResponseHandler() {
+        client.post("http://104.236.33.128:8800///", params, new AsyncHttpResponseHandler() {
 
             @Override
             public void onStart() {
@@ -80,7 +80,6 @@ public class EditProject extends Activity {
 
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] response) {
-                Intent intent = getIntent();
                 try {
                     Log.d("My__RESPONSE", new String(response));
 

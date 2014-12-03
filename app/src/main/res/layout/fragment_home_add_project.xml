@@ -63,10 +63,12 @@
             <EditText
                 android:id="@+id/EprojectInfo"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="65dp"
                 android:layout_below="@+id/TprojectInfo"
                 android:layout_marginTop="20dp"
                 android:background="#ffffff"
+                android:minLines="1"
+                android:textAlignment="textStart"
                 android:inputType="textMultiLine"
                 android:lines="3"
                 android:textSize="@dimen/font" />

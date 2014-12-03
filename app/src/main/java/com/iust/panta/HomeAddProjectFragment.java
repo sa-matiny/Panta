@@ -64,7 +64,6 @@ public class HomeAddProjectFragment extends Fragment {
                 //     Emanagerview.setError(null);
                 EprojectInfoview.setError(null);
 
-
                 //set variable
                 boolean has_error = false;
                 String EprojectName = EprojectNameView.getText().toString();
@@ -115,15 +114,15 @@ public class HomeAddProjectFragment extends Fragment {
             params.put("username", msg.getString("username"));
             params.put("project_info", EprojectInfoview.getText().toString());
             params.put("year", String.valueOf(datePicker.getYear()));
-            params.put("month", String.valueOf(datePicker.getMonth()));
+            params.put("month", String.valueOf(datePicker.getMonth()+1));
             params.put("day", String.valueOf(datePicker.getDayOfMonth()));
             AsyncHttpClient client = new AsyncHttpClient();
             client.post("http://104.236.33.128:8800/addProject/", params, new AsyncHttpResponseHandler() {
-
                 @Override
                 public void onStart() {
                     // called before request is started
                     Log.d("STARTED", "STARTED");
+
                 }
 
                 @Override
@@ -134,6 +133,7 @@ public class HomeAddProjectFragment extends Fragment {
                     ButtonView.setVisibility(View.VISIBLE);
                     try {
                         Log.d("RESPONSE", new String(response));
+
                         JSONObject s_response = new JSONObject(new String(response));
 
                         // JSONArray

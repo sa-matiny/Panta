@@ -133,9 +133,9 @@ public class AddTask extends Activity {
             params.put("day", String.valueOf(datePicker.getDayOfMonth()));
             AsyncHttpClient client = new AsyncHttpClient();
             client.post("http://104.236.33.128:8800/addTask/", params, new AsyncHttpResponseHandler() {
-
                 @Override
                 public void onStart() {
+
                     // called before request is started
                     Log.d("STARTED", "STARTED");
                 }
@@ -166,7 +166,7 @@ public class AddTask extends Activity {
                         } else {
                             AlertDialog.Builder dlg = new AlertDialog.Builder(AddTask.this);
                             dlg.setCancelable(false);
-                            dlg.setMessage("خطای اطلاعات کاربر");
+                            dlg.setMessage("خطای وارد کردن در دیتابیس");
                             dlg.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
