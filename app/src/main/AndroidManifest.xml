@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.iust.panta" >
+    package="com.iust.panta">
 
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="android.permission.READ_PROFILE" />
@@ -13,18 +13,12 @@
         android:debuggable="true"
         android:icon="@drawable/logo"
         android:label="@string/app_name"
-        android:supportsRtl="true" >
+        android:supportsRtl="true">
         <activity
             android:name=".LoginActivity"
             android:label="@string/title_activity_login"
             android:theme="@style/AppTheme"
-            android:windowSoftInputMode="adjustResize|stateVisible" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-
+            android:windowSoftInputMode="adjustResize|stateVisible">
 
 
         </activity>
@@ -32,7 +26,7 @@
             android:name=".SignUp"
             android:label="@string/title_activity_sign_up"
             android:theme="@style/AppTheme"
-            android:windowSoftInputMode="adjustResize|stateVisible" >
+            android:windowSoftInputMode="adjustResize|stateVisible">
 
 
         </activity>
@@ -40,23 +34,27 @@
             android:name=".Welcome"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme" >
+            android:theme="@style/AppTheme">
 
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
 
 
         </activity>
         <activity
             android:name=".ProjectCard"
             android:label="@string/title_activity_project_card"
-            android:theme="@style/App" >
-
+            android:theme="@style/App">
 
 
         </activity>
         <activity
             android:name=".AddTask"
             android:label="@string/title_activity_add_task"
-            android:theme="@style/App" >
+            android:theme="@style/App">
 
         </activity>
 
@@ -77,7 +75,7 @@
         <activity
             android:name=".Home"
             android:label="@string/title_activity_home"
-            android:theme="@style/App" >
+            android:theme="@style/App">
 
 
         </activity>
@@ -86,7 +84,6 @@
             android:name=".TaskCard"
             android:label="@string/title_activity_task_card"
             android:theme="@style/App">
-
 
 
         </activity>

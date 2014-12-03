@@ -2,27 +2,33 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:orientation="horizontal"
     android:layout_gravity="right"
+    android:baselineAligned="false"
     android:gravity="right"
+    android:orientation="horizontal"
     android:weightSum="1">
 
 
     <Button
-        android:layout_width="wrap_content"
-        android:layout_height="65dp"
-        android:text="ورود به کارت پروژه"
         android:id="@+id/enter_card"
-        android:focusable="false"/>
+        android:layout_width="wrap_content"
+        android:layout_height="42dp"
+        android:layout_marginLeft="10dp"
+        android:background="@color/wallet_bright_foreground_holo_dark"
+        android:focusable="false"
+        android:text="جزئیات"
+        android:textColor="@color/light_blue"
+        android:textSize="20dip" />
 
     <TextView
         android:id="@+id/tvGroup"
         android:layout_width="match_parent"
-        android:layout_height="42dp"
-        android:textSize="22dip"
-        android:gravity="right"
+        android:layout_height="wrap_content"
         android:layout_marginRight="10dp"
+        android:layout_marginTop="8dp"
         android:focusable="false"
-        />
+        android:gravity="right"
+        android:textSize="22dip"
+        android:textStyle="bold" />
 
 </LinearLayout>

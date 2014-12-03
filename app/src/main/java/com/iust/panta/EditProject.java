@@ -41,8 +41,6 @@ public class EditProject extends Activity {
 
     private DatePicker datePicker;
 
-    public EditProject() {
-    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -53,14 +51,22 @@ public class EditProject extends Activity {
         intent.getExtras();
 
 
-        TprojectNameView = (TextView) findViewById(R.id.TprojectName);
-        EprojectNameView = (EditText) findViewById(R.id.editprojectname);
+        TprojectNameView = (TextView) findViewById(R.id.Tprojectname);
+        EprojectNameView = (EditText) findViewById(R.id.Eprojectname);
 
-        TprojectInfoView = (TextView) findViewById(R.id.Tprojectinfo);
-        EprojectInfoView = (EditText) findViewById(R.id.editprojectinfo);
+        TprojectInfoView = (TextView) findViewById(R.id.TprojectInfo);
+        EprojectInfoView = (EditText) findViewById(R.id.EprojectInfo);
 
 
         ButtonView = (Button) findViewById(R.id.add_project_button);
+        ButtonView.setOnClickListener(new View.OnClickListener()
+
+        {
+            @Override
+            public void onClick(View view) {
+                AddProject(view);
+            }
+        });
 
         RequestParams params = new RequestParams();
         params.put("projectID", projectID);
@@ -157,9 +163,9 @@ public class EditProject extends Activity {
     }
 
 
-    public void EditProject(View view) {
-        final String EprojectNameView = ((EditText) findViewById(R.id.editprojectname)).getText().toString();
-        final String EprojectInfoView = ((EditText) findViewById(R.id.editprojectinfo)).getText().toString();
+    public void AddProject(View view) {
+        final String EprojectNameView = ((EditText) findViewById(R.id.Eprojectname)).getText().toString();
+        final String EprojectInfoView = ((EditText) findViewById(R.id.EprojectInfo)).getText().toString();
         RequestParams params = new RequestParams();
 
         params.put("projectID", projectID);
