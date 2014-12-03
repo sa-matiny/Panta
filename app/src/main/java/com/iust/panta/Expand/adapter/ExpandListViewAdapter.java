@@ -115,6 +115,7 @@ public class ExpandListViewAdapter extends BaseExpandableListAdapter {
         return v;
     }
 
+
     public boolean hasStableIds() {
         return true;
     }

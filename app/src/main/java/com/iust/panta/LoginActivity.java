@@ -19,8 +19,11 @@ import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 
 import org.apache.http.Header;
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.lang.reflect.Array;
 
 
 public class LoginActivity extends Activity {
@@ -119,7 +122,7 @@ public class LoginActivity extends Activity {
                         {
 
                             JSONObject user = new JSONObject(s_response.getJSONObject("user_info").toString());
-                            controller.insertMe(user.getString("username"), user.getString("name"));
+                         //   controller.insertMe(user.getString("username"), user.getString("name"));
                             JSONObject hi = controller.getMe();
                             Log.d("hi", hi.toString());
                             Intent intent = new Intent(LoginActivity.this,Home.class);
@@ -170,7 +173,96 @@ public class LoginActivity extends Activity {
 
             });
         }
+/*
+        RequestParams params = new RequestParams();
+        params.put("username", email);
+       // params.put("password", password);
+        AsyncHttpClient client = new AsyncHttpClient();
+        client.post("http://104.236.33.128:8800/view_profile/",params, new AsyncHttpResponseHandler()
+        {
+
+            @Override
+            public void onStart() {
+                System.out.println("Start");
+            }
+
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, byte[] response){
+                mProgressView.setVisibility(View.GONE);
+                mButtonView.setVisibility(View.VISIBLE);
+                try {
+                    Log.d("Profile RESPONSE",new String(response));
+                    JSONObject s_response= new JSONObject(new String(response));
+                    JSONArray jsonArrayAllProjects= s_response.getJSONArray("projects");
+                    JSONArray  jsonArrayEachProject= new JSONArray();
+                    for (int i=0;i<jsonArrayAllProjects.length();i++) {
+                        Log.d("Items in json :", jsonArrayAllProjects.get(i).toString());
+                        jsonArrayEachProject=jsonArrayAllProjects.getJSONArray(i);
+                        Log.d("Json Array Each",jsonArrayEachProject.toString());
+                     //   Array array=
+                        for( int j=0;j<jsonArrayEachProject.length();j++)
+                            Log.d("Items in Items ",jsonArrayEachProject.get(j).toString());
+                    }
+                    Log.d("profile Json Array:",jsonArrayAllProjects.toString());
+
+
+                   /* if(s_response.getBoolean("successful"))
+                    {
+
+                        JSONObject user = new JSONObject(s_response.getJSONObject("user_info").toString());
+                        controller.insertMe(user.getString("username"), user.getString("name"));
+                        JSONObject hi = controller.getMe();
+                        Log.d("hi", hi.toString());
+                        Intent intent = new Intent(LoginActivity.this,Home.class);
+                        Log.d("array",s_response.getJSONArray("projects").toString());
+                        intent.putExtra("projects",s_response.getJSONArray("projects").toString());
+                        intent.putExtra("user_info",s_response.getJSONObject("user_info").toString());
+
+                        finish();
+                        startActivity(intent);
+
+                    }
+                    else
+                    {
+                        AlertDialog.Builder dlg = new AlertDialog.Builder(LoginActivity.this);
+                        dlg.setCancelable(false);
+                        dlg.setMessage("خطا! پست الکترونیکی یا گذرواژه نادرست است");
+                        dlg.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.cancel();
+                            }
+                        });
+                        dlg.create().show();
+                    }
+
+                }
+                catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, byte[] errorResponse, Throwable e) {
+                mProgressView.setVisibility(View.GONE);
+                mButtonView.setVisibility(View.VISIBLE);
+                AlertDialog.Builder builder = new AlertDialog.Builder(LoginActivity.this);
+                builder.setCancelable(false);
+                builder.setMessage("خطا! دوباره وارد شوید");
+                builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                });
+                AlertDialog alert = builder.create();
+                alert.show();
+            }
+
+        });
+        */
     }
+
 
 
     private boolean isEmailValid(String email) {
