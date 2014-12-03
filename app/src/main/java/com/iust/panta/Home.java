@@ -2,13 +2,16 @@ package com.iust.panta;
 
 import android.app.ActionBar;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.Fragment;
 import android.app.FragmentManager;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
 import android.util.Log;
 import android.view.Menu;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -22,13 +25,14 @@ public class Home extends Activity
     public String name;
     public Bundle bundle_data;
     public String userName;
+    SqliteController controller = new SqliteController(this);
     private NavigationDrawerFragment mNavigationDrawerFragment;
     private CharSequence mTitle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         listProjectNames = new ArrayList<String>();
-        bundle_data =new Bundle();
+        bundle_data = new Bundle();
 
         mTitle = getTitle();
 
@@ -38,7 +42,7 @@ public class Home extends Activity
             Intent intent = getIntent();
             Log.d("try", intent.getExtras().getString("projects"));
             JSONArray Projects_obj = new JSONArray(intent.getExtras().getString("projects"));
-             bundle_data =intent.getExtras();
+            bundle_data = intent.getExtras();
 
             for (int i = 0; i < Projects_obj.length(); i++) {
 
@@ -52,16 +56,14 @@ public class Home extends Activity
             userName = new String(info.getString("username"));
 
 
-
-
         } catch (JSONException jsone) {
 
-          //  expGroup = SetStandardGroup(hasData);
+            //  expGroup = SetStandardGroup(hasData);
             jsone.printStackTrace();
 
         } catch (NullPointerException npe) {
 
-           npe.printStackTrace();
+            npe.printStackTrace();
         }
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
@@ -88,7 +90,7 @@ public class Home extends Activity
                 objfrag.setArguments(bundle);
 
 
-            break;
+                break;
             case 1:
                 bundle.putString("username", userName);
                 objfrag = new HomeAddProjectFragment();
@@ -103,7 +105,7 @@ public class Home extends Activity
                 objfrag.setArguments(bundle);
 
 
-            break;
+                break;
 
         }
         // update the main content by replacing fragments
@@ -149,4 +151,30 @@ public class Home extends Activity
         return super.onCreateOptionsMenu(menu);
     }
 
+    @Override
+    public void onBackPressed() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage("می خواهید از برنامه خارج شوید؟");
+        builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+                controller.deleteMe();
+
+                Intent intent = new Intent(Intent.ACTION_MAIN);
+                intent.addCategory(Intent.CATEGORY_HOME);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                finish();
+                startActivity(intent);
+            }
+        });
+        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+            }
+        });
+        builder.create().show();
+
+    }
 }

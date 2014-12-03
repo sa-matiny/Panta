@@ -53,11 +53,11 @@ public class EditProject extends Activity {
         intent.getExtras();
 
 
-        TprojectNameView = (TextView) findViewById(R.id.TprojectName);
-        EprojectNameView = (EditText) findViewById(R.id.editprojectname);
+        TprojectNameView = (TextView) findViewById(R.id.Tprojectname);
+        EprojectNameView = (EditText) findViewById(R.id.Eprojectname);
 
-        TprojectInfoView = (TextView) findViewById(R.id.Tprojectinfo);
-        EprojectInfoView = (EditText) findViewById(R.id.editprojectinfo);
+        TprojectInfoView = (TextView) findViewById(R.id.TprojectInfo);
+        EprojectInfoView = (EditText) findViewById(R.id.EprojectInfo);
 
 
         ButtonView = (Button) findViewById(R.id.add_project_button);
