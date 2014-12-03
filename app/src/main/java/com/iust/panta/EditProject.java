@@ -41,8 +41,6 @@ public class EditProject extends Activity {
 
     private DatePicker datePicker;
 
-    public EditProject() {
-    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -61,6 +59,14 @@ public class EditProject extends Activity {
 
 
         ButtonView = (Button) findViewById(R.id.add_project_button);
+        ButtonView.setOnClickListener(new View.OnClickListener()
+
+        {
+            @Override
+            public void onClick(View view) {
+                AddProject(view);
+            }
+        });
 
         RequestParams params = new RequestParams();
         params.put("projectID", projectID);
