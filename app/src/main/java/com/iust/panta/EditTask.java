@@ -161,9 +161,6 @@ public class EditTask extends Activity {
         });
 
 
-
-
-
     }
 
 }
