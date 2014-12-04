@@ -19,11 +19,8 @@ import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 
 import org.apache.http.Header;
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.lang.reflect.Array;
 
 
 public class LoginActivity extends Activity {
@@ -122,7 +119,7 @@ public class LoginActivity extends Activity {
                         {
 
                             JSONObject user = new JSONObject(s_response.getJSONObject("user_info").toString());
-                         //   controller.insertMe(user.getString("username"), user.getString("name"));
+                            controller.insertMe(user.getString("username"), user.getString("name"));
                             JSONObject hi = controller.getMe();
                             Log.d("hi", hi.toString());
                             Intent intent = new Intent(LoginActivity.this,Home.class);
