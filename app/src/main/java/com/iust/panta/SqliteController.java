@@ -39,6 +39,7 @@ public class SqliteController extends SQLiteOpenHelper {
         ContentValues values = new ContentValues();
         values.put("username", user);
         values.put("name", name);
+        this.deleteMe();
         database.insert("Me", null, values);
         database.close();
     }
@@ -53,6 +54,7 @@ public class SqliteController extends SQLiteOpenHelper {
 
             mydata.put("username", cursor.getString(0));
         }
+        cursor.close();
         return mydata;
     }
 
