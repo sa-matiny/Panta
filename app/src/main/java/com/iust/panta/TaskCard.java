@@ -214,7 +214,7 @@ public class TaskCard extends Activity {
         int id = item.getItemId();
         if (id == R.id.action_edit_task) {
             if (!manager) {
-                Toast.makeText(getApplicationContext(), "تنها مدیر پروژه می تواند وظیفه اضافه کند", Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), "تنها مدیر پروژه می تواند وظیفه تغییر دهد", Toast.LENGTH_LONG).show();
             } else {
                 Intent intent = new Intent(this, EditTask.class);
                 intent.putExtra("taskInfo", jobj.toString());
