@@ -114,7 +114,6 @@ public class EditProject extends Activity {
                     JSONObject s_response = new JSONObject(new String(response));
 
                     // JSONArray
-                    Log.d("RESPONSE2", String.valueOf(s_response));
 
                     if (s_response.getBoolean("successful")) {
                         AlertDialog.Builder dlg = new AlertDialog.Builder(EditProject.this);
