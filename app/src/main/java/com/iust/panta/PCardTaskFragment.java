@@ -53,14 +53,13 @@ public class PCardTaskFragment extends Fragment {
         bundle = getArguments();
 
         projectID = bundle.getInt("projectID");
-
         manager = bundle.getBoolean("manager");
 
 
         RequestParams params = new RequestParams();
         params.put("projectID", projectID);
         AsyncHttpClient client = new AsyncHttpClient();
-        client.post("http://104.236.33.128:8800//project_tasks/", params, new AsyncHttpResponseHandler() {
+        client.post("http://104.236.33.128:8800/project_tasks/", params, new AsyncHttpResponseHandler() {
 
             @Override
             public void onStart() {
