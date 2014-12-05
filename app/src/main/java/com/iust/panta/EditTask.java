@@ -72,7 +72,8 @@ public class EditTask extends Activity {
             int year= Integer.parseInt(info.getString("deadline").split("-")[0]);
             int month= Integer.parseInt(info.getString("deadline").split("-")[1]);
             int day= Integer.parseInt(info.getString("deadline").split("-")[2]);
-            DatePicker datePicker = (DatePicker) findViewById(R.id.datePicker);datePicker.updateDate(year,month-1,day);
+            DatePicker datePicker = (DatePicker) findViewById(R.id.datePicker);
+            datePicker.updateDate(year, month - 1, day);
 
 
            // datePicker = setText(info.getString("year"));
