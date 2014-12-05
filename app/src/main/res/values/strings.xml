@@ -15,12 +15,11 @@
     <string name="add_section">اضافه کردن پروژه</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="title_activity_task_card">TaskCard</string>
+    <string name="title_activity_task_card">اطلاعات وظیفه</string>
     <string name="action_edit_task">اصلاح وظیفه</string>
     <string name="TC_name">نام مسئول وظیفه </string>
     <string name="TC_userName">نام کاربری </string>
     <string name="TC_taskName">نام وظیفه </string>
     <string name="TC_taskDescription">شرح وظیفه </string>
-    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>

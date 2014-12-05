@@ -94,6 +94,7 @@ public class ProjectCard extends FragmentActivity implements
 
                     //Main
                     msg_main.putByteArray("response", response);
+
                     /*//Task
                     msg_task.putString("managerUser", pro_info.getString("managerUser"));
                     msg_task.putString("managerName", pro_info.getString("managerName"));
@@ -301,7 +302,6 @@ public class ProjectCard extends FragmentActivity implements
 
                 Intent intent2 = new Intent(this, EditProject.class);
                 intent2.putExtra("projectInfo", pro_info.toString());
-                intent2.putExtra("manager", manager);
                 startActivity(intent2);
                 return true;
 

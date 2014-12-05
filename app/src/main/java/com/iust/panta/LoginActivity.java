@@ -19,11 +19,8 @@ import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 
 import org.apache.http.Header;
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.lang.reflect.Array;
 
 
 public class LoginActivity extends Activity {
@@ -41,8 +38,8 @@ public class LoginActivity extends Activity {
         // Set up the login form.
         mEmailView = (EditText) findViewById(R.id.email);
         mPasswordView = (EditText) findViewById(R.id.password);
-        mProgressView = (ProgressBar)findViewById(R.id.login_progress);
-        mButtonView = (Button)findViewById(R.id.email_sign_in_button);
+        mProgressView = (ProgressBar) findViewById(R.id.login_progress);
+        mButtonView = (Button) findViewById(R.id.email_sign_in_button);
 
     }
 
@@ -50,12 +47,10 @@ public class LoginActivity extends Activity {
 
         //hide Keyboard
 
-        InputMethodManager imm = (InputMethodManager)getSystemService(
+        InputMethodManager imm = (InputMethodManager) getSystemService(
                 Context.INPUT_METHOD_SERVICE);
         imm.hideSoftInputFromWindow(mEmailView.getWindowToken(), 0);
         imm.hideSoftInputFromWindow(mPasswordView.getWindowToken(), 0);
-
-
 
 
         // Reset errors.
@@ -103,8 +98,7 @@ public class LoginActivity extends Activity {
             params.put("username", email);
             params.put("password", password);
             AsyncHttpClient client = new AsyncHttpClient();
-            client.post("http://104.236.33.128:8800/login/",params, new AsyncHttpResponseHandler()
-            {
+            client.post("http://104.236.33.128:8800/login/", params, new AsyncHttpResponseHandler() {
 
                 @Override
                 public void onStart() {
@@ -112,30 +106,24 @@ public class LoginActivity extends Activity {
                 }
 
                 @Override
-                public void onSuccess(int statusCode, Header[] headers, byte[] response){
+                public void onSuccess(int statusCode, Header[] headers, byte[] response) {
                     mProgressView.setVisibility(View.GONE);
                     mButtonView.setVisibility(View.VISIBLE);
                     try {
-                        Log.d("RESPONSE",new String(response));
-                        JSONObject s_response= new JSONObject(new String(response));
-                        if(s_response.getBoolean("successful"))
-                        {
+                        Log.d("RESPONSE", new String(response));
+                        JSONObject s_response = new JSONObject(new String(response));
+                        if (s_response.getBoolean("successful")) {
 
                             JSONObject user = new JSONObject(s_response.getJSONObject("user_info").toString());
-                         //   controller.insertMe(user.getString("username"), user.getString("name"));
+                            controller.insertMe(user.getString("username"), user.getString("name"));
                             JSONObject hi = controller.getMe();
                             Log.d("hi", hi.toString());
-                            Intent intent = new Intent(LoginActivity.this,Home.class);
-                            Log.d("array",s_response.getJSONArray("projects").toString());
-                            intent.putExtra("projects",s_response.getJSONArray("projects").toString());
-                            intent.putExtra("user_info",s_response.getJSONObject("user_info").toString());
+                            Intent intent = new Intent(LoginActivity.this, Home.class);
 
                             finish();
                             startActivity(intent);
 
-                        }
-                        else
-                        {
+                        } else {
                             AlertDialog.Builder dlg = new AlertDialog.Builder(LoginActivity.this);
                             dlg.setCancelable(false);
                             dlg.setMessage("خطا! پست الکترونیکی یا گذرواژه نادرست است");
@@ -148,8 +136,7 @@ public class LoginActivity extends Activity {
                             dlg.create().show();
                         }
 
-                    }
-                    catch (JSONException e) {
+                    } catch (JSONException e) {
                         e.printStackTrace();
                     }
                 }
@@ -264,7 +251,6 @@ public class LoginActivity extends Activity {
     }
 
 
-
     private boolean isEmailValid(String email) {
         return email.contains("@");
     }
@@ -273,7 +259,7 @@ public class LoginActivity extends Activity {
     public void ClickOnLoginBody(View view) // this for hiding Keyboard
     {
 
-        InputMethodManager imm = (InputMethodManager)getSystemService(
+        InputMethodManager imm = (InputMethodManager) getSystemService(
                 Context.INPUT_METHOD_SERVICE);
         imm.hideSoftInputFromWindow(mEmailView.getWindowToken(), 0);
         imm.hideSoftInputFromWindow(mPasswordView.getWindowToken(), 0);
