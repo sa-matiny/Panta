@@ -133,7 +133,6 @@ public class ProjectCard extends FragmentActivity implements
                 // Completed the request (either success or failure)
 
 
-                Log.d("22", "22");
                 // Initilization
                 viewPager = (ViewPager) findViewById(R.id.pager);
                 actionBar = getActionBar();

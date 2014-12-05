@@ -118,10 +118,11 @@ public class EditTask extends Activity {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 dialog.cancel();
+                                finish();
                             }
                         });
                         dlg.create().show();
-                        finish();
+
                     } else {
                         AlertDialog.Builder dlg = new AlertDialog.Builder(EditTask.this);
                         dlg.setCancelable(false);

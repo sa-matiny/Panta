@@ -114,9 +114,6 @@ public class EditProject extends Activity {
                     JSONObject s_response = new JSONObject(new String(response));
 
                     // JSONArray
-
-
-
                     if (s_response.getBoolean("successful")) {
                         AlertDialog.Builder dlg = new AlertDialog.Builder(EditProject.this);
                         dlg.setCancelable(false);
@@ -125,10 +122,11 @@ public class EditProject extends Activity {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 dialog.cancel();
+                                finish();
                             }
                         });
                         dlg.create().show();
-                        finish();
+
                     } else {
                         AlertDialog.Builder dlg = new AlertDialog.Builder(EditProject.this);
                         dlg.setCancelable(false);
