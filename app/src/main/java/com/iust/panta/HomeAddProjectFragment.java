@@ -91,6 +91,7 @@ public class HomeAddProjectFragment extends Fragment {
 
 
                 }
+
                 if (has_error)
                     ProgressView.setVisibility(View.GONE);
 

@@ -129,7 +129,7 @@ public class AddTask extends Activity {
             params.put("taskName", ETaskNameView.getText().toString());
             params.put("task_info", ETaskInfoView.getText().toString());
             params.put("year", String.valueOf(datePicker.getYear()));
-            params.put("month", String.valueOf(datePicker.getMonth()));
+            params.put("month", String.valueOf(datePicker.getMonth()+1));
             params.put("day", String.valueOf(datePicker.getDayOfMonth()));
             AsyncHttpClient client = new AsyncHttpClient();
             client.post("http://104.236.33.128:8800/addTask/", params, new AsyncHttpResponseHandler() {
