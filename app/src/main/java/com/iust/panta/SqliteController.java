@@ -48,11 +48,11 @@ public class SqliteController extends SQLiteOpenHelper {
 
         JSONObject mydata = new JSONObject();
         SQLiteDatabase database = this.getReadableDatabase();
-        String selectQuery = "SELECT username FROM Me";
+        String selectQuery = "SELECT username,name FROM Me";
         Cursor cursor = database.rawQuery(selectQuery, null);
         if (cursor.moveToFirst()) {
-
             mydata.put("username", cursor.getString(0));
+            mydata.put("name", cursor.getString(1));
         }
         cursor.close();
         return mydata;
