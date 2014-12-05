@@ -22,6 +22,7 @@ public class Home extends Activity
     SqliteController controller = new SqliteController(this);
     private NavigationDrawerFragment mNavigationDrawerFragment;
     private Bundle msg;
+    private String mTitle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,17 +55,21 @@ public class Home extends Activity
 
         switch (position) {
             case 0:
+                mTitle = getString(R.string.Home_section);
                 objfrag = new HomeProfileFragment();
                 objfrag.setArguments(msg);
                 break;
             case 1:
+                mTitle = getString(R.string.add_section);
                 objfrag = new HomeAddProjectFragment();
                 objfrag.setArguments(msg);
                 break;
             case 2:
+                mTitle = getString(R.string.Setting_section);
                 objfrag = new HomeSettingFragment();
                 break;
             default:
+                mTitle = getString(R.string.Home_section);
                 objfrag = new HomeProfileFragment();
                 objfrag.setArguments(msg);
                 break;
@@ -82,7 +87,7 @@ public class Home extends Activity
         ActionBar actionBar = getActionBar();
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
         actionBar.setDisplayShowTitleEnabled(true);
-        actionBar.setTitle(R.string.Home_section);
+        actionBar.setTitle(mTitle);
     }
 
 

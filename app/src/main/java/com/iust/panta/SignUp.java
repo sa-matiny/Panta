@@ -2,17 +2,18 @@ package com.iust.panta;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
-import android.view.inputmethod.InputMethodManager;
-import android.content.Context;
+
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
@@ -23,6 +24,9 @@ import org.json.JSONObject;
 
 
 public class SignUp extends Activity {
+
+
+    SqliteController controller = new SqliteController(this);
 
     private EditText mNameView;
     private EditText mEmailView;
@@ -196,10 +200,12 @@ public class SignUp extends Activity {
                         // JSONArray
                         if (s_response.getBoolean("successful"))
                         {
+                            JSONObject user = new JSONObject(s_response.getJSONObject("user_info").toString());
+                            controller.insertMe(user.getString("username"), user.getString("name"));
+                            JSONObject hi = controller.getMe();
+                            Log.d("hi", hi.toString());
                             Intent intent = new Intent(SignUp.this, Home.class);
-                            Log.d("array",s_response.getJSONArray("projects").toString());
-                            intent.putExtra("projects",s_response.getJSONArray("projects").toString());
-                            intent.putExtra("user_info",s_response.getJSONObject("user_info").toString());
+
                             finish();
                             startActivity(intent);
 

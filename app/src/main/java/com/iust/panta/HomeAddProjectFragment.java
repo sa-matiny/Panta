@@ -28,7 +28,6 @@ import org.json.JSONObject;
  */
 public class HomeAddProjectFragment extends Fragment {
 
-    SqliteController controller = new SqliteController(getActivity());
     private TextView TprojectNameView;
     private EditText EprojectNameView;
     private TextView TprojectInfoView;
@@ -36,6 +35,7 @@ public class HomeAddProjectFragment extends Fragment {
     private Button ButtonView;
     private ProgressBar ProgressView;
     private DatePicker datePicker;
+    private String userName;
 
     public View onCreateView(LayoutInflater inflater,ViewGroup container, Bundle saveInstanceState){
         final View rootView = inflater.inflate(R.layout.fragment_home_add_project, container, false);
@@ -45,8 +45,14 @@ public class HomeAddProjectFragment extends Fragment {
         TprojectInfoView = (TextView) rootView.findViewById(R.id.TprojectInfo);
         EprojectInfoview = (EditText) rootView.findViewById(R.id.EprojectInfo);
 
+        Bundle msg = getArguments();
+        userName = msg.getString("username");
+        Log.d("username_profile", userName);
+
         ButtonView = (Button) rootView.findViewById(R.id.add_project_button);
+
         ButtonView.setOnClickListener(new View.OnClickListener()
+
 
         {
             @Override
@@ -103,12 +109,9 @@ public class HomeAddProjectFragment extends Fragment {
             ButtonView.setVisibility(View.GONE);
             ProgressView.setVisibility(View.VISIBLE);
             RequestParams params = new RequestParams();
+            
             params.put("projectName", EprojectNameView.getText().toString());
-            try {
-                params.put("username", controller.getMe().getString("username"));
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
+            params.put("username", userName);
             params.put("project_info", EprojectInfoview.getText().toString());
             params.put("year", String.valueOf(datePicker.getYear()));
             params.put("month", String.valueOf(datePicker.getMonth()+1));
