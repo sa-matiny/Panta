@@ -40,6 +40,7 @@ public class HomeProfileFragment extends Fragment {
     private ArrayList<ExpandGroupList> expGroup;
     private ArrayList<String> listProjectsName;
     private ArrayList<String> listProjectsID;
+    private ArrayList<String> listManagerUsers;
     private ArrayList<ArrayList<String>> listEachProjectsTask;
     private ArrayList<ArrayList<String>> listEachProjectsTaskID;
     private View rootView;
@@ -58,12 +59,14 @@ public class HomeProfileFragment extends Fragment {
         listEachProjectsTask = new ArrayList<ArrayList<String>>();
         listEachProjectsTaskID = new ArrayList<ArrayList<String>>();
 
+        listManagerUsers= new ArrayList<String>();
+
         listProjectsName = new ArrayList<String>();
         listProjectsID= new ArrayList<String >();
 
 
         Bundle msg = getArguments();
-        String userName = msg.getString("username");
+        final String userName = msg.getString("username");
         Log.d("username_profile", userName);
 
         RequestParams params = new RequestParams();
@@ -153,6 +156,14 @@ public class HomeProfileFragment extends Fragment {
                         String idd = listEachProjectsTaskID.get(groupPosition).get(childPosition);
 
                         Intent intent = new Intent(HomeProfileFragment.this.getActivity(), TaskCard.class);
+                        if(userName.equals("mahla@yahoo.com")) {
+                            Log.d("yesss","yess");
+                            intent.putExtra("manager", true);//TODO change after server
+                        }
+                        else {
+                            Log.d("No","yess");
+                            intent.putExtra("manager", false);
+                        }
                         intent.putExtra("taskID", Integer.parseInt(idd));
                         startActivity(intent);
 
