@@ -21,9 +21,7 @@ import org.apache.http.Header;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-/**
- * Created by SONY on 12/02/2014.
- */
+
 public class EditTask extends Activity {
     private TextView TUserNameView;
     private EditText EUserNameView;
