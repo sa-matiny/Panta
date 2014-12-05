@@ -18,6 +18,7 @@ public class PCardMainFragment extends Fragment {
     private TextView mProManager;
     private TextView mProProgress;
     private TextView mProInfo;
+    private TextView mProDeadline;
     private Bundle msg;
 
     @Override
@@ -30,6 +31,7 @@ public class PCardMainFragment extends Fragment {
         mProManager = (TextView) rootView.findViewById(R.id.pro_manager);
         mProProgress = (TextView) rootView.findViewById(R.id.pro_progress);
         mProInfo = (TextView) rootView.findViewById(R.id.pro_info);
+        mProDeadline = (TextView) rootView.findViewById(R.id.pro_date);
         msg = new Bundle();
         msg = getArguments();
 
@@ -42,6 +44,7 @@ public class PCardMainFragment extends Fragment {
             mProManager.setText(pro_info.getString("managerName"));
             mProProgress.setText(pro_info.getString("progress"));
             mProInfo.setText(pro_info.getString("project_info"));
+            mProDeadline.setText(pro_info.getString("pDeadline"));
 
         } catch (JSONException e) {
             e.printStackTrace();
