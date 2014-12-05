@@ -3,6 +3,7 @@ package com.iust.panta;
 import android.app.AlertDialog;
 import android.app.Fragment;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -145,6 +146,9 @@ public class HomeAddProjectFragment extends Fragment {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
                                     dialog.cancel();
+                                    Intent intent = new Intent(getActivity(), Home.class);
+                                    getActivity().finish();
+                                    startActivity(intent);
                                 }
                             });
                             dlg.create().show();
@@ -185,11 +189,6 @@ public class HomeAddProjectFragment extends Fragment {
                     AlertDialog alert = builder.create();
                     alert.show();
 
-                }
-
-                @Override
-                public void onRetry(int retryNo) {
-                    // called when request is retried
                 }
             });
 

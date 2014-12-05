@@ -21,9 +21,7 @@ import org.apache.http.Header;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-/**
- * Created by SONY on 12/02/2014.
- */
+
 public class EditTask extends Activity {
     private TextView TUserNameView;
     private EditText EUserNameView;
@@ -120,10 +118,11 @@ public class EditTask extends Activity {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 dialog.cancel();
+                                finish();
                             }
                         });
                         dlg.create().show();
-                        finish();
+
                     } else {
                         AlertDialog.Builder dlg = new AlertDialog.Builder(EditTask.this);
                         dlg.setCancelable(false);

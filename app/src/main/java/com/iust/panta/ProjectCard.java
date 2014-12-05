@@ -40,6 +40,7 @@ public class ProjectCard extends FragmentActivity implements
     private int projectID;
 
     private JSONObject pro_info;
+    private Intent intent1;
 
     // Tab titles
     private String[] tabs = {"معرفی پروژه", "وظایف", "اعضا"};
@@ -133,7 +134,6 @@ public class ProjectCard extends FragmentActivity implements
                 // Completed the request (either success or failure)
 
 
-                Log.d("22", "22");
                 // Initilization
                 viewPager = (ViewPager) findViewById(R.id.pager);
                 actionBar = getActionBar();
@@ -299,6 +299,10 @@ public class ProjectCard extends FragmentActivity implements
                 return true;
 
             case R.id.action_editpro:
+                if (!manager) {
+                    Toast.makeText(getApplicationContext(), "تنها مدیر پروژه می تواند عضو اضافه کند", Toast.LENGTH_LONG).show();
+                    break;
+                }
 
                 Intent intent2 = new Intent(this, EditProject.class);
                 intent2.putExtra("projectInfo", pro_info.toString());
@@ -310,6 +314,7 @@ public class ProjectCard extends FragmentActivity implements
                     Toast.makeText(getApplicationContext(), "تنها مدیر پروژه می تواند عضو اضافه کند", Toast.LENGTH_LONG).show();
                     break;
                 }
+                intent1 = new Intent(this, Home.class);
                 final AlertDialog.Builder acc_del = new AlertDialog.Builder(this);
                 acc_del.setMessage("می خواهید پروژه را حذف کنید؟");
                 acc_del.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
@@ -338,6 +343,8 @@ public class ProjectCard extends FragmentActivity implements
                                             @Override
                                             public void onClick(DialogInterface dialog, int which) {
                                                 dialog.cancel();
+                                                finish();
+                                                startActivity(intent1);
                                             }
                                         });
                                         dlg.create().show();
