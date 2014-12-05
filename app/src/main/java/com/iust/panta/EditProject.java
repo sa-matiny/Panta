@@ -69,6 +69,12 @@ public class EditProject extends Activity {
             EprojectInfoView.setText(info.getString("project_info"));
             projectID = info.getInt("projectID");
 
+            int year= Integer.parseInt(info.getString("deadline").split("-")[0]);
+            int month= Integer.parseInt(info.getString("deadline").split("-")[1]);
+            int day= Integer.parseInt(info.getString("deadline").split("-")[2]);
+            DatePicker datePicker = (DatePicker) findViewById(R.id.datePicker);datePicker.updateDate(year,month-1,day);
+
+
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -86,7 +92,7 @@ public class EditProject extends Activity {
         params.put("projectName", EprojectNameView.getText().toString());
         params.put("project_info", EprojectInfoView.getText().toString());
         params.put("year", String.valueOf(datePicker.getYear()));
-        params.put("month", String.valueOf(datePicker.getMonth()));
+        params.put("month", String.valueOf(datePicker.getMonth()+1));
         params.put("day", String.valueOf(datePicker.getDayOfMonth()));
 
 

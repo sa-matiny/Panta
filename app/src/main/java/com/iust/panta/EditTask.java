@@ -35,7 +35,10 @@ public class EditTask extends Activity {
     private Button ButtonView;
     private ProgressBar ProgressView;
     private int taskID;
+    private DatePicker datePicker;
+
     private int projectID;
+
 
 
     @Override
@@ -66,11 +69,22 @@ public class EditTask extends Activity {
             EUserNameView.setText(info.getString("username"));
             projectID = info.getInt("projectID");
             taskID = info.getInt("taskID");
+            int year= Integer.parseInt(info.getString("deadline").split("-")[0]);
+            int month= Integer.parseInt(info.getString("deadline").split("-")[1]);
+            int day= Integer.parseInt(info.getString("deadline").split("-")[2]);
+            DatePicker datePicker = (DatePicker) findViewById(R.id.datePicker);datePicker.updateDate(year,month-1,day);
 
+
+           // datePicker = setText(info.getString("year"));
+
+           // datePicker.updateDate(getInt("year"),getString("month"),getString("day"));
+         //   datePicker= info.getInt(updateDate("year","month","day"));
         } catch (JSONException e) {
             e.printStackTrace();
         }
     }
+
+
 
     public void AddTask(View view) {
 
@@ -84,8 +98,9 @@ public class EditTask extends Activity {
         params.put("taskName", ETaskNameView.getText().toString());
         params.put("task_info", ETaskInfoView.getText().toString());
         params.put("username", EUserNameView.getText().toString());
+
         params.put("year", String.valueOf(datePicker.getYear()));
-        params.put("month", String.valueOf(datePicker.getMonth()));
+        params.put("month", String.valueOf(datePicker.getMonth()+1));
         params.put("day", String.valueOf(datePicker.getDayOfMonth()));
 
         Log.d("projectID", String.valueOf(projectID));
