@@ -49,7 +49,7 @@ public class PCardMembersFragment extends Fragment {
         RequestParams params = new RequestParams();
         params.put("projectID", ProjectID);
         AsyncHttpClient clinet = new AsyncHttpClient();
-        clinet.post("http://104.236.33.128:8800//project_users/", params, new AsyncHttpResponseHandler() {
+        clinet.post("http://104.236.33.128:8800/project_users/", params, new AsyncHttpResponseHandler() {
             @Override
             public void onStart() {
                 System.out.println("Members Start");

@@ -131,7 +131,7 @@ public class TaskCard extends Activity {
         });
 
 
-        params.put("taskID", 0);
+       /* params.put("taskID", 0);
 
         client.post("http://104.236.33.128:8800//taskInfo/", params, new AsyncHttpResponseHandler() {
 
@@ -194,7 +194,7 @@ public class TaskCard extends Activity {
             }
 
         });
-
+*/
 
     }
 

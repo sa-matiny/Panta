@@ -8,27 +8,35 @@
     android:orientation="horizontal"
     android:weightSum="1">
 
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent">
 
-    <Button
+
+        <Button
         android:id="@+id/enter_card"
         android:layout_width="wrap_content"
         android:layout_height="42dp"
+            android:layout_alignParentLeft="true"
         android:layout_marginLeft="10dp"
         android:background="@color/wallet_bright_foreground_holo_dark"
         android:focusable="false"
         android:text="جزئیات"
         android:textColor="@color/light_blue"
-        android:textSize="20dip" />
+            android:textSize="20sp" />
 
-    <TextView
+        <TextView
         android:id="@+id/tvGroup"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginRight="10dp"
         android:layout_marginTop="8dp"
+            android:layout_toRightOf="@id/enter_card"
         android:focusable="false"
         android:gravity="right"
-        android:textSize="22dip"
+            android:textSize="22sp"
         android:textStyle="bold" />
+
+    </RelativeLayout>
 
 </LinearLayout>
