@@ -16,7 +16,9 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.loopj.android.http.AsyncHttpClient;
@@ -42,18 +44,63 @@ public class ProjectCard extends FragmentActivity implements
     private JSONObject pro_info;
     private Intent intent1;
 
+    private ProgressBar mProgressView;
+    private JSONObject data;
+
     // Tab titles
     private String[] tabs = {"معرفی پروژه", "وظایف", "اعضا"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_project_card);
+
+        // Initilization
+        viewPager = (ViewPager) findViewById(R.id.pager);
+        mProgressView = (ProgressBar) findViewById(R.id.PCard_progress);
+        actionBar = getActionBar();
+        mAdapter = new TabsPagerAdapter(getSupportFragmentManager());
+
+        actionBar.setHomeButtonEnabled(false);
+        actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
+
+        /**
+         * on swiping the viewpager make respective tab selected
+         * */
+        viewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+
+            @Override
+            public void onPageSelected(int position) {
+                // on changing the page
+                // make respected tab selected
+                actionBar.setSelectedNavigationItem(position);
+            }
+
+            @Override
+            public void onPageScrolled(int arg0, float arg1, int arg2) {
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int arg0) {
+            }
+        });
+
         Intent intent = getIntent();
         projectID = intent.getExtras().getInt("projectId");
 
-        final SqliteController controller = new SqliteController(this);
+        SqliteController controller = new SqliteController(this);
+        try {
+            data = controller.getMe();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
 
+    }
 
+    @Override
+    public void onStart() {
+        super.onStart();
         //Bundel msg for projectID
         msg_main = new Bundle();
         msg_member = new Bundle();
@@ -62,9 +109,7 @@ public class ProjectCard extends FragmentActivity implements
         msg_member.putInt("projectID", projectID);
         msg_task.putInt("projectID", projectID);
 
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_project_card);
-
+        mProgressView.setVisibility(View.VISIBLE);
 
         RequestParams params = new RequestParams();
         params.put("projectID", projectID);
@@ -78,14 +123,14 @@ public class ProjectCard extends FragmentActivity implements
 
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] response) {
+                mProgressView.setVisibility(View.GONE);
                 try {
                     Log.d("RESPONSE", new String(response));
                     JSONObject s_response = new JSONObject(new String(response));
                     pro_info = s_response.getJSONObject("projectInfo");
 
                     manager = new Boolean(false);
-                    // TODO : set username
-                    JSONObject data = controller.getMe();
+
                     Log.d("meeeeeeee", data.getString("username"));
                     if (pro_info.getString("managerUser").equals(data.getString("username"))) {
                         manager = true;
@@ -131,17 +176,6 @@ public class ProjectCard extends FragmentActivity implements
             @Override
             public void onFinish() {
                 System.out.println("Finish");
-                // Completed the request (either success or failure)
-
-
-                // Initilization
-                viewPager = (ViewPager) findViewById(R.id.pager);
-                actionBar = getActionBar();
-                mAdapter = new TabsPagerAdapter(getSupportFragmentManager());
-
-                viewPager.setAdapter(mAdapter);
-                actionBar.setHomeButtonEnabled(false);
-                actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
 
 
                 // Adding Tabs
@@ -150,30 +184,12 @@ public class ProjectCard extends FragmentActivity implements
                             .setTabListener(ProjectCard.this));
                 }
 
-                /**
-                 * on swiping the viewpager make respective tab selected
-                 * */
-                viewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+                viewPager.setAdapter(mAdapter);
 
-                    @Override
-                    public void onPageSelected(int position) {
-                        // on changing the page
-                        // make respected tab selected
-                        actionBar.setSelectedNavigationItem(position);
-                    }
 
-                    @Override
-                    public void onPageScrolled(int arg0, float arg1, int arg2) {
-                    }
-
-                    @Override
-                    public void onPageScrollStateChanged(int arg0) {
-                    }
-                });
             }
 
         });
-
     }
 
     @Override
@@ -230,6 +246,7 @@ public class ProjectCard extends FragmentActivity implements
                 add_member.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
+                        mProgressView.setVisibility(View.VISIBLE);
                         RequestParams params = new RequestParams();
                         params.put("projectID", projectID);
                         params.put("username", input.getText().toString());
@@ -243,6 +260,7 @@ public class ProjectCard extends FragmentActivity implements
 
                             @Override
                             public void onSuccess(int statusCode, Header[] headers, byte[] response) {
+                                mProgressView.setVisibility(View.GONE);
                                 try {
                                     Log.d("RESPONSE", new String(response));
                                     JSONObject s_response = new JSONObject(new String(response));
@@ -263,7 +281,8 @@ public class ProjectCard extends FragmentActivity implements
                                             }
                                         });
                                         dlg.create().show();
-                                    }
+                                    } else
+                                        Toast.makeText(getApplicationContext(), "عضو جدید اضافه شد", Toast.LENGTH_LONG).show();
                                 } catch (JSONException e) {
                                     e.printStackTrace();
                                 }
@@ -271,9 +290,9 @@ public class ProjectCard extends FragmentActivity implements
 
                             @Override
                             public void onFailure(int statusCode, Header[] headers, byte[] errorResponse, Throwable e) {
+                                mProgressView.setVisibility(View.GONE);
                                 AlertDialog.Builder builder = new AlertDialog.Builder(ProjectCard.this);
                                 builder.setCancelable(false);
-                                Log.d("error", errorResponse.toString());
                                 builder.setMessage("خطا! اتصال به اینترنت با مشکل مواجه است");
                                 builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                                     @Override
