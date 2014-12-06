@@ -14,7 +14,6 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ProgressBar;
-import android.widget.TextView;
 
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
@@ -29,29 +28,28 @@ import org.json.JSONObject;
  */
 public class HomeAddProjectFragment extends Fragment {
 
-    private TextView TprojectNameView;
     private EditText EprojectNameView;
-    private TextView TprojectInfoView;
     private EditText EprojectInfoview;
     private Button ButtonView;
     private ProgressBar ProgressView;
     private DatePicker datePicker;
     private String userName;
 
-    public View onCreateView(LayoutInflater inflater,ViewGroup container, Bundle saveInstanceState){
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle saveInstanceState) {
         final View rootView = inflater.inflate(R.layout.fragment_home_add_project, container, false);
-        TprojectNameView = (TextView) rootView.findViewById(R.id.Tprojectname);
+
         EprojectNameView = (EditText) rootView.findViewById(R.id.Eprojectname);
 
-        TprojectInfoView = (TextView) rootView.findViewById(R.id.TprojectInfo);
         EprojectInfoview = (EditText) rootView.findViewById(R.id.EprojectInfo);
+
+        ProgressView = (ProgressBar) rootView.findViewById(R.id.AddProject_progress);
+        datePicker = (DatePicker) rootView.findViewById(R.id.datePicker);
 
         Bundle msg = getArguments();
         userName = msg.getString("username");
         Log.d("username_profile", userName);
 
         ButtonView = (Button) rootView.findViewById(R.id.add_project_button);
-
         ButtonView.setOnClickListener(new View.OnClickListener()
 
 
@@ -70,7 +68,6 @@ public class HomeAddProjectFragment extends Fragment {
                 String EprojectInfo = EprojectInfoview.getText().toString();
 
                 View focus_view;
-                ProgressView.setVisibility(View.VISIBLE);
 
 
                 // check if Edit texts are Empty
@@ -92,15 +89,11 @@ public class HomeAddProjectFragment extends Fragment {
 
                 }
 
-                if (has_error)
-                    ProgressView.setVisibility(View.GONE);
-
                 writeInAddProjectTb(has_error);
 
             }
         });
-        ProgressView = (ProgressBar) rootView.findViewById(R.id.AddProject_progress);
-        datePicker = (DatePicker) rootView.findViewById(R.id.datePicker);
+
 
         return rootView;
     }
@@ -111,12 +104,12 @@ public class HomeAddProjectFragment extends Fragment {
             ButtonView.setVisibility(View.GONE);
             ProgressView.setVisibility(View.VISIBLE);
             RequestParams params = new RequestParams();
-            
+
             params.put("projectName", EprojectNameView.getText().toString());
             params.put("username", userName);
             params.put("project_info", EprojectInfoview.getText().toString());
             params.put("year", String.valueOf(datePicker.getYear()));
-            params.put("month", String.valueOf(datePicker.getMonth()+1));
+            params.put("month", String.valueOf(datePicker.getMonth() + 1));
             params.put("day", String.valueOf(datePicker.getDayOfMonth()));
             AsyncHttpClient client = new AsyncHttpClient();
             client.post("http://104.236.33.128:8800/addProject/", params, new AsyncHttpResponseHandler() {
@@ -142,7 +135,7 @@ public class HomeAddProjectFragment extends Fragment {
                         if (s_response.getBoolean("successful")) {
                             AlertDialog.Builder dlg = new AlertDialog.Builder(getActivity());
                             dlg.setCancelable(false);
-                            dlg.setMessage("successful");
+                            dlg.setMessage("پروژه اضافه شد");
                             dlg.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
@@ -150,17 +143,6 @@ public class HomeAddProjectFragment extends Fragment {
                                     Intent intent = new Intent(getActivity(), Home.class);
                                     getActivity().finish();
                                     startActivity(intent);
-                                }
-                            });
-                            dlg.create().show();
-                        } else {
-                            AlertDialog.Builder dlg = new AlertDialog.Builder(getActivity());
-                            dlg.setCancelable(false);
-                            dlg.setMessage("خطای اطلاعات کاربر");
-                            dlg.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-                                    dialog.cancel();
                                 }
                             });
                             dlg.create().show();
@@ -180,7 +162,7 @@ public class HomeAddProjectFragment extends Fragment {
                     ButtonView.setVisibility(View.VISIBLE);
                     AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
                     builder.setCancelable(false);
-                    builder.setMessage("خطای سرور");
+                    builder.setMessage("خطا! دوباره امتحان کنید");
                     builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
@@ -196,6 +178,4 @@ public class HomeAddProjectFragment extends Fragment {
 
         }
     }
-
-
 }

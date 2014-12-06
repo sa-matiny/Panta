@@ -11,7 +11,6 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ProgressBar;
-import android.widget.TextView;
 
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
@@ -23,13 +22,11 @@ import org.json.JSONObject;
 
 
 public class EditTask extends Activity {
-    private TextView TUserNameView;
+
     private EditText EUserNameView;
 
-    private TextView TTaskNameView;
     private EditText ETaskNameView;
 
-    private TextView TTaskInfoView;
     private EditText ETaskInfoView;
 
     private Button ButtonView;
@@ -46,17 +43,16 @@ public class EditTask extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_task);
 
-        TTaskNameView = (TextView) findViewById(R.id.TTaskName);
         ETaskNameView = (EditText) findViewById(R.id.ETaskName);
 
-        TTaskInfoView = (TextView) findViewById(R.id.TTaskInfo);
         ETaskInfoView = (EditText) findViewById(R.id.ETaskInfo);
 
-        TUserNameView = (TextView) findViewById(R.id.TUserName);
         EUserNameView = (EditText) findViewById(R.id.EUserName);
 
         ButtonView = (Button) findViewById(R.id.add_Task_button);
         ProgressView = (ProgressBar) findViewById(R.id.AddTask_progress);
+
+        datePicker = (DatePicker) findViewById(R.id.datePicker);
 
         Intent intent=getIntent();
 
@@ -72,7 +68,7 @@ public class EditTask extends Activity {
             int year= Integer.parseInt(info.getString("deadline").split("-")[0]);
             int month= Integer.parseInt(info.getString("deadline").split("-")[1]);
             int day= Integer.parseInt(info.getString("deadline").split("-")[2]);
-            DatePicker datePicker = (DatePicker) findViewById(R.id.datePicker);
+
             datePicker.updateDate(year, month - 1, day);
 
 
@@ -90,9 +86,8 @@ public class EditTask extends Activity {
     public void AddTask(View view) {
 
 
-
-        DatePicker datePicker = (DatePicker) findViewById(R.id.datePicker);
-
+        ProgressView.setVisibility(View.VISIBLE);
+        ButtonView.setVisibility(View.GONE);
         RequestParams params = new RequestParams();
         params.put("taskID", taskID);
         params.put("projectID", projectID);
@@ -129,7 +124,7 @@ public class EditTask extends Activity {
                     if (s_response.getBoolean("successful")) {
                         AlertDialog.Builder dlg = new AlertDialog.Builder(EditTask.this);
                         dlg.setCancelable(false);
-                        dlg.setMessage("successful");
+                        dlg.setMessage("پست الکترونیکی موجود نیست");
                         dlg.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
@@ -142,7 +137,7 @@ public class EditTask extends Activity {
                     } else {
                         AlertDialog.Builder dlg = new AlertDialog.Builder(EditTask.this);
                         dlg.setCancelable(false);
-                        dlg.setMessage("خطای وارد کردن در دیتابیس");
+                        dlg.setMessage("خطای اطلاعات کابر");
                         dlg.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
@@ -160,9 +155,13 @@ public class EditTask extends Activity {
             @Override
             public void onFailure(int statusCode, Header[] headers, byte[] errorResponse, Throwable e) {
 
+
+                ProgressView.setVisibility(View.GONE);
+                ButtonView.setVisibility(View.VISIBLE);
+
                 AlertDialog.Builder builder = new AlertDialog.Builder(EditTask.this);
                 builder.setCancelable(false);
-                builder.setMessage("خطای سرور");
+                builder.setMessage("خطا! دوباره امتحان کنید");
                 builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {

@@ -11,7 +11,6 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ProgressBar;
-import android.widget.TextView;
 
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
@@ -24,10 +23,8 @@ import org.json.JSONObject;
 
 public class EditProject extends Activity {
 
-    private TextView TprojectNameView;
     private EditText EprojectNameView;
 
-    private TextView TprojectInfoView;
     private EditText EprojectInfoView;
     private Integer projectID;
 
@@ -45,11 +42,13 @@ public class EditProject extends Activity {
         Intent intent = getIntent();
 
 
-        TprojectNameView = (TextView) findViewById(R.id.Tprojectname);
         EprojectNameView = (EditText) findViewById(R.id.Eprojectname);
 
-        TprojectInfoView = (TextView) findViewById(R.id.TprojectInfo);
         EprojectInfoView = (EditText) findViewById(R.id.EprojectInfo);
+
+        ProgressView = (ProgressBar) findViewById(R.id.AddProject_progress);
+
+        datePicker = (DatePicker) findViewById(R.id.datePicker);
 
 
         ButtonView = (Button) findViewById(R.id.add_project_button);
@@ -72,7 +71,7 @@ public class EditProject extends Activity {
             int year = Integer.parseInt(info.getString("pDeadline").split("-")[0]);
             int month = Integer.parseInt(info.getString("pDeadline").split("-")[1]);
             int day = Integer.parseInt(info.getString("pDeadline").split("-")[2]);
-            DatePicker datePicker = (DatePicker) findViewById(R.id.datePicker);
+
             datePicker.updateDate(year, month - 1, day);
 
 
@@ -85,7 +84,8 @@ public class EditProject extends Activity {
 
     public void AddProject(View view) {
 
-        DatePicker datePicker = (DatePicker) findViewById(R.id.datePicker);
+        ButtonView.setVisibility(View.GONE);
+        ProgressView.setVisibility(View.VISIBLE);
 
         RequestParams params = new RequestParams();
 
@@ -113,7 +113,7 @@ public class EditProject extends Activity {
             public void onSuccess(int statusCode, Header[] headers, byte[] response) {
                 // called when response HTTP status is "200 OK"
                 Log.d("SUCCESS", "SUCCESS");
-               // ProgressView.setVisibility(View.GONE);
+                ProgressView.setVisibility(View.GONE);
                 ButtonView.setVisibility(View.VISIBLE);
                 try {
 
@@ -124,7 +124,7 @@ public class EditProject extends Activity {
                     if (s_response.getBoolean("successful")) {
                         AlertDialog.Builder dlg = new AlertDialog.Builder(EditProject.this);
                         dlg.setCancelable(false);
-                        dlg.setMessage("successful");
+                        dlg.setMessage("تغییرات ثبت شد");
                         dlg.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
@@ -134,17 +134,6 @@ public class EditProject extends Activity {
                         });
                         dlg.create().show();
 
-                    } else {
-                        AlertDialog.Builder dlg = new AlertDialog.Builder(EditProject.this);
-                        dlg.setCancelable(false);
-                        dlg.setMessage("خطای وارد کردن در دیتابیس");
-                        dlg.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                dialog.cancel();
-                            }
-                        });
-                        dlg.create().show();
                     }
 
                 } catch (JSONException e) {
@@ -155,9 +144,12 @@ public class EditProject extends Activity {
             @Override
             public void onFailure(int statusCode, Header[] headers, byte[] errorResponse, Throwable e) {
 
+                ProgressView.setVisibility(View.GONE);
+                ButtonView.setVisibility(View.VISIBLE);
+
                 AlertDialog.Builder builder = new AlertDialog.Builder(EditProject.this);
                 builder.setCancelable(false);
-                builder.setMessage("خطای سرور");
+                builder.setMessage("خطا! دوباره امتحان کنید");
                 builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {

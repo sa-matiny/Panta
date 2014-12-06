@@ -4,15 +4,15 @@ package com.iust.panta;
 
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.CheckBox;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -27,6 +27,7 @@ import org.json.JSONObject;
 
 public class TaskCard extends Activity {
 
+    JSONObject data;
     private TextView taskOwnerName;
     private TextView taskOwnerUsername;
     private TextView taskName;
@@ -34,11 +35,11 @@ public class TaskCard extends Activity {
     private TextView taskDeadline;
     private CheckBox userCheckBox;
     private CheckBox managerCheckBox;
-
+    private ProgressBar progressBar;
     private boolean manager;
     private Integer taskID;
     private JSONObject jobj;
-    private SqliteController controller;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,8 +53,6 @@ public class TaskCard extends Activity {
 
 
         taskOwnerName = (TextView) findViewById(R.id.TaskOwenersName);
-        // taskOwnerName.setText("test");
-        //    Log.d("Iwant CHeck ",taskOwnerName.toString());
 
         taskOwnerUsername = (TextView) findViewById(R.id.TaskOwenerUserName);
 
@@ -67,18 +66,26 @@ public class TaskCard extends Activity {
 
         managerCheckBox = (CheckBox) findViewById(R.id.ManagerCheckBox);
 
+        progressBar = (ProgressBar) findViewById(R.id.TCard_progress);
+
+        SqliteController controller = new SqliteController(this);
+
+        try {
+            data = controller.getMe();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+
         userCheckBox.setChecked(false);
 
-
-
-
-
-     //   managerCheckBox.
-
-        //managerCheckBox.setClickable(false);
-
-        controller = new SqliteController(this);
-
+        progressBar.setVisibility(View.VISIBLE);
         RequestParams params = new RequestParams();
         Log.d("inTASKCARD", " " + taskID);
         params.put("taskID", taskID);
@@ -92,6 +99,7 @@ public class TaskCard extends Activity {
 
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] response) {
+                progressBar.setVisibility(View.GONE);
                 try {
                     Log.d("My__RESPONSE", new String(response));
 
@@ -103,13 +111,13 @@ public class TaskCard extends Activity {
                     taskName.setText(jobj.getString("taskName"));
                     taskDescription.setText(jobj.getString("task_info"));
                     taskDeadline.setText(jobj.getString("deadline"));
-                    JSONObject data=controller.getMe();
 
-                  //  SQLiteDatabase db= this.getReadableDataBasel
+
+                    //  SQLiteDatabase db= this.getReadableDataBasel
                     taskOwnerName.setText("درست باید شود!");
-                   // Log.d("Sqlite", (data.get(";
+                    // Log.d("Sqlite", (data.get(";
 
-                  boolean issame=false;
+                    boolean issame = false;
                     if (!data.getString("username").equals(jobj.getString("username"))) {
                         issame = true;
                         Log.d("username ", "equals");
@@ -119,20 +127,17 @@ public class TaskCard extends Activity {
                         //   userCheckBox.setClickable(true);
 
                     }
-                    if( ! manager)
-                    {
-                        Log.d("she is manager","manager");
+                    if (!manager) {
+                        Log.d("she is manager", "manager");
                         managerCheckBox.setChecked(false);
 
                         managerCheckBox.setButtonDrawable(R.drawable.grayunchecked);
                         managerCheckBox.setClickable(false);
-                      //  managerCheckBox.setChecked(true);
+                        //  managerCheckBox.setChecked(true);
                         //managerCheckBox.setClickable(true);
                     }
 
 
-
-
                 } catch (JSONException e) {
                     e.printStackTrace();
                     Log.d("Problem in catching ", "hichi");
@@ -141,6 +146,7 @@ public class TaskCard extends Activity {
 
             @Override
             public void onFailure(int statusCode, Header[] headers, byte[] errorResponse, Throwable e) {
+                progressBar.setVisibility(View.GONE);
 
                 AlertDialog.Builder builder = new AlertDialog.Builder(TaskCard.this);
                 builder.setCancelable(false);
@@ -158,72 +164,6 @@ public class TaskCard extends Activity {
             }
 
         });
-
-
-       /* params.put("taskID", 0);
-
-        client.post("http://104.236.33.128:8800//taskInfo/", params, new AsyncHttpResponseHandler() {
-
-            @Override
-            public void onStart() {
-                System.out.println("Start");
-            }
-
-            @Override
-            public void onSuccess(int statusCode, Header[] headers, byte[] response) {
-                try {
-                    Log.d("My__RESPONSE", new String(response));
-
-                    JSONObject jobj_1 = new JSONObject(new String(response));
-                    JSONObject jobj = jobj_1.getJSONObject("taskInfo");
-                    //    Log.d("obj",jobj.toString());
-                    taskOwnerUsername.setText(jobj.getString("username"));
-
-                    taskName.setText(jobj.getString("taskName"));
-                    taskDescription.setText(jobj.getString("task_info"));
-                    taskDeadline.setText(jobj.getString("deadline"));
-
-                    if (jobj.getString("status").equals("1")) {
-                        userCheckBox.setChecked(true);
-                        managerCheckBox.setChecked(true);
-
-                        //   managerCheckBox.setdrawa
-
-                        //  Drawable d= getResources().getDrawable(R.drawable.graycheck  );
-
-
-                        managerCheckBox.setButtonDrawable(R.drawable.graycheck);
-
-                        managerCheckBox.setClickable(false);
-                    }
-
-
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                    Log.d("Problem in catching ", "hichi");
-                }
-            }
-
-            @Override
-            public void onFailure(int statusCode, Header[] headers, byte[] errorResponse, Throwable e) {
-
-                AlertDialog.Builder builder = new AlertDialog.Builder(TaskCard.this);
-                builder.setCancelable(false);
-                builder.setMessage("خطا! اتصال به اینترنت با مشکل مواجه است");
-                builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.cancel();
-                    }
-                });
-                AlertDialog alert = builder.create();
-                alert.show();
-
-                //  Log.d("problemm",new String("in catching"));
-            }
-
-        });
-*/
 
     }
 

@@ -65,6 +65,12 @@ public class ProjectCard extends FragmentActivity implements
         actionBar.setHomeButtonEnabled(false);
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
 
+        // Adding Tabs
+        for (String tab_name : tabs) {
+            actionBar.addTab(actionBar.newTab().setText(tab_name)
+                    .setTabListener(ProjectCard.this));
+        }
+
         /**
          * on swiping the viewpager make respective tab selected
          * */
@@ -177,12 +183,6 @@ public class ProjectCard extends FragmentActivity implements
             public void onFinish() {
                 System.out.println("Finish");
 
-
-                // Adding Tabs
-                for (String tab_name : tabs) {
-                    actionBar.addTab(actionBar.newTab().setText(tab_name)
-                            .setTabListener(ProjectCard.this));
-                }
 
                 viewPager.setAdapter(mAdapter);
 

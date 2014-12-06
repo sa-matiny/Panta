@@ -28,7 +28,7 @@
                 android:layout_alignParentRight="true"
                 android:layout_alignParentTop="true"
                 android:gravity="center_vertical|center_horizontal"
-                android:text="نام کاربر"
+                android:text="نام کاربری"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:textColor="@color/text1"
                 android:textSize="@dimen/font"

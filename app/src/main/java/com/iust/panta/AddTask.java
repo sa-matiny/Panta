@@ -14,7 +14,6 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ProgressBar;
-import android.widget.TextView;
 
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
@@ -26,13 +25,10 @@ import org.json.JSONObject;
 
 
 public class AddTask extends Activity {
-    private TextView TUserNameView;
     private EditText EUserNameView;
 
-    private TextView TTaskNameView;
     private EditText ETaskNameView;
 
-    private TextView TTaskInfoView;
     private EditText ETaskInfoView;
 
     private Button ButtonView;
@@ -45,13 +41,10 @@ public class AddTask extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_task);
 
-        TUserNameView = (TextView) findViewById(R.id.TUserName);
         EUserNameView = (EditText) findViewById(R.id.EUserName);
 
-        TTaskNameView = (TextView) findViewById(R.id.TTaskName);
         ETaskNameView = (EditText) findViewById(R.id.ETaskName);
 
-        TTaskInfoView = (TextView) findViewById(R.id.TTaskInfo);
         ETaskInfoView = (EditText) findViewById(R.id.ETaskInfo);
 
         ButtonView = (Button) findViewById(R.id.add_Task_button);
@@ -83,7 +76,6 @@ public class AddTask extends Activity {
         String ETaskInfo = ETaskInfoView.getText().toString();
 
         View focus_view;
-        ProgressView.setVisibility(View.VISIBLE);
 
 
         // check if Edit texts are Empty
@@ -92,7 +84,7 @@ public class AddTask extends Activity {
             EUserNameView.setError("نام را وارد کنید");
             focus_view = EUserNameView;
             focus_view.requestFocus();
-            this.has_error = true;
+            has_error = true;
 
 
         }
@@ -101,19 +93,16 @@ public class AddTask extends Activity {
             ETaskNameView.setError("نام وظیفه را وارد کنید");
             focus_view = ETaskNameView;
             focus_view.requestFocus();
-            this.has_error = true;
+            has_error = true;
         }
 
         if (TextUtils.isEmpty(ETaskInfo)) {
             ETaskInfoView.setError("شرح وظیفه را وارد کنید");
             focus_view = ETaskInfoView;
             focus_view.requestFocus();
-            this.has_error = true;
+            has_error = true;
         }
 
-
-        if (this.has_error)
-            ProgressView.setVisibility(View.GONE);
         writeInAddTaskTb();
     }
 
@@ -154,7 +143,7 @@ public class AddTask extends Activity {
                         if (s_response.getBoolean("successful")) {
                             AlertDialog.Builder dlg = new AlertDialog.Builder(AddTask.this);
                             dlg.setCancelable(false);
-                            dlg.setMessage("successful");
+                            dlg.setMessage("وظیفه اضافه شد");
                             dlg.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
@@ -166,7 +155,7 @@ public class AddTask extends Activity {
                         } else {
                             AlertDialog.Builder dlg = new AlertDialog.Builder(AddTask.this);
                             dlg.setCancelable(false);
-                            dlg.setMessage("خطای وارد کردن در دیتابیس");
+                            dlg.setMessage("پست الکترونیکی موجود نیست");
                             dlg.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
@@ -190,7 +179,7 @@ public class AddTask extends Activity {
                     ButtonView.setVisibility(View.VISIBLE);
                     AlertDialog.Builder builder = new AlertDialog.Builder(AddTask.this);
                     builder.setCancelable(false);
-                    builder.setMessage("خطای سرور");
+                    builder.setMessage("خطا! دوباره امتحان کنید");
                     builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
