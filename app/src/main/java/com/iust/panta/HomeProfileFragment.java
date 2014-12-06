@@ -1,6 +1,5 @@
 package com.iust.panta;
 
-import android.app.ActionBar;
 import android.app.AlertDialog;
 import android.app.Fragment;
 import android.content.DialogInterface;
@@ -11,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ExpandableListView;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.iust.panta.Expand.adapter.ExpandListViewAdapter;
@@ -27,11 +27,6 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-/**
- * Created by Rayehe on 11/23/2014.
- *
- */
-
 
 public class HomeProfileFragment extends Fragment {
     public ExpandableListView Explist;
@@ -40,9 +35,12 @@ public class HomeProfileFragment extends Fragment {
     private ArrayList<ExpandGroupList> expGroup;
     private ArrayList<String> listProjectsName;
     private ArrayList<String> listProjectsID;
+    private ArrayList<String> listManagerUsers;
     private ArrayList<ArrayList<String>> listEachProjectsTask;
     private ArrayList<ArrayList<String>> listEachProjectsTaskID;
     private View rootView;
+    private ProgressBar mProgressView;
+    private String userName;
 
 
     @Override
@@ -52,20 +50,28 @@ public class HomeProfileFragment extends Fragment {
         rootView = inflater.inflate(R.layout.fragment_home_profile, container, false);
         Explist = (ExpandableListView) rootView.findViewById(R.id.Final_list);
 
-        ActionBar actionBar = getActivity().getActionBar();
-        actionBar.setTitle(R.string.Home_section);
+        mProgressView = (ProgressBar) rootView.findViewById(R.id.Profile_progress);
+
+        Bundle msg = getArguments();
+        userName = msg.getString("username");
+        Log.d("username_profile", userName);
+
+        return rootView;
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
 
         listEachProjectsTask = new ArrayList<ArrayList<String>>();
         listEachProjectsTaskID = new ArrayList<ArrayList<String>>();
 
+        listManagerUsers = new ArrayList<String>();
+
         listProjectsName = new ArrayList<String>();
         listProjectsID= new ArrayList<String >();
 
-
-        Bundle msg = getArguments();
-        String userName = msg.getString("username");
-        Log.d("username_profile", userName);
-
+        mProgressView.setVisibility(View.VISIBLE);
         RequestParams params = new RequestParams();
         params.put("username", userName);
         AsyncHttpClient client = new AsyncHttpClient();
@@ -78,6 +84,7 @@ public class HomeProfileFragment extends Fragment {
 
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] response) {
+                mProgressView.setVisibility(View.GONE);
                 try {
                     JSONObject jObject = new JSONObject(new String(response));
                     JSONArray Projects_obj = jObject.getJSONArray("projects");
@@ -120,6 +127,7 @@ public class HomeProfileFragment extends Fragment {
 
             @Override
             public void onFailure(int statusCode, Header[] headers, byte[] errorResponse, Throwable e) {
+                mProgressView.setVisibility(View.GONE);
                 System.out.println("Fail");
                 AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
                 builder.setCancelable(false);
@@ -153,6 +161,13 @@ public class HomeProfileFragment extends Fragment {
                         String idd = listEachProjectsTaskID.get(groupPosition).get(childPosition);
 
                         Intent intent = new Intent(HomeProfileFragment.this.getActivity(), TaskCard.class);
+                        if (userName.equals("mahla@yahoo.com")) {
+                            Log.d("yesss", "yess");
+                            intent.putExtra("manager", true);//TODO change after server
+                        } else {
+                            Log.d("No", "yess");
+                            intent.putExtra("manager", false);
+                        }
                         intent.putExtra("taskID", Integer.parseInt(idd));
                         startActivity(intent);
 
@@ -163,9 +178,6 @@ public class HomeProfileFragment extends Fragment {
             }
 
         });
-
-
-        return rootView;
     }
 
 
