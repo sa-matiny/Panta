@@ -4,8 +4,10 @@ package com.iust.panta;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -36,7 +38,7 @@ public class TaskCard extends Activity {
     private boolean manager;
     private Integer taskID;
     private JSONObject jobj;
-
+    private SqliteController controller;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,6 +49,7 @@ public class TaskCard extends Activity {
         Bundle extras = intent.getExtras();
         taskID = extras.getInt("taskID");
         manager = extras.getBoolean("manager");
+
 
         taskOwnerName = (TextView) findViewById(R.id.TaskOwenersName);
         // taskOwnerName.setText("test");
@@ -63,6 +66,18 @@ public class TaskCard extends Activity {
         userCheckBox = (CheckBox) findViewById(R.id.UserCheckBox);
 
         managerCheckBox = (CheckBox) findViewById(R.id.ManagerCheckBox);
+
+        userCheckBox.setChecked(false);
+
+
+
+
+
+     //   managerCheckBox.
+
+        //managerCheckBox.setClickable(false);
+
+        controller = new SqliteController(this);
 
         RequestParams params = new RequestParams();
         Log.d("inTASKCARD", " " + taskID);
@@ -88,20 +103,34 @@ public class TaskCard extends Activity {
                     taskName.setText(jobj.getString("taskName"));
                     taskDescription.setText(jobj.getString("task_info"));
                     taskDeadline.setText(jobj.getString("deadline"));
+                    JSONObject data=controller.getMe();
 
-                    if (jobj.getString("status").equals("1")) {
-                        userCheckBox.setChecked(true);
-                        managerCheckBox.setChecked(true);
+                  //  SQLiteDatabase db= this.getReadableDataBasel
+                    taskOwnerName.setText("درست باید شود!");
+                   // Log.d("Sqlite", (data.get(";
 
-                        //   managerCheckBox.setdrawa
+                  boolean issame=false;
+                    if (!data.getString("username").equals(jobj.getString("username"))) {
+                        issame = true;
+                        Log.d("username ", "equals");
+                        userCheckBox.setChecked(false);
+                        userCheckBox.setButtonDrawable(R.drawable.grayunchecked);
+                        userCheckBox.setClickable(false);
+                        //   userCheckBox.setClickable(true);
 
-                        //  Drawable d= getResources().getDrawable(R.drawable.graycheck  );
-
-
-                        managerCheckBox.setButtonDrawable(R.drawable.graycheck);
-
-                        managerCheckBox.setClickable(false);
                     }
+                    if( ! manager)
+                    {
+                        Log.d("she is manager","manager");
+                        managerCheckBox.setChecked(false);
+
+                        managerCheckBox.setButtonDrawable(R.drawable.grayunchecked);
+                        managerCheckBox.setClickable(false);
+                      //  managerCheckBox.setChecked(true);
+                        //managerCheckBox.setClickable(true);
+                    }
+
+
 
 
                 } catch (JSONException e) {
