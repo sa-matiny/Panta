@@ -101,6 +101,7 @@ public class HomeProfileFragment extends Fragment {
                         listProjectsName.add(eachProjects.getString("projectName"));
                         Log.d("projectID :", eachProjects.getString("projectID"));
                         listProjectsID.add(eachProjects.getString("projectID"));
+                       listManagerUsers.add(eachProjects.getString("managerUser"));
                         JSONArray jsonTasks = eachProjects.getJSONArray("tasks");
                         ArrayList<String> eachTask = new ArrayList<String>();
                         ArrayList<String> eachTaskID = new ArrayList<String>();
@@ -161,7 +162,7 @@ public class HomeProfileFragment extends Fragment {
                         String idd = listEachProjectsTaskID.get(groupPosition).get(childPosition);
 
                         Intent intent = new Intent(HomeProfileFragment.this.getActivity(), TaskCard.class);
-                        if (userName.equals("mahla@yahoo.com")) {
+                        if (userName.equals(listManagerUsers.get(groupPosition))) {
                             Log.d("yesss", "yess");
                             intent.putExtra("manager", true);//TODO change after server
                         } else {

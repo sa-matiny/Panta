@@ -114,7 +114,7 @@ public class TaskCard extends Activity {
 
 
                     //  SQLiteDatabase db= this.getReadableDataBasel
-                    taskOwnerName.setText("درست باید شود!");
+                    taskOwnerName.setText(jobj.getString("name"));
                     // Log.d("Sqlite", (data.get(";
 
                     boolean issame = false;
