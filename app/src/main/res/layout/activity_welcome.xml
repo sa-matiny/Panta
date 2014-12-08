@@ -1,25 +1,35 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/welcome"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#fffee7c3"
-    android:orientation="vertical"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
+    android:background="#ececeef1"
+
     tools:context="com.iust.panta.Welcome">
 
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent">
 
-    <ImageView
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingBottom="@dimen/activity_vertical_margin"
+            android:paddingLeft="@dimen/activity_horizontal_margin"
+            android:paddingRight="@dimen/activity_horizontal_margin"
+            android:paddingTop="@dimen/activity_vertical_margin">
+
+
+            <ImageView
         android:id="@+id/imageView"
-        android:layout_width="300dp"
-        android:layout_height="320dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:background="@drawable/welcome" />
+                android:layout_marginTop="0dp"
+                android:background="@drawable/welcome" />
 
-    <TextView
+            <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -30,10 +40,11 @@
         android:onClick="signup"
         android:text="@string/signup"
         android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="@color/text1"
         android:textSize="@dimen/font"
-        android:textStyle="bold" />
+                android:textStyle="bold" />
 
-    <TextView
+            <TextView
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -44,7 +55,12 @@
         android:onClick="signin"
         android:text="@string/signin"
         android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="@color/text1"
         android:textSize="@dimen/font"
-        android:textStyle="bold" />
+                android:textStyle="bold" />
 
-</LinearLayout>
+        </LinearLayout>
+
+    </ScrollView>
+
+</FrameLayout>
