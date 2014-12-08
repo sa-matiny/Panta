@@ -182,7 +182,7 @@ public class ProjectCard extends FragmentActivity implements
                 }
                 Log.d("injaaaaa", "1");
                 viewPager.setAdapter(mAdapter);
-                viewPager.getAdapter().notifyDataSetChanged();
+                //viewPager.getAdapter().notifyDataSetChanged();
 
 
                 Log.d("injaaaaa", "1");
