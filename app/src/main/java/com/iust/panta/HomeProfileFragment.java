@@ -118,6 +118,11 @@ public class HomeProfileFragment extends Fragment {
                         Log.d("end of for 2", "end of for 2");
                         listEachProjectsTask.add(eachTask);
                         listEachProjectsTaskID.add(eachTaskID);
+
+                        hasData = true;
+                        if (listProjectsName.isEmpty()) {
+                            hasData = false;
+                        }
                     }
 
                 } catch (JSONException jsone) {
@@ -145,10 +150,7 @@ public class HomeProfileFragment extends Fragment {
             @Override
             public void onFinish() {
 
-                hasData = true;
-                if (listProjectsName.isEmpty()) {
-                    hasData = false;
-                }
+
                 expGroup = SetStandardGroup(hasData);
                 expandAdapter = new ExpandListViewAdapter(rootView.getContext(), expGroup);
 

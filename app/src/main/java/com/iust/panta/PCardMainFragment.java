@@ -20,12 +20,13 @@ public class PCardMainFragment extends Fragment {
     private TextView mProInfo;
     private TextView mProDeadline;
     private Bundle msg;
+    private View rootView;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View rootView = inflater.inflate(R.layout.fragment_pcard_main, container, false);
+        rootView = inflater.inflate(R.layout.fragment_pcard_main, container, false);
 
         mProName = (TextView) rootView.findViewById(R.id.pro_name);
         mProManager = (TextView) rootView.findViewById(R.id.pro_manager);
@@ -36,7 +37,6 @@ public class PCardMainFragment extends Fragment {
         msg = getArguments();
 
         try {
-            Log.d("4", new String(msg.getByteArray("response")));
             Log.d("RESPONSE", new String(msg.getByteArray("response")));
             JSONObject s_response = new JSONObject(new String(msg.getByteArray("response")));
             JSONObject pro_info = s_response.getJSONObject("projectInfo");

@@ -32,8 +32,8 @@ import org.json.JSONObject;
 public class ProjectCard extends FragmentActivity implements
         ActionBar.TabListener {
 
-    private ViewPager viewPager;
     private TabsPagerAdapter mAdapter;
+    private ViewPager viewPager;
     private ActionBar actionBar;
     private Bundle msg_main;
     private Bundle msg_task;
@@ -57,19 +57,17 @@ public class ProjectCard extends FragmentActivity implements
         setContentView(R.layout.activity_project_card);
 
         // Initilization
-        viewPager = (ViewPager) findViewById(R.id.pager);
+
         mProgressView = (ProgressBar) findViewById(R.id.PCard_progress);
+
+        viewPager = (ViewPager) findViewById(R.id.pager);
+
         actionBar = getActionBar();
-        mAdapter = new TabsPagerAdapter(getSupportFragmentManager());
 
         actionBar.setHomeButtonEnabled(false);
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
+        mAdapter = new TabsPagerAdapter(getSupportFragmentManager());
 
-        // Adding Tabs
-        for (String tab_name : tabs) {
-            actionBar.addTab(actionBar.newTab().setText(tab_name)
-                    .setTabListener(ProjectCard.this));
-        }
 
         /**
          * on swiping the viewpager make respective tab selected
@@ -91,6 +89,7 @@ public class ProjectCard extends FragmentActivity implements
             public void onPageScrollStateChanged(int arg0) {
             }
         });
+
 
         Intent intent = getIntent();
         projectID = intent.getExtras().getInt("projectId");
@@ -135,24 +134,16 @@ public class ProjectCard extends FragmentActivity implements
                     JSONObject s_response = new JSONObject(new String(response));
                     pro_info = s_response.getJSONObject("projectInfo");
 
-                    manager = new Boolean(false);
+                    manager = false;
 
                     Log.d("meeeeeeee", data.getString("username"));
                     if (pro_info.getString("managerUser").equals(data.getString("username"))) {
                         manager = true;
-
                     }
                     msg_task.putBoolean("manager", manager);
 
                     //Main
                     msg_main.putByteArray("response", response);
-
-                    /*//Task
-                    msg_task.putString("managerUser", pro_info.getString("managerUser"));
-                    msg_task.putString("managerName", pro_info.getString("managerName"));
-                    //Member
-                    msg_member.putString("managerUser", pro_info.getString("managerUser"));
-                    msg_member.putString("managerName", pro_info.getString("managerName"));*/
 
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -183,8 +174,19 @@ public class ProjectCard extends FragmentActivity implements
             public void onFinish() {
                 System.out.println("Finish");
 
-
+                actionBar.removeAllTabs();
+                // Adding Tabs
+                for (String tab_name : tabs) {
+                    actionBar.addTab(actionBar.newTab().setText(tab_name)
+                            .setTabListener(ProjectCard.this));
+                }
+                Log.d("injaaaaa", "1");
                 viewPager.setAdapter(mAdapter);
+                viewPager.getAdapter().notifyDataSetChanged();
+
+
+                Log.d("injaaaaa", "1");
+
 
 
             }
@@ -417,6 +419,7 @@ public class ProjectCard extends FragmentActivity implements
                 case 0:
                     Fragment PCardMain = new PCardMainFragment();
                     PCardMain.setArguments(msg_main);
+                    Log.d("???????", "cheraaaaaaaaaa");
                     return PCardMain;
 
                 case 1:
@@ -437,6 +440,11 @@ public class ProjectCard extends FragmentActivity implements
         public int getCount() {
             // get item count - equal to number of tabs
             return 3;
+        }
+
+        @Override
+        public int getItemPosition(Object object) {
+            return POSITION_NONE;
         }
 
     }
