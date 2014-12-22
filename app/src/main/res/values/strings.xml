@@ -13,6 +13,7 @@
     <string name="Home_section">پروژه های من</string>
     <string name="Setting_section">تنظیمات</string>
     <string name="add_section">اضافه کردن پروژه</string>
+    <string name="feedback_section">انتقادات و پیشنهادات</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="title_activity_task_card">اطلاعات وظیفه</string>
@@ -21,5 +22,6 @@
     <string name="TC_userName">نام کاربری </string>
     <string name="TC_taskName">نام وظیفه </string>
     <string name="TC_taskDescription">شرح وظیفه </string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>

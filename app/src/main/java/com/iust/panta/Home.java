@@ -68,6 +68,11 @@ public class Home extends Activity
                 mTitle = getString(R.string.Setting_section);
                 objfrag = new HomeSettingFragment();
                 break;
+            case 3:
+                mTitle = getString(R.string.feedback_section);
+                objfrag = new HomeFeedbackFragment();
+                break;
+
             default:
                 mTitle = getString(R.string.Home_section);
                 objfrag = new HomeProfileFragment();

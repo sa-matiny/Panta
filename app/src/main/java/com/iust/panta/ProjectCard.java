@@ -59,7 +59,6 @@ public class ProjectCard extends FragmentActivity implements
         // Initilization
 
         mProgressView = (ProgressBar) findViewById(R.id.PCard_progress);
-
         viewPager = (ViewPager) findViewById(R.id.pager);
 
         actionBar = getActionBar();
@@ -186,7 +185,6 @@ public class ProjectCard extends FragmentActivity implements
 
 
                 Log.d("injaaaaa", "1");
-
 
 
             }

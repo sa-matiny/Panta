@@ -12,13 +12,10 @@ import android.widget.TextView;
 
 import com.iust.panta.Expands.ExpandChildList;
 import com.iust.panta.Expands.ExpandGroupList;
-import com.iust.panta.Home;
-import com.iust.panta.HomeProfileFragment;
 import com.iust.panta.ProjectCard;
 import com.iust.panta.R;
 
 import java.util.ArrayList;
-import java.util.Objects;
 
 /**
  * Created by Rayehe on 11/3/2014.
@@ -84,7 +81,7 @@ public class ExpandListViewAdapter extends BaseExpandableListAdapter {
     public View getGroupView(int groupPosition, boolean isLastChild, View v, ViewGroup parent) {
         ExpandGroupList g = (ExpandGroupList) getGroup(groupPosition);
         final String id = ((ExpandGroupList) getGroup(groupPosition)).getId();
-        Button button = null;
+        TextView button = null;
         if (v == null) {
             LayoutInflater inf = (LayoutInflater) context.getSystemService(context.LAYOUT_INFLATER_SERVICE);
             v = inf.inflate(R.layout.exp_group, null);
@@ -93,7 +90,7 @@ public class ExpandListViewAdapter extends BaseExpandableListAdapter {
               v.setTag(holder);
               holder=(viewHolder) v.getTag();*/
         }
-        button = (Button) v.findViewById(R.id.enter_card);
+        button = (TextView) v.findViewById(R.id.enter_card);
         TextView tv = (TextView) v.findViewById(R.id.tvGroup);
         tv.setText(g.getName());
 

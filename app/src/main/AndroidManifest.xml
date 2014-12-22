@@ -17,18 +17,16 @@
         <activity
             android:name=".LoginActivity"
             android:label="@string/title_activity_login"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="adjustResize|stateVisible">
-<<<<<<< HEAD
-=======
-
->>>>>>> origin/master
 
 
         </activity>
         <activity
             android:name=".SignUp"
             android:label="@string/title_activity_sign_up"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="adjustResize|stateVisible">
 
@@ -39,27 +37,19 @@
             android:label="@string/app_name"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-<<<<<<< HEAD
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
-
-=======
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
->>>>>>> origin/master
 
 
         </activity>
         <activity
             android:name=".ProjectCard"
             android:label="@string/title_activity_project_card"
+            android:screenOrientation="portrait"
             android:theme="@style/App">
 
 
@@ -67,6 +57,7 @@
         <activity
             android:name=".AddTask"
             android:label="@string/title_activity_add_task"
+            android:screenOrientation="portrait"
             android:theme="@style/App">
 
         </activity>
@@ -74,6 +65,7 @@
         <activity
             android:name=".EditTask"
             android:label="@string/title_activity_edit_task"
+            android:screenOrientation="portrait"
             android:theme="@style/App">
 
         </activity>
@@ -81,6 +73,7 @@
         <activity
             android:name=".EditProject"
             android:label="@string/title_activity_edit_project"
+            android:screenOrientation="portrait"
             android:theme="@style/App">
 
 
@@ -89,6 +82,7 @@
         <activity
             android:name=".Home"
             android:label="@string/title_activity_home"
+            android:screenOrientation="portrait"
             android:theme="@style/App">
 
 
@@ -97,6 +91,7 @@
         <activity
             android:name=".TaskCard"
             android:label="@string/title_activity_task_card"
+            android:screenOrientation="portrait"
             android:theme="@style/App">
 
 
