@@ -18,6 +18,7 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="title_activity_task_card">اطلاعات وظیفه</string>
     <string name="action_edit_task">اصلاح وظیفه</string>
+    <string name="action_delete_task">حذف وظیفه</string>
     <string name="TC_name">نام مسئول وظیفه </string>
     <string name="TC_userName">نام کاربری </string>
     <string name="TC_taskName">نام وظیفه </string>

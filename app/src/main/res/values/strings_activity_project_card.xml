@@ -4,5 +4,6 @@
     <string name="action_add_member">اضافه کردن عضو</string>
     <string name="action_delete_project">حذف پروژه</string>
     <string name="action_edit_project">تغییر پروژه</string>
+    <string name="action_delete_member">حذف عضو</string>
 
 </resources>

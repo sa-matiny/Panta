@@ -1,8 +1,6 @@
 package com.iust.panta;
 
 
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -14,14 +12,8 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
-import com.loopj.android.http.AsyncHttpClient;
-import com.loopj.android.http.AsyncHttpResponseHandler;
-import com.loopj.android.http.RequestParams;
-
-import org.apache.http.Header;
 import org.json.JSONArray;
 import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.ArrayList;
 
@@ -30,7 +22,6 @@ public class PCardTaskFragment extends Fragment {
     private ListView listView;
     private ArrayList<String> taskNameArray;
     private ArrayList<Integer> taskIDArrayList;
-    private Integer projectID;
     private boolean manager;
     private View rootView;
 
@@ -52,68 +43,29 @@ public class PCardTaskFragment extends Fragment {
         bundle = new Bundle();
         bundle = getArguments();
 
-        projectID = bundle.getInt("projectID");
         manager = bundle.getBoolean("manager");
 
+        try {
+            JSONArray ProjectTasksInformation = new JSONArray(bundle.getString("pro_tasks"));
 
-        RequestParams params = new RequestParams();
-        params.put("projectID", projectID);
-        AsyncHttpClient client = new AsyncHttpClient();
-        client.post("http://104.236.33.128:8800/project_tasks/", params, new AsyncHttpResponseHandler() {
 
-            @Override
-            public void onStart() {
-                System.out.println("Start");
+            //  Dictionary<int,int> indexToTaskId=new Dictionary<int, int>() ;
+            for (int i = 0; i < ProjectTasksInformation.length(); i++) {
+                taskNameArray.add(ProjectTasksInformation.getJSONObject(i).getString("taskName"));
+                taskIDArrayList.add(ProjectTasksInformation.getJSONObject(i).getInt("taskID"));
+
+
             }
+            ArrayAdapter<String> ArrayItems = new ArrayAdapter<String>(PCardTaskFragment.this.getActivity(), android.R.layout.simple_list_item_1, taskNameArray);
 
-            @Override
-            public void onSuccess(int statusCode, Header[] headers, byte[] response) {
-                try {
-                    Log.d("My__RESPONSE", new String(response));
+            listView.setAdapter(ArrayItems);
 
-                    JSONObject jobj = new JSONObject(new String(response));
-                    JSONArray ProjectTasksInformation = jobj.getJSONArray("project_tasks");
-
-
-                    //  Dictionary<int,int> indexToTaskId=new Dictionary<int, int>() ;
-                    for (int i = 0; i < ProjectTasksInformation.length(); i++) {
-                        taskNameArray.add(ProjectTasksInformation.getJSONObject(i).getString("taskName"));
-                        taskIDArrayList.add(ProjectTasksInformation.getJSONObject(i).getInt("taskID"));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
 
 
-                    }
-                    ArrayAdapter<String> ArrayItems = new ArrayAdapter<String>(PCardTaskFragment.this.getActivity(), android.R.layout.simple_list_item_1, taskNameArray);
 
-                    listView.setAdapter(ArrayItems);
-
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            }
-
-            @Override
-            public void onFailure(int statusCode, Header[] headers, byte[] errorResponse, Throwable e) {
-
-                AlertDialog.Builder builder = new AlertDialog.Builder(rootView.getContext());
-                builder.setCancelable(false);
-                builder.setMessage("خطا! اتصال به اینترنت با مشکل مواجه است");
-                builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.cancel();
-                    }
-                });
-                AlertDialog alert = builder.create();
-                alert.show();
-
-                //  Log.d("problemm",new String("in catching"));
-            }
-
-        });
-        // this.get activity is for fragments
-
-
-        //  listView
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 

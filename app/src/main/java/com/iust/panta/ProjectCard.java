@@ -26,6 +26,7 @@ import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 
 import org.apache.http.Header;
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -42,6 +43,8 @@ public class ProjectCard extends FragmentActivity implements
     private int projectID;
 
     private JSONObject pro_info;
+    private JSONArray pro_users;
+    private JSONArray pro_tasks;
     private Intent intent1;
 
     private ProgressBar mProgressView;
@@ -109,16 +112,13 @@ public class ProjectCard extends FragmentActivity implements
         msg_main = new Bundle();
         msg_member = new Bundle();
         msg_task = new Bundle();
-        msg_main.putInt("projectID", projectID);
-        msg_member.putInt("projectID", projectID);
-        msg_task.putInt("projectID", projectID);
 
         mProgressView.setVisibility(View.VISIBLE);
 
         RequestParams params = new RequestParams();
         params.put("projectID", projectID);
         AsyncHttpClient client = new AsyncHttpClient();
-        client.post("http://104.236.33.128:8800/projectInfo/", params, new AsyncHttpResponseHandler() {
+        client.post("http://104.236.33.128:8800/project_all/", params, new AsyncHttpResponseHandler() {
 
             @Override
             public void onStart() {
@@ -132,17 +132,24 @@ public class ProjectCard extends FragmentActivity implements
                     Log.d("RESPONSE", new String(response));
                     JSONObject s_response = new JSONObject(new String(response));
                     pro_info = s_response.getJSONObject("projectInfo");
+                    pro_users = s_response.getJSONArray("project_users");
+                    pro_tasks = s_response.getJSONArray("project_tasks");
 
                     manager = false;
-
                     Log.d("meeeeeeee", data.getString("username"));
                     if (pro_info.getString("managerUser").equals(data.getString("username"))) {
                         manager = true;
                     }
+                    //Tasks
                     msg_task.putBoolean("manager", manager);
+                    msg_task.putString("pro_tasks", pro_tasks.toString());
+
+                    //Members
+                    msg_member.putString("pro_users", pro_users.toString());
 
                     //Main
-                    msg_main.putByteArray("response", response);
+                    msg_main.putString("pro_info", pro_info.toString());
+
 
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -316,6 +323,13 @@ public class ProjectCard extends FragmentActivity implements
                 });
                 add_member.create().show();
                 return true;
+
+            case R.id.action_deletemember:
+                if (!manager) {
+                    Toast.makeText(getApplicationContext(), "تنها مدیر پروژه می تواند یکی از اعضا را حذف کند", Toast.LENGTH_LONG).show();
+                    break;
+                }
+
 
             case R.id.action_editpro:
                 if (!manager) {
