@@ -337,12 +337,21 @@ public class ProjectCard extends FragmentActivity implements
                     break;
                 }
 
+                if (pro_users.length() == 1) {
+                    Toast.makeText(getApplicationContext(), "در حال حاضر برای این پروژه عضوی جز مدیر وجود ندارد", Toast.LENGTH_LONG).show();
+                    break;
+                }
+
                 AlertDialog.Builder del_member = new AlertDialog.Builder(this);
                 final Spinner comboBox = new Spinner(this);
                 ArrayList<String> memberArray = new ArrayList<String>();
+
                 for (int i = 0; i < pro_users.length(); i++) {
                     try {
                         JSONObject member = pro_users.getJSONObject(i);
+                        if (pro_info.getString("managerUser").equals(member.getString("username"))) {
+                            continue;
+                        }
                         memberArray.add(member.getString("name") + "\n(" + member.getString("username") + ")");
                     } catch (JSONException e) {
                         e.printStackTrace();
