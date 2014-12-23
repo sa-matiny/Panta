@@ -46,9 +46,8 @@ public class PCardTaskFragment extends Fragment {
         manager = bundle.getBoolean("manager");
 
         try {
+            Log.d("PCardTasks", bundle.toString());
             JSONArray ProjectTasksInformation = new JSONArray(bundle.getString("pro_tasks"));
-
-
             //  Dictionary<int,int> indexToTaskId=new Dictionary<int, int>() ;
             for (int i = 0; i < ProjectTasksInformation.length(); i++) {
                 taskNameArray.add(ProjectTasksInformation.getJSONObject(i).getString("taskName"));
@@ -63,8 +62,6 @@ public class PCardTaskFragment extends Fragment {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-
-
 
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {

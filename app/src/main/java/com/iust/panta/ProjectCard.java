@@ -17,8 +17,11 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.loopj.android.http.AsyncHttpClient;
@@ -29,6 +32,8 @@ import org.apache.http.Header;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.ArrayList;
 
 public class ProjectCard extends FragmentActivity implements
         ActionBar.TabListener {
@@ -49,13 +54,14 @@ public class ProjectCard extends FragmentActivity implements
 
     private ProgressBar mProgressView;
     private JSONObject data;
+    private Boolean flag;
+    private int combo;
 
     // Tab titles
     private String[] tabs = {"معرفی پروژه", "وظایف", "اعضا"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_project_card);
 
@@ -64,12 +70,17 @@ public class ProjectCard extends FragmentActivity implements
         mProgressView = (ProgressBar) findViewById(R.id.PCard_progress);
         viewPager = (ViewPager) findViewById(R.id.pager);
 
-        actionBar = getActionBar();
 
+        actionBar = getActionBar();
         actionBar.setHomeButtonEnabled(false);
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
-        mAdapter = new TabsPagerAdapter(getSupportFragmentManager());
 
+        for (String tab_name : tabs) {
+            actionBar.addTab(actionBar.newTab().setText(tab_name)
+                    .setTabListener(ProjectCard.this));
+        }
+
+        flag = true;
 
         /**
          * on swiping the viewpager make respective tab selected
@@ -92,7 +103,6 @@ public class ProjectCard extends FragmentActivity implements
             }
         });
 
-
         Intent intent = getIntent();
         projectID = intent.getExtras().getInt("projectId");
 
@@ -103,11 +113,6 @@ public class ProjectCard extends FragmentActivity implements
             e.printStackTrace();
         }
 
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
         //Bundel msg for projectID
         msg_main = new Bundle();
         msg_member = new Bundle();
@@ -179,24 +184,26 @@ public class ProjectCard extends FragmentActivity implements
             @Override
             public void onFinish() {
                 System.out.println("Finish");
-
-                actionBar.removeAllTabs();
-                // Adding Tabs
-                for (String tab_name : tabs) {
-                    actionBar.addTab(actionBar.newTab().setText(tab_name)
-                            .setTabListener(ProjectCard.this));
-                }
-                Log.d("injaaaaa", "1");
+                mAdapter = new TabsPagerAdapter(getSupportFragmentManager());
                 viewPager.setAdapter(mAdapter);
-                //viewPager.getAdapter().notifyDataSetChanged();
-
-
-                Log.d("injaaaaa", "1");
-
-
             }
 
         });
+
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        if (!flag) {
+            Intent intent = new Intent(this, ProjectCard.class);
+            intent.putExtra("projectId", projectID);
+            finish();
+            startActivity(intent);
+        } else {
+            flag = false;
+        }
+
     }
 
     @Override
@@ -330,6 +337,117 @@ public class ProjectCard extends FragmentActivity implements
                     break;
                 }
 
+                AlertDialog.Builder del_member = new AlertDialog.Builder(this);
+                final Spinner comboBox = new Spinner(this);
+                ArrayList<String> memberArray = new ArrayList<String>();
+                for (int i = 0; i < pro_users.length(); i++) {
+                    try {
+                        JSONObject member = pro_users.getJSONObject(i);
+                        memberArray.add(member.getString("name") + "\n(" + member.getString("username") + ")");
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+                ArrayAdapter<String> stringArrayAdapter =
+                        new ArrayAdapter<String>(
+                                this,
+                                android.R.layout.simple_spinner_dropdown_item,
+                                memberArray);
+                comboBox.setAdapter(stringArrayAdapter);
+                del_member.setMessage("کدام عضو را می خواهید حذف کنید؟");
+                del_member.setView(comboBox);
+                final AdapterView.OnItemSelectedListener onSpinner =
+                        new AdapterView.OnItemSelectedListener() {
+                            @Override
+                            public void onItemSelected(
+                                    AdapterView<?> parent,
+                                    View view,
+                                    int position,
+                                    long id) {
+                                combo = position;
+                            }
+
+                            @Override
+                            public void onNothingSelected(
+                                    AdapterView<?> parent) {
+                            }
+                        };
+
+                comboBox.setOnItemSelectedListener(onSpinner);
+                del_member.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        mProgressView.setVisibility(View.VISIBLE);
+                        RequestParams params = new RequestParams();
+                        params.put("projectID", projectID);
+                        try {
+                            params.put("username", pro_users.getJSONObject(combo).getString("username"));
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                        AsyncHttpClient client = new AsyncHttpClient();
+                        client.post("http://104.236.33.128:8800/deleteMember/", params, new AsyncHttpResponseHandler() {
+
+                            @Override
+                            public void onStart() {
+                                System.out.println("Start");
+                            }
+
+                            @Override
+                            public void onSuccess(int statusCode, Header[] headers, byte[] response) {
+                                mProgressView.setVisibility(View.GONE);
+                                try {
+                                    Log.d("RESPONSE", new String(response));
+                                    JSONObject s_response = new JSONObject(new String(response));
+                                    if (!s_response.getBoolean("successful")) {
+                                        AlertDialog.Builder dlg = new AlertDialog.Builder(ProjectCard.this);
+                                        dlg.setCancelable(false);
+                                        //dlg.setMessage();
+                                        dlg.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                                            @Override
+                                            public void onClick(DialogInterface dialog, int which) {
+                                                dialog.cancel();
+                                            }
+                                        });
+                                        dlg.create().show();
+                                    } else
+                                        Toast.makeText(getApplicationContext(), "عضو حذف شد", Toast.LENGTH_LONG).show();
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+
+                            @Override
+                            public void onFailure(int statusCode, Header[] headers, byte[] errorResponse, Throwable e) {
+                                mProgressView.setVisibility(View.GONE);
+                                AlertDialog.Builder builder = new AlertDialog.Builder(ProjectCard.this);
+                                builder.setCancelable(false);
+                                builder.setMessage("خطا! اتصال به اینترنت با مشکل مواجه است");
+                                builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        dialog.cancel();
+                                    }
+                                });
+                                AlertDialog alert = builder.create();
+                                alert.show();
+
+                            }
+
+                        });
+
+
+                    }
+                });
+                del_member.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                });
+                del_member.create().show();
+                return true;
+
 
             case R.id.action_editpro:
                 if (!manager) {
@@ -431,7 +549,6 @@ public class ProjectCard extends FragmentActivity implements
                 case 0:
                     Fragment PCardMain = new PCardMainFragment();
                     PCardMain.setArguments(msg_main);
-                    Log.d("???????", "cheraaaaaaaaaa");
                     return PCardMain;
 
                 case 1:
@@ -454,11 +571,5 @@ public class ProjectCard extends FragmentActivity implements
             return 3;
         }
 
-        @Override
-        public int getItemPosition(Object object) {
-            return POSITION_NONE;
-        }
-
     }
 }
-

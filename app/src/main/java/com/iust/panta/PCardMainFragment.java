@@ -37,8 +37,7 @@ public class PCardMainFragment extends Fragment {
         msg = getArguments();
 
         try {
-
-            Log.d("RESPONSE", msg.toString());
+            Log.d("PCardMain", msg.toString());
             JSONObject pro_info = new JSONObject(msg.getString("pro_info"));
             mProName.setText(pro_info.getString("projectName"));
             mProManager.setText(pro_info.getString("managerName"));

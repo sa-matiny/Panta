@@ -35,9 +35,8 @@ public class PCardMembersFragment extends Fragment {
         bundle = getArguments();
 
         try {
-            Log.d("members", bundle.toString());
+            Log.d("PCardMembers", bundle.toString());
             JSONArray ProjectMembersInformation = new JSONArray(bundle.getString("pro_users"));
-            Log.d("ProjectInfromation", (ProjectMembersInformation).toString());
             //  Dictionary<int,int> indexToTaskId=new Dictionary<int, int>() ;
             memberArray = new ArrayList<String>();
             for (int i = 0; i < ProjectMembersInformation.length(); i++) {
