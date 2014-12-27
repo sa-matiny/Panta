@@ -345,6 +345,7 @@ public class ProjectCard extends FragmentActivity implements
                 AlertDialog.Builder del_member = new AlertDialog.Builder(this);
                 final Spinner comboBox = new Spinner(this);
                 ArrayList<String> memberArray = new ArrayList<String>();
+                final ArrayList<String> member_users = new ArrayList<String>();
 
                 for (int i = 0; i < pro_users.length(); i++) {
                     try {
@@ -352,6 +353,7 @@ public class ProjectCard extends FragmentActivity implements
                         if (pro_info.getString("managerUser").equals(member.getString("username"))) {
                             continue;
                         }
+                        member_users.add(member.getString("username"));
                         memberArray.add(member.getString("name") + "\n(" + member.getString("username") + ")");
                     } catch (JSONException e) {
                         e.printStackTrace();
@@ -389,11 +391,7 @@ public class ProjectCard extends FragmentActivity implements
                         mProgressView.setVisibility(View.VISIBLE);
                         RequestParams params = new RequestParams();
                         params.put("projectID", projectID);
-                        try {
-                            params.put("username", pro_users.getJSONObject(combo).getString("username"));
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
+                        params.put("username", member_users.get(combo));
                         AsyncHttpClient client = new AsyncHttpClient();
                         client.post("http://104.236.33.128:8800/deleteMember/", params, new AsyncHttpResponseHandler() {
 
