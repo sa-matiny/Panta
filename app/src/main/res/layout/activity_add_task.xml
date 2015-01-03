@@ -106,13 +106,23 @@
                 android:layout_below="@+id/ETaskInfo"
                 android:layout_marginTop="20dp"
                 android:calendarViewShown="false" />
+            <TimePicker
+                android:id="@+id/TimePicker"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentRight="true"
+                android:layout_below="@+id/datePicker"
+                android:layout_marginTop="20dp"
+                android:calendarViewShown="false" />
 
             <Button
+
                 android:id="@+id/add_Task_button"
                 style="?android:textAppearanceSmall"
                 android:layout_width="@dimen/button_width"
                 android:layout_height="@dimen/button_height"
-                android:layout_below="@+id/datePicker"
+                android:layout_below="@+id/timePicker"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="20dp"
                 android:background="@color/actionbar"
