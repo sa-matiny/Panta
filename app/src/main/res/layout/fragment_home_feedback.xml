@@ -1,8 +1,75 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="com.iust.panta.HomeFeedbackFragment">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/background"
+        android:gravity="right"
+        android:orientation="horizontal"
+        android:scrollbarAlwaysDrawVerticalTrack="true">
 
 
-</FrameLayout>
+        <ScrollView
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent">
+            <RelativeLayout
+                android:layout_width="fill_parent"
+                android:layout_height="match_parent"
+                android:gravity="right"
+                android:paddingBottom="@dimen/activity_vertical_margin"
+                android:paddingEnd="@dimen/activity_horizontal_margin"
+                android:paddingStart="16dp"
+                android:paddingTop="@dimen/activity_vertical_margin">
+                <TextView
+                    android:id="@+id/FeedbackComment"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right"
+                    android:gravity="center_vertical|center_horizontal"
+                    android:text="در صورت بروز هرگونه مشکل و یا ارائه نظر، پیشنهاد و انتقاد خود را از طریق پر کردن فرم زیربه ما اطلاع دهید
+"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textColor="@color/text1"
+                    android:textSize="@dimen/font"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/FeedbackInfo"
+                    android:layout_width="match_parent"
+                    android:layout_height="65dp"
+                    android:layout_below="@+id/FeedbackComment"
+                    android:layout_marginTop="20dp"
+                    android:background="#ffffff"
+                    android:inputType="textMultiLine"
+                    android:lines="3"
+                    android:minLines="1"
+                    android:textAlignment="textStart"
+                    android:textSize="@dimen/font" />
+                <Button
+                    android:id="@+id/btnSubmit"
+                    android:layout_width="225dp"
+                    android:layout_height="63dp"
+                    android:layout_below="@+id/FeedbackInfo"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="20dp"
+                    android:background="@color/actionbar"
+                    android:clickable="true"
+                    android:onClick="Feedback"
+                    android:text="ارسال"
+                    android:textColor="@color/background"
+                    android:textSize="@dimen/font"
+                    android:textStyle="bold"/>
+
+
+                <ProgressBar
+                    android:id="@+id/Feedback_progress"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:layout_gravity="center_horizontal"
+                    android:visibility="gone" />
+
+            </RelativeLayout>
+        </ScrollView>
+
+
+</RelativeLayout>

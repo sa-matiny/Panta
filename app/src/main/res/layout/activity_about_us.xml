@@ -1,0 +1,38 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background"
+    android:gravity="right"
+    android:orientation="horizontal"
+    android:scrollbarAlwaysDrawVerticalTrack="true">
+
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent">
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="match_parent"
+            android:gravity="right"
+            android:paddingBottom="@dimen/activity_vertical_margin"
+            android:paddingEnd="@dimen/activity_horizontal_margin"
+            android:paddingStart="16dp"
+            android:paddingTop="@dimen/activity_vertical_margin">
+            <TextView
+                android:id="@+id/aboutUsComment"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:gravity="center_vertical|center_horizontal"
+                android:text="about us :D"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="@color/text1"
+                android:textSize="@dimen/font"
+                android:textStyle="bold" />
+
+
+
+        </RelativeLayout>
+    </ScrollView>
+
+
+</RelativeLayout>
