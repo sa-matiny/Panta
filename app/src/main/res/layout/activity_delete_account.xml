@@ -33,6 +33,7 @@
                 android:textSize="@dimen/font"
                 android:textStyle="bold" />
 
+
             <EditText
                 android:id="@+id/EAccount"
                 android:layout_width="match_parent"

@@ -14,6 +14,7 @@ import android.widget.Button;
 public class HomeSettingFragment extends Fragment {
 
 
+
     private View rootView;
     private Button changePassword;
     private Button deleteAccount;

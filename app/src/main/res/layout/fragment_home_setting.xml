@@ -85,7 +85,6 @@
                 android:textStyle="bold"
                 android:textColor="@color/background" />
 
-
             <View
                 android:layout_width="fill_parent"
                 android:id="@+id/aboutUs"

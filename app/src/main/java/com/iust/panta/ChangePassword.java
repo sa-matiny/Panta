@@ -158,6 +158,7 @@ public class ChangePassword extends Activity {
                         // JSONArray
                         if (s_response.getBoolean("successful")) {
 
+
                             AlertDialog.Builder dlg = new AlertDialog.Builder(ChangePassword.this);
                             dlg.setCancelable(false);
                             dlg.setMessage("گذرواژه به روز شد");

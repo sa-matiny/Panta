@@ -135,6 +135,7 @@ public class DeleteAccount extends Activity {
                 AlertDialog alert = builder.create();
                 alert.show();
 
+
             }
         });
 

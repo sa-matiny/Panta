@@ -91,7 +91,6 @@
             android:screenOrientation="portrait"
             android:theme="@style/App">
 
-
         </activity>
 
         <activity

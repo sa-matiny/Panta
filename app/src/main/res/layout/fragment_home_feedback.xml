@@ -58,6 +58,7 @@
                     android:textSize="@dimen/font"
                     android:textStyle="bold"/>
 
+
                 <ProgressBar
                     android:id="@+id/Feedback_progress"
                     android:layout_width="wrap_content"
