@@ -219,7 +219,7 @@ public class TaskCard extends Activity {
                                     if (s_response.getBoolean("successful")) {
                                         AlertDialog.Builder dlg = new AlertDialog.Builder(TaskCard.this);
                                         dlg.setCancelable(false);
-                                        dlg.setMessage("پروژه حذف شد!");
+                                        dlg.setMessage("وظیفه حذف شد!");
                                         dlg.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                                             @Override
                                             public void onClick(DialogInterface dialog, int which) {
