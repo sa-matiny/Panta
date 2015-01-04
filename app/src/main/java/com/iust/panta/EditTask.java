@@ -124,7 +124,7 @@ public class EditTask extends Activity {
                     if (s_response.getBoolean("successful")) {
                         AlertDialog.Builder dlg = new AlertDialog.Builder(EditTask.this);
                         dlg.setCancelable(false);
-                        dlg.setMessage("پست الکترونیکی موجود نیست");
+                        dlg.setMessage("تغییرات ثبت شد");
                         dlg.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
@@ -137,7 +137,7 @@ public class EditTask extends Activity {
                     } else {
                         AlertDialog.Builder dlg = new AlertDialog.Builder(EditTask.this);
                         dlg.setCancelable(false);
-                        dlg.setMessage("خطای اطلاعات کابر");
+                        dlg.setMessage("پست الکترونیکی موجود نیست");
                         dlg.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {

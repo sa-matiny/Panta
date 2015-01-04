@@ -195,6 +195,11 @@ public class ProjectCard extends FragmentActivity implements
     @Override
     public void onStart() {
         super.onStart();
+        recreate_pcard();
+    }
+
+    public void recreate_pcard() {
+        Log.d("restart", "pcard");
         if (!flag) {
             Intent intent = new Intent(this, ProjectCard.class);
             intent.putExtra("projectId", projectID);
@@ -203,7 +208,6 @@ public class ProjectCard extends FragmentActivity implements
         } else {
             flag = false;
         }
-
     }
 
     @Override
@@ -297,6 +301,7 @@ public class ProjectCard extends FragmentActivity implements
                                         dlg.create().show();
                                     } else {
                                         Toast.makeText(getApplicationContext(), "عضو جدید اضافه شد", Toast.LENGTH_LONG).show();
+                                        recreate_pcard();
                                     }
 
                                 } catch (JSONException e) {
@@ -419,8 +424,10 @@ public class ProjectCard extends FragmentActivity implements
                                             }
                                         });
                                         dlg.create().show();
-                                    } else
+                                    } else {
                                         Toast.makeText(getApplicationContext(), "عضو حذف شد", Toast.LENGTH_LONG).show();
+                                        recreate_pcard();
+                                    }
                                 } catch (JSONException e) {
                                     e.printStackTrace();
                                 }
