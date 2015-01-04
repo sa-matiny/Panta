@@ -36,19 +36,8 @@
         android:layout_gravity="right"
         android:background="@color/actionbar" />
 
-    <EditText
 
-        android:id="@+id/edittext"
 
-        android:layout_height="wrap_content"
-
-        android:singleLine="true"
-
-        android:layout_width="match_parent"
-        android:gravity="right"
-        android:hint="جستجو...">
-
-    </EditText>
 
     <ExpandableListView
         android:layout_width="fill_parent"

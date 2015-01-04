@@ -24,5 +24,9 @@
     <string name="TC_taskName">نام وظیفه </string>
     <string name="TC_taskDescription">شرح وظیفه </string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="action_example">action_example</string>
+    <string name="action_settings">action_example2</string>
+    <string name="title_activity_search_project_name">search_projectName</string>
+    <string name="hello_world">Hello world!</string>
 
 </resources>

@@ -8,6 +8,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.Button;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.TextView;
 
 import com.iust.panta.Expands.ExpandChildList;
@@ -16,17 +18,52 @@ import com.iust.panta.ProjectCard;
 import com.iust.panta.R;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Rayehe on 11/3/2014.
  */
-public class ExpandListViewAdapter extends BaseExpandableListAdapter {
+public class ExpandListViewAdapter extends BaseExpandableListAdapter  {
     private Context context;
     private ArrayList<ExpandGroupList> groups;
+    private ArrayList<ExpandGroupList> original;
 
     public ExpandListViewAdapter(Context context, ArrayList<ExpandGroupList> groups) {
+        this.original=new ArrayList<ExpandGroupList>();
+        this.original.addAll(groups);
         this.context = context;
-        this.groups = groups;
+        this.groups = new ArrayList<ExpandGroupList>();
+        this.groups.addAll(groups);
+    }
+
+    public void filterData(String query){
+        if(query!=null){
+        query = query.toLowerCase();}
+
+        groups.clear();
+
+        if(query.isEmpty()|| query==null){
+            groups.addAll(original);
+
+        }
+        else {
+            ArrayList<ExpandGroupList> newList = new ArrayList<ExpandGroupList>();
+            for(ExpandGroupList project: original){
+                if(project.getName().toLowerCase().contains(query) ){
+                    newList.add(project);
+                }
+
+            }
+            if(newList.size() > 0){
+                groups.addAll(newList);
+            }
+            else {
+                groups.addAll(original);
+            }
+        }
+
+        notifyDataSetChanged();
+
     }
 
     public void addItem(ExpandChildList item, ExpandGroupList group) {
@@ -120,6 +157,10 @@ public class ExpandListViewAdapter extends BaseExpandableListAdapter {
     public boolean isChildSelectable(int arg0, int arg1) {
         return true;
     }
+
+
+
+
 
 
     private class viewHolder {

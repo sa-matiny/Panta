@@ -2,17 +2,22 @@ package com.iust.panta;
 
 import android.app.AlertDialog;
 import android.app.Fragment;
+import android.app.SearchManager;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Debug;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import android.widget.SearchView;
 import android.widget.ExpandableListView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import android.content.*;
 import com.iust.panta.Expand.adapter.ExpandListViewAdapter;
 import com.iust.panta.Expands.ExpandChildList;
 import com.iust.panta.Expands.ExpandGroupList;
@@ -41,7 +46,8 @@ public class HomeProfileFragment extends Fragment {
     private View rootView;
     private ProgressBar mProgressView;
     private String userName;
-
+ //   private SearchManager searchManager;
+    private SearchView searchView;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle
@@ -56,10 +62,18 @@ public class HomeProfileFragment extends Fragment {
         userName = msg.getString("username");
         Log.d("username_profile", userName);
 
+
+        searchView =
+                (SearchView) rootView.findViewById(R.id.search);
+
+
         return rootView;
+
     }
 
     @Override
+
+
     public void onStart() {
         super.onStart();
 
@@ -153,6 +167,7 @@ public class HomeProfileFragment extends Fragment {
 
 
                 expGroup = SetStandardGroup(hasData);
+
                 expandAdapter = new ExpandListViewAdapter(rootView.getContext(), expGroup);
 
                 Explist.setAdapter(expandAdapter);
@@ -181,6 +196,34 @@ public class HomeProfileFragment extends Fragment {
             }
 
         });
+
+        final SearchView.OnQueryTextListener queryTextListener=new SearchView.OnQueryTextListener()
+        {
+            public boolean onQueryTextChange(String newText) {
+                return true;
+            }
+
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+
+                expandAdapter.filterData(query);
+                expandAdapter.notifyDataSetChanged();
+                return true;
+            }
+
+        };
+        searchView.setOnQueryTextListener(queryTextListener);
+
+        final SearchView.OnCloseListener closeListener=new SearchView.OnCloseListener()
+        {
+            @Override
+            public boolean onClose() {
+                expandAdapter.filterData("");
+                return false;
+            }
+        };
+        searchView.setOnCloseListener(closeListener);
+
     }
 
 
