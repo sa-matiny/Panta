@@ -1,22 +1,37 @@
 package com.iust.panta;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.TextView;
 
+import org.achartengine.ChartFactory;
+import org.achartengine.GraphicalView;
+import org.achartengine.model.CategorySeries;
+import org.achartengine.renderer.DefaultRenderer;
+import org.achartengine.renderer.SimpleSeriesRenderer;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 public class PCardMainFragment extends Fragment {
 
+    private static int[] COLORS = new int[]{Color.parseColor("#7AB317"), Color.parseColor("#666764")};
+    private int[] pieChartValues;
+    private CategorySeries mSeries = new CategorySeries("");
+    private DefaultRenderer mRenderer = new DefaultRenderer();
+    private GraphicalView mChartView;
+
 
     private TextView mProName;
     private TextView mProManager;
-    private TextView mProProgress;
+    private FrameLayout mProProgress;
+    private TextView mProProgressP;
+    private TextView mProProgressP2;
     private TextView mProInfo;
     private TextView mProDeadline;
     private Bundle msg;
@@ -30,7 +45,9 @@ public class PCardMainFragment extends Fragment {
 
         mProName = (TextView) rootView.findViewById(R.id.pro_name);
         mProManager = (TextView) rootView.findViewById(R.id.pro_manager);
-        mProProgress = (TextView) rootView.findViewById(R.id.pro_progress);
+        mProProgress = (FrameLayout) rootView.findViewById(R.id.pro_progress);
+        mProProgressP = (TextView) rootView.findViewById(R.id.pro_progress_p);
+        mProProgressP2 = (TextView) rootView.findViewById(R.id.pro_progress_p2);
         mProInfo = (TextView) rootView.findViewById(R.id.pro_info);
         mProDeadline = (TextView) rootView.findViewById(R.id.pro_date);
         msg = new Bundle();
@@ -41,7 +58,9 @@ public class PCardMainFragment extends Fragment {
             JSONObject pro_info = new JSONObject(msg.getString("pro_info"));
             mProName.setText(pro_info.getString("projectName"));
             mProManager.setText(pro_info.getString("managerName"));
-            mProProgress.setText(pro_info.getString("progress"));
+            mProProgressP.setText("انجام شده " + pro_info.getString("progress") + "%");
+            mProProgressP2.setText("باقی مانده " + (100 - pro_info.getInt("progress")) + "%");
+            pieChartValues = new int[]{pro_info.getInt("progress"), 100 - pro_info.getInt("progress")};
             mProInfo.setText(pro_info.getString("project_info"));
             mProDeadline.setText(pro_info.getString("pDeadline"));
 
@@ -49,6 +68,32 @@ public class PCardMainFragment extends Fragment {
             e.printStackTrace();
         }
 
+        mRenderer.setPanEnabled(false);
+        mRenderer.setClickEnabled(false);
+        mRenderer.setShowLabels(false);
+        mRenderer.setShowLegend(false);
+        mRenderer.setStartAngle(270);
+
+        if (mChartView == null) {
+            mChartView = ChartFactory.getPieChartView(getActivity(), mSeries, mRenderer);
+            mProProgress.addView(mChartView);
+        } else {
+            mChartView.repaint();
+        }
+
+        fillPieChart();
         return rootView;
+    }
+
+    public void fillPieChart() {
+        for (int i = 0; i < pieChartValues.length; i++) {
+            mSeries.add(pieChartValues[i]);
+            SimpleSeriesRenderer renderer = new SimpleSeriesRenderer();
+            renderer.setColor(COLORS[(mSeries.getItemCount() - 1) % COLORS.length]);
+            mRenderer.addSeriesRenderer(renderer);
+            if (mChartView != null) {
+                mChartView.repaint();
+            }
+        }
     }
 }

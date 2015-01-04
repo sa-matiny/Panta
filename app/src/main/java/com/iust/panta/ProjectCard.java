@@ -295,8 +295,10 @@ public class ProjectCard extends FragmentActivity implements
                                             }
                                         });
                                         dlg.create().show();
-                                    } else
+                                    } else {
                                         Toast.makeText(getApplicationContext(), "عضو جدید اضافه شد", Toast.LENGTH_LONG).show();
+                                    }
+
                                 } catch (JSONException e) {
                                     e.printStackTrace();
                                 }
