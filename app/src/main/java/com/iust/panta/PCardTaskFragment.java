@@ -45,24 +45,18 @@ public class PCardTaskFragment extends Fragment {
 
         manager = bundle.getBoolean("manager");
 
-
         try {
             Log.d("PCardTasks", bundle.toString());
             JSONArray ProjectTasksInformation = new JSONArray(bundle.getString("pro_tasks"));
-            taskNameArray=new ArrayList<String>();
-            taskIDArrayList= new ArrayList<Integer>();
             //  Dictionary<int,int> indexToTaskId=new Dictionary<int, int>() ;
             for (int i = 0; i < ProjectTasksInformation.length(); i++) {
                 taskNameArray.add(ProjectTasksInformation.getJSONObject(i).getString("taskName"));
                 taskIDArrayList.add(ProjectTasksInformation.getJSONObject(i).getInt("taskID"));
 
 
-
             }
-
             ArrayAdapter<String> ArrayItems = new ArrayAdapter<String>(PCardTaskFragment.this.getActivity(), android.R.layout.simple_list_item_1, taskNameArray);
 
-           // Log.d("tasks",taskNameArray)
             listView.setAdapter(ArrayItems);
 
         } catch (JSONException e) {
@@ -87,17 +81,4 @@ public class PCardTaskFragment extends Fragment {
 
 
     }
-
-/*
-    @Override
-    public void testFunction1()
-    {
-        //Toast.makeTex,"Clicked",Toast.LENGTH_LONG).show();
-    }
-    @Override
-    public void testFunction2()
-    {
-        //Toast.makeTex,"Clicked",Toast.LENGTH_LONG).show();
-    }*/
 }
-
