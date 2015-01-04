@@ -35,9 +35,15 @@ public class TaskCard extends Activity {
     private TextView taskDeadline;
     private CheckBox userCheckBox;
     private CheckBox managerCheckBox;
+
+
     private ProgressBar progressBar;
     private boolean manager;
+    private String taskUsername;
+    private String username;
     private Integer taskID;
+    private Integer projectID;
+    private Integer status;
     private JSONObject jobj;
 
     @Override
@@ -50,7 +56,7 @@ public class TaskCard extends Activity {
         Bundle extras = intent.getExtras();
         taskID = extras.getInt("taskID");
         manager = extras.getBoolean("manager");
-
+        //  status= new Integer();
 
         taskOwnerName = (TextView) findViewById(R.id.TaskOwenersName);
 
@@ -62,16 +68,21 @@ public class TaskCard extends Activity {
 
         taskDeadline = (TextView) findViewById(R.id.TaskDeadline);
 
+        taskUsername = new String();
+
         userCheckBox = (CheckBox) findViewById(R.id.UserCheckBox);
 
         managerCheckBox = (CheckBox) findViewById(R.id.ManagerCheckBox);
 
         progressBar = (ProgressBar) findViewById(R.id.TCard_progress);
 
+        username = new String();
+
         SqliteController controller = new SqliteController(this);
 
         try {
             data = controller.getMe();
+            username = data.getString("username"); // who login ?
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -83,7 +94,7 @@ public class TaskCard extends Activity {
     public void onStart() {
         super.onStart();
 
-        userCheckBox.setChecked(false);
+        // userCheckBox.setChecked(false);
 
         progressBar.setVisibility(View.VISIBLE);
         RequestParams params = new RequestParams();
@@ -101,41 +112,32 @@ public class TaskCard extends Activity {
             public void onSuccess(int statusCode, Header[] headers, byte[] response) {
                 progressBar.setVisibility(View.GONE);
                 try {
+
                     Log.d("My__RESPONSE", new String(response));
 
                     JSONObject jobj_1 = new JSONObject(new String(response));
                     jobj = jobj_1.getJSONObject("taskInfo");
-                    //    Log.d("obj",jobj.toString());
+
+                    Log.d("obj",jobj.toString());
+
+
+                    status = jobj.getInt("status");
+
                     taskOwnerUsername.setText(jobj.getString("username"));
 
                     taskName.setText(jobj.getString("taskName"));
                     taskDescription.setText(jobj.getString("task_info"));
                     taskDeadline.setText(jobj.getString("deadline"));
 
-
+                    projectID = jobj.getInt("projectID");
                     //  SQLiteDatabase db= this.getReadableDataBasel
                     taskOwnerName.setText(jobj.getString("name"));
+
+
                     // Log.d("Sqlite", (data.get(";
+                    taskUsername = jobj.getString("username"); // taskcard for this username
 
-                    boolean issame = false;
-                    if (!data.getString("username").equals(jobj.getString("username"))) {
-                        issame = true;
-                        Log.d("username ", "equals");
-                        userCheckBox.setChecked(false);
-                        userCheckBox.setButtonDrawable(R.drawable.grayunchecked);
-                        userCheckBox.setClickable(false);
-                        //   userCheckBox.setClickable(true);
 
-                    }
-                    if (!manager) {
-                        Log.d("she is manager", "manager");
-                        managerCheckBox.setChecked(false);
-
-                        managerCheckBox.setButtonDrawable(R.drawable.grayunchecked);
-                        managerCheckBox.setClickable(false);
-                        //  managerCheckBox.setChecked(true);
-                        //managerCheckBox.setClickable(true);
-                    }
 
 
                 } catch (JSONException e) {
@@ -143,6 +145,133 @@ public class TaskCard extends Activity {
                     Log.d("Problem in catching ", "hichi");
                 }
             }
+
+            @Override
+            public void onFinish() {
+
+                if (status == 0) // not user  not manager
+                {
+                    Log.d("0","0");
+                    userCheckBox.setChecked(false);
+                    managerCheckBox.setChecked(false);
+                    userCheckBox.setButtonDrawable(R.drawable.grayunchecked);
+                    managerCheckBox.setButtonDrawable(R.drawable.grayunchecked);
+                    managerCheckBox.setEnabled(false);
+                    userCheckBox.setEnabled(false);
+
+                    if (manager) {
+
+                        managerCheckBox.setEnabled(true);
+                        managerCheckBox.setButtonDrawable(R.drawable.blueunchecked);
+
+
+                    }
+                    if (username.equals(taskUsername))
+                    {
+
+                        //  userCheckBox.setClickable(true);
+                        userCheckBox.setEnabled(true);
+                        userCheckBox.setButtonDrawable(R.drawable.blueunchecked);
+                    }
+
+
+                } else if (status == 1)// user not manager
+                {
+                    Log.d("1","1");
+
+                    userCheckBox.setChecked(true);
+                    managerCheckBox.setChecked(false);
+                    userCheckBox.setClickable(true);
+                    userCheckBox.setButtonDrawable(R.drawable.graycheck);
+                    managerCheckBox.setButtonDrawable(R.drawable.grayunchecked);
+                    managerCheckBox.setEnabled(false);
+                    userCheckBox.setEnabled(false);
+
+                    if (manager) {
+                        managerCheckBox.setEnabled(true);
+                        managerCheckBox.setButtonDrawable(R.drawable.blueunchecked);
+
+
+                    }
+                    if (username.equals(taskUsername))
+                    {
+                         userCheckBox.setEnabled(true);
+                        // userCheckBox.setClickable(true);
+                        userCheckBox.setButtonDrawable(R.drawable.bluecheck);
+                    }
+                } else // user & manager
+                {
+
+                    Log.d("2","2");
+
+                    userCheckBox.setChecked(true);
+                    managerCheckBox.setChecked(true);
+                    userCheckBox.setButtonDrawable(R.drawable.graycheck);
+                    managerCheckBox.setButtonDrawable(R.drawable.graycheck);
+                    managerCheckBox.setEnabled(false);
+                    userCheckBox.setEnabled(false);
+                      /*  if(manager)
+                        {
+                           // managerCheckBox.setClickable(true);
+                            managerCheckBox.setButtonDrawable(R.drawable.bluecheck);
+
+
+                        }
+                        if(username.equals(taskUsername) )
+                        {
+                          //  userCheckBox.setClickable(true);
+                            userCheckBox.setButtonDrawable(R.drawable.bluechecked);
+                        }*/
+                }
+             /*   userCheckBox.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+
+                        //userCheckBox.setChecked(false);
+                      //  Log.d("status before click ",Boolean.toString(userCheckBox.isChecked()));
+                      //  userCheckBox.setChecked(!userCheckBox.isChecked());
+                      //  Log.d("status after click ",Boolean.toString(userCheckBox.isChecked()));
+                        if (userCheckBox.isChecked()) {
+                            if (!managerCheckBox.isChecked())
+                                status = 1;
+
+                        } else
+                            status = 0;
+
+                        saveStatusCheckBoxes(status);
+
+
+                    }
+
+                });
+
+                managerCheckBox.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+
+                        managerCheckBox.setChecked(!managerCheckBox.isChecked());
+
+                        if (managerCheckBox.isChecked()) {
+                            if (userCheckBox.isChecked())
+                                status = 2;
+
+                            else
+                                status = -1;
+                        } else {
+                            if (userCheckBox.isChecked())
+                                status = 1;
+                            else
+                                status = 0;
+                        }
+
+                        saveStatusCheckBoxes(status);
+                    }
+                });
+
+
+*/
+            }
+
 
             @Override
             public void onFailure(int statusCode, Header[] headers, byte[] errorResponse, Throwable e) {
@@ -265,4 +394,127 @@ public class TaskCard extends Activity {
         }
         return super.onOptionsItemSelected(item);
     }
+    public void clickOnCheckBox2(View view)
+    {
+       // managerCheckBox.setChecked(!managerCheckBox.isChecked());
+     if(managerCheckBox.isChecked())
+         managerCheckBox.setButtonDrawable(R.drawable.bluecheck);
+     else
+        managerCheckBox.setButtonDrawable(R.drawable.blueunchecked);
+
+    if (managerCheckBox.isChecked()) {
+        if (userCheckBox.isChecked())
+            status = 2;
+
+        else
+        {
+            status = -1;
+
+        }
+    } else {
+        if (userCheckBox.isChecked())
+            status = 1;
+        else
+            status = 0;
+    }
+
+    saveStatusCheckBoxes(status);
 }
+    public void clickOnCheckBox1(View view)
+    {
+        //userCheckBox.setChecked(false);
+        //  Log.d("status before click ",Boolean.toString(userCheckBox.isChecked()));
+        //  userCheckBox.setChecked(!userCheckBox.isChecked());
+     //   userCheckBox.setChecked(userCheckBox.isChecked());
+        if(userCheckBox.isChecked())
+            userCheckBox.setButtonDrawable(R.drawable.bluecheck);
+        else
+            userCheckBox.setButtonDrawable(R.drawable.blueunchecked);
+
+        Log.d("status after click ",Boolean.toString(userCheckBox.isChecked()));
+        if (userCheckBox.isChecked()) {
+            if (!managerCheckBox.isChecked())
+                status = 1;
+
+        } else
+            status = 0;
+
+        saveStatusCheckBoxes(status);
+
+    }
+    private void saveStatusCheckBoxes(int status) {
+        RequestParams params = new RequestParams();
+        Log.d("status",Integer.toString(status));
+
+        if (status == -1) {
+            Toast.makeText(getApplicationContext(), "تایید شما قبل از تایید کاربر امکان پذیر نمیباشد", Toast.LENGTH_LONG).show();
+            /*if(managerCheckBox.isChecked())
+                managerCheckBox.setButtonDrawable(R.drawable.blueunchecked);
+            else
+                managerCheckBox.setButtonDrawable(R.drawable.bluecheck);*/
+
+
+        } else {
+            params.put("projectID", projectID);
+            params.put("taskID", taskID);
+            params.put("status", status);
+
+            AsyncHttpClient client = new AsyncHttpClient();
+
+            client.post("http://104.236.33.128:8800/changeStatus/", params, new AsyncHttpResponseHandler() {
+
+                @Override
+                public void onStart() {
+                    System.out.println("change status start");
+                }
+
+                @Override
+                public void onSuccess(int statusCode, Header[] headers, byte[] response) {
+                    progressBar.setVisibility(View.GONE); //for saving
+                    try {
+
+
+                        JSONObject jsonobj = new JSONObject(new String(response));
+
+
+                        if (jsonobj.getBoolean("successful")) {
+
+                            Toast.makeText(getApplicationContext(), "تغییرات ثبت شد . ", Toast.LENGTH_LONG).show();
+
+                        }
+                    }
+                        catch(JSONException e){
+                            e.printStackTrace();
+
+
+                        }
+
+
+                }
+
+                @Override
+                public void onFailure(int statusCode, Header[] headers, byte[] errorResponse, Throwable e) {
+
+
+                    AlertDialog.Builder builder = new AlertDialog.Builder(TaskCard.this);
+                    builder.setCancelable(false);
+                    builder.setMessage("خطا! دوباره امتحان کنید");
+                    builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.cancel();
+                        }
+                    });
+                    AlertDialog alert = builder.create();
+                    alert.show();
+
+                }
+            });
+        }
+    }
+
+}
+
+
+
+
