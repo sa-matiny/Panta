@@ -21,7 +21,7 @@ import org.json.JSONObject;
 public class PCardMainFragment extends Fragment {
 
     private static int[] COLORS = new int[]{Color.parseColor("#7AB317"), Color.parseColor("#666764")};
-    private int[] pieChartValues = {40, 60};
+    private int[] pieChartValues;
     private CategorySeries mSeries = new CategorySeries("");
     private DefaultRenderer mRenderer = new DefaultRenderer();
     private GraphicalView mChartView;
@@ -62,7 +62,7 @@ public class PCardMainFragment extends Fragment {
             mProManager.setText(pro_info.getString("managerName"));
             mProProgressP.setText("انجام شده " + pro_info.getString("progress") + "%");
             mProProgressP2.setText("باقی مانده " + (100 - pro_info.getInt("progress")) + "%");
-            //pieChartValues = new int[]{pro_info.getInt("progress"), 100 - pro_info.getInt("progress")};
+            pieChartValues = new int[]{pro_info.getInt("progress"), 100 - pro_info.getInt("progress")};
             mProInfo.setText(pro_info.getString("project_info"));
             mProDeadline.setText(pro_info.getString("pDeadline"));
 
@@ -77,21 +77,22 @@ public class PCardMainFragment extends Fragment {
         mRenderer.setStartAngle(270);
         if (mChartView == null) {
             mChartView = ChartFactory.getPieChartView(getActivity(), mSeries, mRenderer);
-
             mProProgress.addView(mChartView);
+            fillPieChart();
         } else {
-            //mProProgress.addView(mChartView);
-
-            Log.d("repaint", "yes");
+            mProProgress.addView(mChartView);
+            mChartView.repaint();
         }
-
-
-        Log.d("count_child", String.valueOf(mProProgress.getChildCount()));
-
-
-        fillPieChart();
         return rootView;
     }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        mProProgress.removeAllViews();
+
+    }
+
 
     public void fillPieChart() {
         for (int i = 0; i < pieChartValues.length; i++) {
