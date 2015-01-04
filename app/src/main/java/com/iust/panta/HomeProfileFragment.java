@@ -200,6 +200,9 @@ public class HomeProfileFragment extends Fragment {
         final SearchView.OnQueryTextListener queryTextListener=new SearchView.OnQueryTextListener()
         {
             public boolean onQueryTextChange(String newText) {
+                expandAdapter.filterData(newText);
+                expandAdapter.notifyDataSetChanged();
+
                 return true;
             }
 
