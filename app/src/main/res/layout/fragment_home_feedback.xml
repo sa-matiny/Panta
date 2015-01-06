@@ -24,35 +24,100 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="right"
                     android:gravity="center_vertical|center_horizontal"
-                    android:text="در صورت بروز هرگونه مشکل و یا ارائه نظر، پیشنهاد و انتقاد خود را از طریق پر کردن فرم زیربه ما اطلاع دهید
-"
+                    android:text="در صورت بروز هرگونه مشکل ویا ارائه نظر، پیشنهاد و انتقاد خود را از طریق ایمیل زیر به ما اطلاع دهید."
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:textColor="@color/text1"
                     android:textSize="@dimen/font"
                     android:textStyle="bold" />
 
-                <EditText
-                    android:id="@+id/FeedbackInfo"
-                    android:layout_width="match_parent"
-                    android:layout_height="65dp"
+
+                <TextView
+                    android:id="@+id/to"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="to: "
+                    android:textAppearance="?android:attr/textAppearanceLarge"
                     android:layout_below="@+id/FeedbackComment"
                     android:layout_marginTop="20dp"
+                    android:textColor="@color/text1"
+                    android:textSize="@dimen/font"
+                    android:textStyle="bold"/>
+
+                <EditText
+                    android:id="@+id/editTextTo"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/to"
+                    android:layout_marginTop="10dp"
                     android:background="#ffffff"
-                    android:inputType="textMultiLine"
-                    android:lines="3"
                     android:minLines="1"
                     android:textAlignment="textStart"
-                    android:textSize="@dimen/font" />
+                    android:textSize="@dimen/font"
+                    android:inputType="textEmailAddress" >
+                    <requestFocus />
+
+                </EditText>
+
+                <TextView
+                    android:id="@+id/textSubject"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Subject : "
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:layout_below="@+id/editTextTo"
+                    android:layout_marginTop="20dp"
+                    android:textColor="@color/text1"
+                    android:textSize="@dimen/font"
+                    android:textStyle="bold"/>
+
+                <EditText
+                    android:id="@+id/editTextSubject"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/textSubject"
+                    android:layout_marginTop="10dp"
+                    android:background="#ffffff"
+                    android:minLines="1"
+                    android:textAlignment="textStart"
+                    android:textSize="@dimen/font"
+                    android:inputType="text">
+                </EditText>
+
+                <TextView
+                    android:id="@+id/textViewMessage"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Message : "
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:layout_below="@+id/editTextSubject"
+                    android:layout_marginTop="20dp"
+                    android:textColor="@color/text1"
+                    android:textSize="@dimen/font"
+                    android:textStyle="bold"/>
+
+                <EditText
+                    android:id="@+id/messageInfo"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="top"
+                    android:inputType="textMultiLine"
+                    android:lines="5"
+                    android:layout_below="@+id/textViewMessage"
+                    android:layout_marginTop="10dp"
+                    android:background="#ffffff"
+                    android:minLines="3"
+                    android:textAlignment="textStart"
+                    android:textSize="@dimen/font"/>
+
                 <Button
                     android:id="@+id/btnSubmit"
                     android:layout_width="225dp"
                     android:layout_height="63dp"
-                    android:layout_below="@+id/FeedbackInfo"
+                    android:layout_below="@+id/messageInfo"
                     android:layout_centerHorizontal="true"
                     android:layout_marginTop="20dp"
                     android:background="@color/actionbar"
                     android:clickable="true"
-                    android:onClick="Feedback"
                     android:text="ارسال"
                     android:textColor="@color/background"
                     android:textSize="@dimen/font"
