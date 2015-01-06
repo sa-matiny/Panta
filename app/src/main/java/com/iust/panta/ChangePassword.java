@@ -35,6 +35,13 @@ public class ChangePassword extends Activity {
     private Activity activity;
 
 
+    private Bundle msg;
+    private String userName;
+
+
+    SqliteController controller = new SqliteController(this);
+
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,6 +54,14 @@ public class ChangePassword extends Activity {
         ProgressView = (ProgressBar) findViewById(R.id.change_password_progress);
         ButtonView = (Button) findViewById(R.id.change_password_button);
 
+        msg = new Bundle();
+        try {
+            userName = controller.getMe().getString("username");
+            msg.putString("username", userName);
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
 
     }
 
@@ -107,6 +122,7 @@ public class ChangePassword extends Activity {
                     focus_view.requestFocus();
                     has_error = true;
 
+
                 }
                 if (isInvalidPassword(EnewPassword)) // number of character
                 {
@@ -133,7 +149,7 @@ public class ChangePassword extends Activity {
 
             RequestParams params = new RequestParams();
 
-            params.put("username", "mahla@yahoo.com");
+            params.put("username", userName);
             params.put("password", EconfirmPassView.getText().toString());
 
             AsyncHttpClient client = new AsyncHttpClient();
