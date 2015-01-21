@@ -144,6 +144,7 @@ public class ProjectCard extends FragmentActivity implements
                     Log.d("meeeeeeee", data.getString("username"));
                     if (pro_info.getString("managerUser").equals(data.getString("username"))) {
                         manager = true;
+                        invalidateOptionsMenu();
                     }
                     //Tasks
                     msg_task.putBoolean("manager", manager);
@@ -227,8 +228,16 @@ public class ProjectCard extends FragmentActivity implements
 
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.project_card, menu);
+
+        try {
+            if (manager) {
+                MenuInflater inflater = getMenuInflater();
+                inflater.inflate(R.menu.project_card, menu);
+            }
+        }
+        catch (Exception e) {
+
+        }
 
         return super.onCreateOptionsMenu(menu);
     }
@@ -241,21 +250,12 @@ public class ProjectCard extends FragmentActivity implements
         switch (id) {
 
             case R.id.action_addtask:
-                Log.d("me", manager.toString());
-                if (!manager) {
-                    Toast.makeText(getApplicationContext(), "تنها مدیر پروژه می تواند وظیفه اضافه کند", Toast.LENGTH_LONG).show();
-                    break;
-                }
                 Intent intent = new Intent(this, AddTask.class);
                 intent.putExtra("projectID", projectID);
                 startActivity(intent);
                 return true;
 
             case R.id.action_addmember:
-                if (!manager) {
-                    Toast.makeText(getApplicationContext(), "تنها مدیر پروژه می تواند عضو اضافه کند", Toast.LENGTH_LONG).show();
-                    break;
-                }
                 AlertDialog.Builder add_member = new AlertDialog.Builder(this);
                 final EditText input = new EditText(this);
                 System.out.println(input.getInputType());
@@ -338,12 +338,12 @@ public class ProjectCard extends FragmentActivity implements
                 add_member.create().show();
                 return true;
 
-            case R.id.action_deletemember:
-                if (!manager) {
-                    Toast.makeText(getApplicationContext(), "تنها مدیر پروژه می تواند یکی از اعضا را حذف کند", Toast.LENGTH_LONG).show();
-                    break;
-                }
+            case R.id.action_addlink:
 
+
+                return true;
+
+            case R.id.action_deletemember:
                 if (pro_users.length() == 1) {
                     Toast.makeText(getApplicationContext(), "در حال حاضر برای این پروژه عضوی جز مدیر وجود ندارد", Toast.LENGTH_LONG).show();
                     break;
@@ -466,21 +466,12 @@ public class ProjectCard extends FragmentActivity implements
 
 
             case R.id.action_editpro:
-                if (!manager) {
-                    Toast.makeText(getApplicationContext(), "تنها مدیر پروژه می تواند عضو اضافه کند", Toast.LENGTH_LONG).show();
-                    break;
-                }
-
                 Intent intent2 = new Intent(this, EditProject.class);
                 intent2.putExtra("projectInfo", pro_info.toString());
                 startActivity(intent2);
                 return true;
 
             case R.id.action_deletepro:
-                if (!manager) {
-                    Toast.makeText(getApplicationContext(), "تنها مدیر پروژه می تواند عضو اضافه کند", Toast.LENGTH_LONG).show();
-                    break;
-                }
                 intent1 = new Intent(this, Home.class);
                 final AlertDialog.Builder acc_del = new AlertDialog.Builder(this);
                 acc_del.setMessage("می خواهید پروژه را حذف کنید؟");
