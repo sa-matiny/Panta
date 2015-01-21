@@ -45,7 +45,7 @@ public class Home extends Activity
 
     SqliteController controller = new SqliteController(this);
     private NavigationDrawerFragment mNavigationDrawerFragment;
-    private Bundle msg;
+    private Bundle bld;
     private String mTitle;
     private GoogleCloudMessaging gcm;
     private String regID;
@@ -58,12 +58,13 @@ public class Home extends Activity
         //*** nastaran Notification
         context= getApplicationContext();
         //check Google playe service
-        msg = new Bundle();
+        bld = new Bundle();
         String userName;
+
 
         try {
             userName = controller.getMe().getString("username");
-            msg.putString("username", userName);
+            bld.putString("username", userName);
 
         } catch (JSONException e) {
             e.printStackTrace();
@@ -270,12 +271,12 @@ public class Home extends Activity
             case 0:
                 mTitle = getString(R.string.Home_section);
                 objfrag = new HomeProfileFragment();
-                objfrag.setArguments(msg);
+                objfrag.setArguments(bld);
                 break;
             case 1:
                 mTitle = getString(R.string.add_section);
                 objfrag = new HomeAddProjectFragment();
-                objfrag.setArguments(msg);
+                objfrag.setArguments(bld);
                 break;
             case 2:
                 mTitle = getString(R.string.Setting_section);
@@ -289,7 +290,7 @@ public class Home extends Activity
             default:
                 mTitle = getString(R.string.Home_section);
                 objfrag = new HomeProfileFragment();
-                objfrag.setArguments(msg);
+                objfrag.setArguments(bld);
                 break;
 
         }

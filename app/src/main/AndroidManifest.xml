@@ -85,16 +85,13 @@
         </activity>
         <activity
             android:name=".ChangePassword"
-            android:screenOrientation="portrait"
-            android:theme="@style/App" >
-        </activity>
-        <activity
-            android:name=".DeleteAccount"
+            android:label="@string/title_activity_change_password"
             android:screenOrientation="portrait"
             android:theme="@style/App" >
         </activity>
         <activity
             android:name=".AboutUs"
+            android:label="@string/title_activity_about_us"
             android:screenOrientation="portrait"
             android:theme="@style/App" >
         </activity>
