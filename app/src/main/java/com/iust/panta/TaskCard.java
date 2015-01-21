@@ -459,6 +459,10 @@ public class TaskCard extends Activity {
             params.put("taskID", taskID);
             params.put("status", status);
 
+            if(status==1)
+            {
+
+            }
             AsyncHttpClient client = new AsyncHttpClient();
 
             client.post("http://104.236.33.128:8800/changeStatus/", params, new AsyncHttpResponseHandler() {
@@ -498,7 +502,7 @@ public class TaskCard extends Activity {
 
                     AlertDialog.Builder builder = new AlertDialog.Builder(TaskCard.this);
                     builder.setCancelable(false);
-                    builder.setMessage("خطا! دوباره امتحان کنید");
+                    builder.setMessage("خطا! دوباره امتحانa کنید");
                     builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {

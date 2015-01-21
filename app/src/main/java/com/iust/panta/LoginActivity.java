@@ -2,6 +2,7 @@ package com.iust.panta;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.NotificationManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -22,6 +23,7 @@ import org.apache.http.Header;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.support.v4.app.NotificationCompat;
 
 public class LoginActivity extends Activity {
 
@@ -118,6 +120,7 @@ public class LoginActivity extends Activity {
                             controller.insertMe(user.getString("username"), user.getString("name"));
                             JSONObject hi = controller.getMe();
                             Log.d("hi", hi.toString());
+                         //   displayeNotification();
                             Intent intent = new Intent(LoginActivity.this, Home.class);
 
                             finish();
@@ -267,3 +270,17 @@ public class LoginActivity extends Activity {
 
     }
 }
+/*
+protected void displayNotification(int number)
+{
+    NotificationCompat.Builder  mBuilder = new NotificationCompat.Builder(this);
+    mBuilder.setContentTitle("user Login");
+    mBuilder.setTicker("Home");
+
+
+    mBuilder.setNumber(number);
+
+    Intent
+
+
+}*/

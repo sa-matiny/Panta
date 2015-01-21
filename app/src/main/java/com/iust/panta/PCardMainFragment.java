@@ -61,6 +61,7 @@ public class PCardMainFragment extends Fragment {
             mProName.setText(pro_info.getString("projectName"));
             mProManager.setText(pro_info.getString("managerName"));
             mProProgressP.setText("انجام شده " + pro_info.getString("progress") + "%");
+
             mProProgressP2.setText("باقی مانده " + (100 - pro_info.getInt("progress")) + "%");
             pieChartValues = new int[]{pro_info.getInt("progress"), 100 - pro_info.getInt("progress")};
             mProInfo.setText(pro_info.getString("project_info"));

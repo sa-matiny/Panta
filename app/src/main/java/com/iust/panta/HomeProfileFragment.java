@@ -181,7 +181,7 @@ public class HomeProfileFragment extends Fragment {
                         Intent intent = new Intent(HomeProfileFragment.this.getActivity(), TaskCard.class);
                         if (userName.equals(listManagerUsers.get(groupPosition))) {
                             Log.d("yesss", "yess");
-                            intent.putExtra("manager", true);//TODO change after server
+                            intent.putExtra("manager", true);//
                         } else {
                             Log.d("No", "yess");
                             intent.putExtra("manager", false);
