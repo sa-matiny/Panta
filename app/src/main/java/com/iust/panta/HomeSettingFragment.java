@@ -29,13 +29,14 @@ public class HomeSettingFragment extends Fragment {
     private Button deleteAccount;
     private Button aboutUs;
     private Button signOut;
+    private SqliteController controller;
 
 
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle saveInstanceState) {
         rootView = inflater.inflate(R.layout.fragment_home_setting, container, false);
 
-
+        controller = new SqliteController(getActivity());
 
 
         changePassword = (Button) rootView.findViewById(R.id.changePassword_button);
@@ -122,6 +123,8 @@ public class HomeSettingFragment extends Fragment {
             @Override
             public void onClick(DialogInterface dialog, int which) {
 
+
+                controller.deleteMe();
                 Intent intent = new Intent(getActivity(), Welcome.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
@@ -159,7 +162,11 @@ public class HomeSettingFragment extends Fragment {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 RequestParams params = new RequestParams();
-                params.put("username","");
+                try {
+                    params.put("username",controller.getMe().getString("username"));
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
                 AsyncHttpClient client = new AsyncHttpClient();
                 client.post("http://104.236.33.128:8800//deleteAccount/", params, new AsyncHttpResponseHandler() {
 
@@ -181,6 +188,7 @@ public class HomeSettingFragment extends Fragment {
                             // JSONArray
                             if (s_response.getBoolean("successful")) {
 
+                                controller.deleteMe();
                                 AlertDialog.Builder dlg = new AlertDialog.Builder(getActivity());
                                 dlg.setCancelable(false);
                                 dlg.setMessage("حساب کاربری شما با موفقیت حذف شد");

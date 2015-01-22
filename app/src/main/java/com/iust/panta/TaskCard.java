@@ -58,6 +58,10 @@ public class TaskCard extends Activity {
         manager = extras.getBoolean("manager");
         //  status= new Integer();
 
+        if (manager) {
+            invalidateOptionsMenu();
+        }
+
         taskOwnerName = (TextView) findViewById(R.id.TaskOwenersName);
 
         taskOwnerUsername = (TextView) findViewById(R.id.TaskOwenerUserName);
@@ -118,7 +122,7 @@ public class TaskCard extends Activity {
                     JSONObject jobj_1 = new JSONObject(new String(response));
                     jobj = jobj_1.getJSONObject("taskInfo");
 
-                    Log.d("obj",jobj.toString());
+                    Log.d("obj", jobj.toString());
 
 
                     status = jobj.getInt("status");
@@ -138,8 +142,6 @@ public class TaskCard extends Activity {
                     taskUsername = jobj.getString("username"); // taskcard for this username
 
 
-
-
                 } catch (JSONException e) {
                     e.printStackTrace();
                     Log.d("Problem in catching ", "hichi");
@@ -151,7 +153,7 @@ public class TaskCard extends Activity {
 
                 if (status == 0) // not user  not manager
                 {
-                    Log.d("0","0");
+                    Log.d("0", "0");
                     userCheckBox.setChecked(false);
                     managerCheckBox.setChecked(false);
                     userCheckBox.setButtonDrawable(R.drawable.grayunchecked);
@@ -166,8 +168,7 @@ public class TaskCard extends Activity {
 
 
                     }
-                    if (username.equals(taskUsername))
-                    {
+                    if (username.equals(taskUsername)) {
 
                         //  userCheckBox.setClickable(true);
                         userCheckBox.setEnabled(true);
@@ -177,7 +178,7 @@ public class TaskCard extends Activity {
 
                 } else if (status == 1)// user not manager
                 {
-                    Log.d("1","1");
+                    Log.d("1", "1");
 
                     userCheckBox.setChecked(true);
                     managerCheckBox.setChecked(false);
@@ -193,16 +194,15 @@ public class TaskCard extends Activity {
 
 
                     }
-                    if (username.equals(taskUsername))
-                    {
-                         userCheckBox.setEnabled(true);
+                    if (username.equals(taskUsername)) {
+                        userCheckBox.setEnabled(true);
                         // userCheckBox.setClickable(true);
                         userCheckBox.setButtonDrawable(R.drawable.bluecheck);
                     }
                 } else // user & manager
                 {
 
-                    Log.d("2","2");
+                    Log.d("2", "2");
 
                     userCheckBox.setChecked(true);
                     managerCheckBox.setChecked(true);
@@ -300,7 +300,13 @@ public class TaskCard extends Activity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.task_card, menu);
+        try {
+            if (manager) {
+                getMenuInflater().inflate(R.menu.task_card, menu);
+            }
+        } catch (Exception e) {
+
+        }
         return true;
     }
 
@@ -311,127 +317,120 @@ public class TaskCard extends Activity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
         if (id == R.id.action_edit_task) {
-            if (!manager) {
-                Toast.makeText(getApplicationContext(), "تنها مدیر پروژه می تواند وظیفه تغییر دهد", Toast.LENGTH_LONG).show();
-            } else {
-                Intent intent = new Intent(this, EditTask.class);
-                intent.putExtra("taskInfo", jobj.toString());
-                startActivity(intent);
-                return true;
-            }
+            Intent intent = new Intent(this, EditTask.class);
+            intent.putExtra("taskInfo", jobj.toString());
+            startActivity(intent);
+            return true;
+
         }
 
         if (id == R.id.action_delete_task) {
-            if (!manager) {
-                Toast.makeText(getApplicationContext(), "تنها مدیر پروژه می تواند وظیفه را حذف کند", Toast.LENGTH_LONG).show();
-            } else {
-                AlertDialog.Builder acc_del = new AlertDialog.Builder(TaskCard.this);
-                acc_del.setMessage("می خواهید این وظیفه را حذف کنید؟");
-                acc_del.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        RequestParams params = new RequestParams();
-                        params.put("taskID", taskID);
-                        AsyncHttpClient client = new AsyncHttpClient();
-                        client.post("http://104.236.33.128:8800/deleteTask/", params, new AsyncHttpResponseHandler() {
+            AlertDialog.Builder acc_del = new AlertDialog.Builder(TaskCard.this);
+            acc_del.setMessage("می خواهید این وظیفه را حذف کنید؟");
+            acc_del.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    RequestParams params = new RequestParams();
+                    params.put("taskID", taskID);
+                    AsyncHttpClient client = new AsyncHttpClient();
+                    client.post("http://104.236.33.128:8800/deleteTask/", params, new AsyncHttpResponseHandler() {
 
-                            @Override
-                            public void onStart() {
-                                System.out.println("Start");
-                            }
+                        @Override
+                        public void onStart() {
+                            System.out.println("Start");
+                        }
 
-                            @Override
-                            public void onSuccess(int statusCode, Header[] headers, byte[] response) {
-                                try {
-                                    Log.d("RESPONSE", new String(response));
-                                    JSONObject s_response = new JSONObject(new String(response));
-                                    if (s_response.getBoolean("successful")) {
-                                        AlertDialog.Builder dlg = new AlertDialog.Builder(TaskCard.this);
-                                        dlg.setCancelable(false);
-                                        dlg.setMessage("وظیفه حذف شد!");
-                                        dlg.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-                                            @Override
-                                            public void onClick(DialogInterface dialog, int which) {
-                                                dialog.cancel();
-                                                finish();
-                                            }
-                                        });
-                                        dlg.create().show();
-                                    }
-                                } catch (JSONException e) {
-                                    e.printStackTrace();
+                        @Override
+                        public void onSuccess(int statusCode, Header[] headers, byte[] response) {
+                            try {
+                                Log.d("RESPONSE", new String(response));
+                                JSONObject s_response = new JSONObject(new String(response));
+                                if (s_response.getBoolean("successful")) {
+                                    AlertDialog.Builder dlg = new AlertDialog.Builder(TaskCard.this);
+                                    dlg.setCancelable(false);
+                                    dlg.setMessage("وظیفه حذف شد!");
+                                    dlg.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            dialog.cancel();
+                                            finish();
+                                        }
+                                    });
+                                    dlg.create().show();
                                 }
+                            } catch (JSONException e) {
+                                e.printStackTrace();
                             }
+                        }
 
-                            @Override
-                            public void onFailure(int statusCode, Header[] headers, byte[] errorResponse, Throwable e) {
-                                AlertDialog.Builder builder = new AlertDialog.Builder(TaskCard.this);
-                                builder.setCancelable(false);
-                                Log.d("error", errorResponse.toString());
-                                builder.setMessage("خطا! اتصال به اینترنت با مشکل مواجه است");
-                                builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialog, int which) {
-                                        dialog.cancel();
-                                    }
-                                });
-                                AlertDialog alert = builder.create();
-                                alert.show();
-                            }
-                        });
-                    }
-                });
-                acc_del.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.cancel();
-                    }
-                });
-                acc_del.create().show();
-                return true;
-            }
+                        @Override
+                        public void onFailure(int statusCode, Header[] headers, byte[] errorResponse, Throwable e) {
+                            AlertDialog.Builder builder = new AlertDialog.Builder(TaskCard.this);
+                            builder.setCancelable(false);
+                            Log.d("error", errorResponse.toString());
+                            builder.setMessage("خطا! اتصال به اینترنت با مشکل مواجه است");
+                            builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    dialog.cancel();
+                                }
+                            });
+                            AlertDialog alert = builder.create();
+                            alert.show();
+                        }
+                    });
+                }
+            });
+            acc_del.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.cancel();
+                }
+            });
+            acc_del.create().show();
+            return true;
+
 
         }
         return super.onOptionsItemSelected(item);
     }
-    public void clickOnCheckBox2(View view)
-    {
-       // managerCheckBox.setChecked(!managerCheckBox.isChecked());
-     if(managerCheckBox.isChecked())
-         managerCheckBox.setButtonDrawable(R.drawable.bluecheck);
-     else
-        managerCheckBox.setButtonDrawable(R.drawable.blueunchecked);
 
-    if (managerCheckBox.isChecked()) {
-        if (userCheckBox.isChecked())
-            status = 2;
-
+    public void clickOnCheckBox2(View view) {
+        // managerCheckBox.setChecked(!managerCheckBox.isChecked());
+        if (managerCheckBox.isChecked())
+            managerCheckBox.setButtonDrawable(R.drawable.bluecheck);
         else
-        {
-            status = -1;
+            managerCheckBox.setButtonDrawable(R.drawable.blueunchecked);
 
+        if (managerCheckBox.isChecked()) {
+            if (userCheckBox.isChecked())
+                status = 2;
+
+            else {
+                status = -1;
+
+            }
+        } else {
+            if (userCheckBox.isChecked())
+                status = 1;
+            else
+                status = 0;
         }
-    } else {
-        if (userCheckBox.isChecked())
-            status = 1;
-        else
-            status = 0;
+
+        saveStatusCheckBoxes(status);
     }
 
-    saveStatusCheckBoxes(status);
-}
-    public void clickOnCheckBox1(View view)
-    {
+    public void clickOnCheckBox1(View view) {
         //userCheckBox.setChecked(false);
         //  Log.d("status before click ",Boolean.toString(userCheckBox.isChecked()));
         //  userCheckBox.setChecked(!userCheckBox.isChecked());
-     //   userCheckBox.setChecked(userCheckBox.isChecked());
-        if(userCheckBox.isChecked())
+        //   userCheckBox.setChecked(userCheckBox.isChecked());
+        if (userCheckBox.isChecked())
             userCheckBox.setButtonDrawable(R.drawable.bluecheck);
         else
             userCheckBox.setButtonDrawable(R.drawable.blueunchecked);
 
-        Log.d("status after click ",Boolean.toString(userCheckBox.isChecked()));
+        Log.d("status after click ", Boolean.toString(userCheckBox.isChecked()));
         if (userCheckBox.isChecked()) {
             if (!managerCheckBox.isChecked())
                 status = 1;
@@ -442,9 +441,10 @@ public class TaskCard extends Activity {
         saveStatusCheckBoxes(status);
 
     }
+
     private void saveStatusCheckBoxes(int status) {
         RequestParams params = new RequestParams();
-        Log.d("status",Integer.toString(status));
+        Log.d("status", Integer.toString(status));
 
         if (status == -1) {
             Toast.makeText(getApplicationContext(), "تایید شما قبل از تایید کاربر امکان پذیر نمیباشد", Toast.LENGTH_LONG).show();
@@ -459,8 +459,7 @@ public class TaskCard extends Activity {
             params.put("taskID", taskID);
             params.put("status", status);
 
-            if(status==1)
-            {
+            if (status == 1) {
 
             }
             AsyncHttpClient client = new AsyncHttpClient();
@@ -486,12 +485,11 @@ public class TaskCard extends Activity {
                             Toast.makeText(getApplicationContext(), "تغییرات ثبت شد . ", Toast.LENGTH_LONG).show();
 
                         }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+
+
                     }
-                        catch(JSONException e){
-                            e.printStackTrace();
-
-
-                        }
 
 
                 }

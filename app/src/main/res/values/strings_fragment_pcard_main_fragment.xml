@@ -6,5 +6,6 @@
     <string name="project_progress">پیشرفت پروژه </string>
     <string name="project_info">شرح پروژه </string>
     <string name="project_date">تاریخ اتمام پروژه</string>
+    <string name="project_link">لینک پروژه</string>
 
 </resources>
