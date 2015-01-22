@@ -36,6 +36,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="to: "
+                    android:layout_alignParentLeft="true"
                     android:textAppearance="?android:attr/textAppearanceLarge"
                     android:layout_below="@+id/FeedbackComment"
                     android:layout_marginTop="20dp"
@@ -64,6 +65,7 @@
                     android:layout_height="wrap_content"
                     android:text="Subject : "
                     android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:layout_alignParentLeft="true"
                     android:layout_below="@+id/editTextTo"
                     android:layout_marginTop="20dp"
                     android:textColor="@color/text1"
@@ -92,6 +94,8 @@
                     android:layout_below="@+id/editTextSubject"
                     android:layout_marginTop="20dp"
                     android:textColor="@color/text1"
+                    android:layoutDirection="ltr"
+                    android:layout_alignParentLeft="true"
                     android:textSize="@dimen/font"
                     android:textStyle="bold"/>
 
