@@ -1,40 +1,50 @@
 package com.iust.panta;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
+import com.fourmob.datetimepicker.date.DatePickerDialog;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
+import com.sleepbot.datetimepicker.time.RadialPickerLayout;
+import com.sleepbot.datetimepicker.time.TimePickerDialog;
 
 import org.apache.http.Header;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.Calendar;
 
-public class EditTask extends Activity {
 
+public class EditTask extends FragmentActivity implements DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener {
+    private TextView TUserNameView;
     private EditText EUserNameView;
 
+    private TextView TTaskNameView;
     private EditText ETaskNameView;
 
+    private TextView TTaskInfoView;
     private EditText ETaskInfoView;
 
     private Button ButtonView;
     private ProgressBar ProgressView;
     private int taskID;
-    private DatePicker datePicker;
-
     private int projectID;
+
+    public static final String DATEPICKER_TAG = "datepicker";
+    public static final String TIMEPICKER_TAG = "timepicker";
+    int yearofyear, monthofmonth, dayofday, hourofhour, minofmin;
+
 
 
 
@@ -43,16 +53,50 @@ public class EditTask extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_task);
 
+        TTaskNameView = (TextView) findViewById(R.id.TTaskName);
         ETaskNameView = (EditText) findViewById(R.id.ETaskName);
 
+        TTaskInfoView = (TextView) findViewById(R.id.TTaskInfo);
         ETaskInfoView = (EditText) findViewById(R.id.ETaskInfo);
 
+        TUserNameView = (TextView) findViewById(R.id.TUserName);
         EUserNameView = (EditText) findViewById(R.id.EUserName);
 
         ButtonView = (Button) findViewById(R.id.add_Task_button);
         ProgressView = (ProgressBar) findViewById(R.id.AddTask_progress);
 
-        datePicker = (DatePicker) findViewById(R.id.datePicker);
+
+        final Calendar calendar = Calendar.getInstance();
+        final DatePickerDialog datePickerDialog = DatePickerDialog.newInstance(this, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
+        final TimePickerDialog timePickerDialog = TimePickerDialog.newInstance(this, calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE), false, false);
+
+        findViewById(R.id.dateButton).setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                datePickerDialog.setYearRange(1985, 2028);
+                datePickerDialog.show(getSupportFragmentManager(), DATEPICKER_TAG);
+            }
+        });
+
+        findViewById(R.id.timeButton).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                timePickerDialog.show(getSupportFragmentManager(), TIMEPICKER_TAG);
+            }
+        });
+        if (savedInstanceState != null) {
+            DatePickerDialog dpd = (DatePickerDialog) getSupportFragmentManager().findFragmentByTag(DATEPICKER_TAG);
+            if (dpd != null) {
+                dpd.setOnDateSetListener(this);
+            }
+
+            TimePickerDialog tpd = (TimePickerDialog) getSupportFragmentManager().findFragmentByTag(TIMEPICKER_TAG);
+            if (tpd != null) {
+                tpd.setOnTimeSetListener(this);
+            }
+        }
+
 
         Intent intent=getIntent();
 
@@ -65,39 +109,52 @@ public class EditTask extends Activity {
             EUserNameView.setText(info.getString("username"));
             projectID = info.getInt("projectID");
             taskID = info.getInt("taskID");
-            int year= Integer.parseInt(info.getString("deadline").split("-")[0]);
-            int month= Integer.parseInt(info.getString("deadline").split("-")[1]);
-            int day= Integer.parseInt(info.getString("deadline").split("-")[2]);
 
-            datePicker.updateDate(year, month - 1, day);
+     /*       String[] listdate = info.getString("deadline").split(" ");
 
-
-           // datePicker = setText(info.getString("year"));
-
-           // datePicker.updateDate(getInt("year"),getString("month"),getString("day"));
-         //   datePicker= info.getInt(updateDate("year","month","day"));
+            int year= Integer.parseInt(listdate[0].split("-")[0]);
+            int month= Integer.parseInt(listdate[0].split("-")[1]);
+            int day= Integer.parseInt(listdate[0].split("-")[2]);
+            int hour = Integer.parseInt(listdate[1].split(":")[0]);
+            int minute = Integer.parseInt(listdate[1].split(":")[1]);
+*/
         } catch (JSONException e) {
             e.printStackTrace();
         }
     }
 
 
+    @Override
+    public void onDateSet(DatePickerDialog datePickerDialog, int year, int month, int day) {
+        //Toast.makeText(AddTask.this, "new date:" + year + "-" + month + "-" + day, Toast.LENGTH_LONG).show();
+        this.yearofyear=year;
+        this.monthofmonth=month;
+        this.dayofday=day;
+    }
+
+    @Override
+    public void onTimeSet(RadialPickerLayout view, int hourOfDay, int minute) {
+        //Toast.makeText(AddTask.this, "new time:" + hourOfDay + "-" + minute, Toast.LENGTH_LONG).show();
+        this.hourofhour=hourOfDay;
+        this.minofmin=minute;
+    }
+
 
     public void AddTask(View view) {
-
-
-        ProgressView.setVisibility(View.VISIBLE);
-        ButtonView.setVisibility(View.GONE);
         RequestParams params = new RequestParams();
         params.put("taskID", taskID);
         params.put("projectID", projectID);
         params.put("taskName", ETaskNameView.getText().toString());
         params.put("task_info", ETaskInfoView.getText().toString());
         params.put("username", EUserNameView.getText().toString());
+        Log.d("problemm", String.valueOf(hourofhour));
+        Log.d("problemm", String.valueOf(minofmin));
 
-        params.put("year", String.valueOf(datePicker.getYear()));
-        params.put("month", String.valueOf(datePicker.getMonth()+1));
-        params.put("day", String.valueOf(datePicker.getDayOfMonth()));
+        params.put("year",this.yearofyear );
+        params.put("month",(this.monthofmonth)+1  );
+        params.put("day",this.dayofday  );
+        params.put("hour",this.hourofhour  );
+        params.put("minute",this.minofmin  );
 
         Log.d("projectID", String.valueOf(projectID));
         AsyncHttpClient client = new AsyncHttpClient();
@@ -124,7 +181,7 @@ public class EditTask extends Activity {
                     if (s_response.getBoolean("successful")) {
                         AlertDialog.Builder dlg = new AlertDialog.Builder(EditTask.this);
                         dlg.setCancelable(false);
-                        dlg.setMessage("تغییرات ثبت شد");
+                        dlg.setMessage("successful");
                         dlg.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
@@ -137,7 +194,7 @@ public class EditTask extends Activity {
                     } else {
                         AlertDialog.Builder dlg = new AlertDialog.Builder(EditTask.this);
                         dlg.setCancelable(false);
-                        dlg.setMessage("پست الکترونیکی موجود نیست");
+                        dlg.setMessage("خطای وارد کردن در دیتابیس");
                         dlg.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
@@ -155,13 +212,9 @@ public class EditTask extends Activity {
             @Override
             public void onFailure(int statusCode, Header[] headers, byte[] errorResponse, Throwable e) {
 
-
-                ProgressView.setVisibility(View.GONE);
-                ButtonView.setVisibility(View.VISIBLE);
-
                 AlertDialog.Builder builder = new AlertDialog.Builder(EditTask.this);
                 builder.setCancelable(false);
-                builder.setMessage("خطا! دوباره امتحان کنید");
+                builder.setMessage("خطای سرور");
                 builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
