@@ -2,13 +2,14 @@ package com.iust.panta;
 
 import android.app.ActionBar;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
-import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 
@@ -47,7 +48,7 @@ public class Home extends Activity
             e.printStackTrace();
         }
 
-        context=getApplicationContext();
+        context = getApplicationContext();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
         mNavigationDrawerFragment = (NavigationDrawerFragment)
@@ -162,31 +163,29 @@ public class Home extends Activity
 
     @Override
     public void onBackPressed() {
-     /*   AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        final AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setMessage("می خواهید از برنامه خارج شوید؟");
         builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
 
                 // controller.deleteMe();
-*/
-        Intent intent = new Intent(Intent.ACTION_MAIN);
-        intent.addCategory(Intent.CATEGORY_HOME);
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        //  finish();
-        startActivity(intent);
-        //   }
-        //  });
-     /*   builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.cancel();
+
+                Intent intent = new Intent(Intent.ACTION_MAIN);
+                intent.addCategory(Intent.CATEGORY_HOME);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                //  finish();
+                startActivity(intent);
+                //   }
+                //  });
+                builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                });
+                builder.create().show();
             }
         });
-        builder.create().show();
-*/
     }
-
-
 }
-
