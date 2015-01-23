@@ -30,6 +30,7 @@ public class HomeAddProjectFragment extends Fragment {
 
     private EditText EprojectNameView;
     private EditText EprojectInfoview;
+    private EditText EprojectLinkview;
     private Button ButtonView;
     private ProgressBar ProgressView;
     private DatePicker datePicker;
@@ -41,6 +42,8 @@ public class HomeAddProjectFragment extends Fragment {
         EprojectNameView = (EditText) rootView.findViewById(R.id.Eprojectname);
 
         EprojectInfoview = (EditText) rootView.findViewById(R.id.EprojectInfo);
+
+        EprojectLinkview = (EditText) rootView.findViewById(R.id.EprojectLink);
 
         ProgressView = (ProgressBar) rootView.findViewById(R.id.AddProject_progress);
         datePicker = (DatePicker) rootView.findViewById(R.id.datePicker);
@@ -111,6 +114,7 @@ public class HomeAddProjectFragment extends Fragment {
             params.put("year", String.valueOf(datePicker.getYear()));
             params.put("month", String.valueOf(datePicker.getMonth() + 1));
             params.put("day", String.valueOf(datePicker.getDayOfMonth()));
+            params.put("link",EprojectLinkview.getText().toString());
             AsyncHttpClient client = new AsyncHttpClient();
             client.post("http://104.236.33.128:8800/addProject/", params, new AsyncHttpResponseHandler() {
                 @Override

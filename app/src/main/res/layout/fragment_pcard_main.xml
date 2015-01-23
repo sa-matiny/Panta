@@ -254,6 +254,7 @@
                 android:layout_below="@id/label6"
                 android:layout_marginRight="10dp"
                 android:layout_marginTop="15dp"
+                android:autoLink="web"
                 android:textSize="@dimen/font"
                 android:visibility="gone" />
 

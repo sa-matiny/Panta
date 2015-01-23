@@ -338,11 +338,6 @@ public class ProjectCard extends FragmentActivity implements
                 add_member.create().show();
                 return true;
 
-            case R.id.action_addlink:
-
-
-                return true;
-
             case R.id.action_deletemember:
                 if (pro_users.length() == 1) {
                     Toast.makeText(getApplicationContext(), "در حال حاضر برای این پروژه عضوی جز مدیر وجود ندارد", Toast.LENGTH_LONG).show();
