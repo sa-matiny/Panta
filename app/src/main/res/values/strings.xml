@@ -14,6 +14,7 @@
     <string name="Setting_section">تنظیمات</string>
     <string name="add_section">اضافه کردن پروژه</string>
     <string name="feedback_section">انتقادات و پیشنهادات</string>
+    <string name="exit" >خروج </string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="title_activity_task_card">اطلاعات وظیفه</string>
