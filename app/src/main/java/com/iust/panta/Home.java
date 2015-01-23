@@ -176,16 +176,14 @@ public class Home extends Activity
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 //  finish();
                 startActivity(intent);
-                //   }
-                //  });
-                builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.cancel();
-                    }
-                });
-                builder.create().show();
             }
         });
+        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+            }
+        });
+        builder.create().show();
     }
 }
