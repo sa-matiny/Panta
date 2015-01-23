@@ -7,10 +7,12 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
-import android.widget.TextView;
+import android.widget.Spinner;
 
 import com.fourmob.datetimepicker.date.DatePickerDialog;
 import com.loopj.android.http.AsyncHttpClient;
@@ -20,32 +22,34 @@ import com.sleepbot.datetimepicker.time.RadialPickerLayout;
 import com.sleepbot.datetimepicker.time.TimePickerDialog;
 
 import org.apache.http.Header;
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 
 
 public class EditTask extends FragmentActivity implements DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener {
-    private TextView TUserNameView;
-    private EditText EUserNameView;
+    private Spinner EUserNameView;
 
-    private TextView TTaskNameView;
     private EditText ETaskNameView;
 
-    private TextView TTaskInfoView;
     private EditText ETaskInfoView;
 
     private Button ButtonView;
     private ProgressBar ProgressView;
     private int taskID;
     private int projectID;
+    JSONArray pro_users;
 
     public static final String DATEPICKER_TAG = "datepicker";
     public static final String TIMEPICKER_TAG = "timepicker";
     int yearofyear, monthofmonth, dayofday, hourofhour, minofmin;
 
-
+    ArrayList<String> memberArray = new ArrayList<String>();
+    final ArrayList<String> member_users = new ArrayList<String>();
+    int combo;
 
 
     @Override
@@ -53,17 +57,16 @@ public class EditTask extends FragmentActivity implements DatePickerDialog.OnDat
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_task);
 
-        TTaskNameView = (TextView) findViewById(R.id.TTaskName);
         ETaskNameView = (EditText) findViewById(R.id.ETaskName);
 
-        TTaskInfoView = (TextView) findViewById(R.id.TTaskInfo);
         ETaskInfoView = (EditText) findViewById(R.id.ETaskInfo);
 
-        TUserNameView = (TextView) findViewById(R.id.TUserName);
-        EUserNameView = (EditText) findViewById(R.id.EUserName);
+        EUserNameView = (Spinner) findViewById(R.id.EUserName);
 
         ButtonView = (Button) findViewById(R.id.add_Task_button);
         ProgressView = (ProgressBar) findViewById(R.id.AddTask_progress);
+
+
 
 
         final Calendar calendar = Calendar.getInstance();
@@ -106,9 +109,56 @@ public class EditTask extends FragmentActivity implements DatePickerDialog.OnDat
             Log.d("response", info.toString());
             ETaskNameView.setText(info.getString("taskName"));
             ETaskInfoView.setText(info.getString("task_info"));
-            EUserNameView.setText(info.getString("username"));
+            //EUserNameView.setText(info.getString("username"));
             projectID = info.getInt("projectID");
             taskID = info.getInt("taskID");
+
+            try {
+                pro_users = new JSONArray(intent.getExtras().getString("users"));
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            Log.d("taskusersget",pro_users.toString());
+            member_users.add(info.getString("username"));
+            memberArray.add(info.getString("name") + "\n(" + info.getString("username") + ")");
+            for (int i = 0; i < pro_users.length(); i++) {
+                try {
+                    JSONObject member = pro_users.getJSONObject(i);
+                    if (info.getString("username").equals(member.getString("username"))) {
+                        continue;
+                    }
+                    member_users.add(member.getString("username"));
+                    memberArray.add(member.getString("name") + "\n(" + member.getString("username") + ")");
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+            Log.d("taskusers",memberArray.toString());
+            ArrayAdapter<String> stringArrayAdapter =
+                    new ArrayAdapter<String>(
+                            this,
+                            android.R.layout.simple_spinner_dropdown_item,
+                            memberArray);
+            EUserNameView.setAdapter(stringArrayAdapter);
+
+            final AdapterView.OnItemSelectedListener onSpinner =
+                    new AdapterView.OnItemSelectedListener() {
+                        @Override
+                        public void onItemSelected(
+                                AdapterView<?> parent,
+                                View view,
+                                int position,
+                                long id) {
+                            combo = position;
+                        }
+
+                        @Override
+                        public void onNothingSelected(
+                                AdapterView<?> parent) {
+                        }
+                    };
+
+            EUserNameView.setOnItemSelectedListener(onSpinner);
 
      /*       String[] listdate = info.getString("deadline").split(" ");
 
@@ -146,7 +196,7 @@ public class EditTask extends FragmentActivity implements DatePickerDialog.OnDat
         params.put("projectID", projectID);
         params.put("taskName", ETaskNameView.getText().toString());
         params.put("task_info", ETaskInfoView.getText().toString());
-        params.put("username", EUserNameView.getText().toString());
+        params.put("username", member_users.get(combo));
         Log.d("problemm", String.valueOf(hourofhour));
         Log.d("problemm", String.valueOf(minofmin));
 
