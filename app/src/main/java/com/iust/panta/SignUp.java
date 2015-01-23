@@ -309,6 +309,9 @@ public class SignUp extends Activity {
                             // controller.deleteRegID();
 
                             //  controller.insertRegID("nastaran11","nastaran");
+
+
+                            //************* next line must be active
                             controller.insertRegID(mEmailView.getText().toString(), regID);
 
                             Log.d("Login Insert", "insertReg ID");
