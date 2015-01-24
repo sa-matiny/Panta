@@ -16,6 +16,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.fourmob.datetimepicker.date.DatePickerDialog;
 import com.loopj.android.http.AsyncHttpClient;
@@ -37,6 +38,7 @@ public class AddTask extends FragmentActivity  implements DatePickerDialog.OnDat
     private Spinner EUserNameView;
 
     private EditText ETaskNameView;
+    private EditText E;
 
     private EditText ETaskInfoView;
 
@@ -114,7 +116,7 @@ public class AddTask extends FragmentActivity  implements DatePickerDialog.OnDat
         EUserNameView.setOnItemSelectedListener(onSpinner);
 
 
-//////////////////
+
         final Calendar calendar = Calendar.getInstance();
 
         final DatePickerDialog datePickerDialog = DatePickerDialog.newInstance(this, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
@@ -126,6 +128,7 @@ public class AddTask extends FragmentActivity  implements DatePickerDialog.OnDat
             public void onClick(View v) {
                 datePickerDialog.setYearRange(1985, 2028);
                 datePickerDialog.show(getSupportFragmentManager(), DATEPICKER_TAG);
+
             }
         });
 
@@ -155,7 +158,8 @@ public class AddTask extends FragmentActivity  implements DatePickerDialog.OnDat
         //Toast.makeText(AddTask.this, "new date:" + year + "-" + month + "-" + day, Toast.LENGTH_LONG).show();
         this.yearofyear=year;
 
-        this.monthofmonth=month;
+        this.monthofmonth = month;
+
         this.dayofday=day;
 
     }
@@ -178,7 +182,6 @@ public class AddTask extends FragmentActivity  implements DatePickerDialog.OnDat
         //set null error
         ETaskNameView.setError(null);
         ETaskInfoView.setError(null);
-
 
 
         //set variable
@@ -204,6 +207,14 @@ public class AddTask extends FragmentActivity  implements DatePickerDialog.OnDat
             this.has_error = true;
         }
 
+        if (yearofyear==0 & monthofmonth==0)
+        {
+            Toast.makeText(getApplicationContext(), "لطفا تاریخ را وارد کنید", Toast.LENGTH_LONG).show();
+            ProgressView.setVisibility(View.GONE);
+
+            return;
+        }
+
 
         if (this.has_error)
             ProgressView.setVisibility(View.GONE);
@@ -220,8 +231,8 @@ public class AddTask extends FragmentActivity  implements DatePickerDialog.OnDat
             params.put("projectID", projectID);
             params.put("taskName", ETaskNameView.getText().toString());
             params.put("task_info", ETaskInfoView.getText().toString());
-            Log.d("problemm", String.valueOf(hourofhour));
-            Log.d("diing", String.valueOf(minofmin));
+            Log.d("year", String.valueOf(yearofyear));
+            Log.d("month", String.valueOf(monthofmonth));
             params.put("year",this.yearofyear );
             params.put("month",(this.monthofmonth)+1  );
             params.put("day",this.dayofday  );

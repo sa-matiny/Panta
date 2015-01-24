@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.fourmob.datetimepicker.date.DatePickerDialog;
 import com.loopj.android.http.AsyncHttpClient;
@@ -191,6 +192,15 @@ public class EditTask extends FragmentActivity implements DatePickerDialog.OnDat
 
 
     public void AddTask(View view) {
+
+        if (yearofyear==0 & monthofmonth==0)
+        {
+            Toast.makeText(getApplicationContext(), "لطفا تاریخ را وارد کنید", Toast.LENGTH_LONG).show();
+            ProgressView.setVisibility(View.GONE);
+
+            return;
+        }
+
         RequestParams params = new RequestParams();
         params.put("taskID", taskID);
         params.put("projectID", projectID);
