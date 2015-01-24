@@ -360,13 +360,14 @@ public class SignUp extends Activity {
 
         params.put("reg_id",regID);
         Log.d("regID in signUp",regID);
+         String username1="";
         try {
 
 
-            String username = controller.getMe().getString("username");
-            Log.d("put username",username);
+             username1 = controller.getMe().getString("username");
+            Log.d("put username",username1);
 
-            params.put("username",username );
+            params.put("username",username1 );
 
         }
         catch (JSONException e) {
@@ -396,6 +397,7 @@ public class SignUp extends Activity {
                     if (jsonobj.getBoolean("successful")) {
 
                         Toast.makeText(getApplicationContext(), "ذخیره شد", Toast.LENGTH_LONG).show();
+                        //controller.insertRegID(controller.getMe().getString("username"),regID);
 
                     }
                 }

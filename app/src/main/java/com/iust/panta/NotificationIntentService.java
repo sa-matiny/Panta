@@ -74,7 +74,9 @@ public class NotificationIntentService extends IntentService {
     }
 
     public NotificationIntentService() {
-        super("NotificationIntentService");
+
+          super("NotificationIntentService");
+          Log.d("notification","IntentNotificationNasi");
     }
 
     @Override
@@ -88,7 +90,7 @@ public class NotificationIntentService extends IntentService {
             e.printStackTrace();
         }
 
-        Log.d("nastaran","notif");
+        Log.d("nastaran","****************");
         Bundle extras= intent.getExtras();
 
         //taskID=1;
@@ -138,7 +140,7 @@ public class NotificationIntentService extends IntentService {
                          Log.d("taskInfoBundle", TaskInfo.toString());
                          taskID = TaskInfo.getInt("taskID");
                          Log.d("taskID", Integer.toString(taskID));
-                         msg="User :"+ title +"has done his/her Task Compeletely";
+                         msg="کاربر "+title+" وظیفه ی خود را انجام داده است";
                     }
                     catch (JSONException e) {
                         e.printStackTrace();
@@ -147,6 +149,43 @@ public class NotificationIntentService extends IntentService {
 
                     }
                 }
+                if(msgtype.equals("2")) {
+
+                        msg="شما به پروژه جدید اضافه شدید";
+
+
+                }
+
+                if(msgtype.equals("3")) {
+                    try {
+                        JSONObject TaskInfo = new JSONObject(extras.getString("task_info"));
+                        //  TaskInfo=TaskInfo.getJSONObject("taskInfo");
+                       // manager=TaskInfo.getString("managerUser");
+
+                        Log.d("taskInfoBundle", TaskInfo.toString());
+                        taskID = TaskInfo.getInt("taskID");
+
+                        manager=TaskInfo.getString("manager");
+
+                       // Log.d("taskID", Integer.toString(taskID));
+                        msg="برای شما وظیفه ی جدیدی تعریف شده است";
+                    }
+                    catch (JSONException e) {
+                        e.printStackTrace();
+                        //Log.d("Problem in catching ", "hichi");
+
+
+                    }
+
+
+                }
+                if(msgtype.equals("4"))
+                {
+                    msg="زمان پروژه "+title +"به پایان رسیده است .";
+
+
+                }
+
                 Log.i(TAG, "Received: " + extras.toString());
                 sendNotification(msg);
             }
@@ -184,6 +223,39 @@ public class NotificationIntentService extends IntentService {
             } else
                 intent.putExtra("manager", false);
         }
+
+        if(msgtype.equals("2"))
+        {
+            intent = new Intent(this, Home.class);
+
+
+        }
+
+        if(msgtype.equals("3"))
+        {
+            intent = new Intent(this, TaskCard.class);
+            intent.putExtra("taskID", taskID);
+            if (username.equals(manager))
+            {
+                Log.d("manager is","yes");
+                intent.putExtra("manager", true);
+            } else
+                intent.putExtra("manager", false);
+
+        }
+        if(msgtype.equals("4"))
+        {
+            intent = new Intent(this, Home.class);
+
+
+        }
+        if(msgtype.equals("5"))
+        {
+            intent = new Intent(this, Home.class);
+
+
+        }
+
 
             //  startActivity();
         PendingIntent contentIntent = PendingIntent.getActivity(this, 0,

@@ -270,6 +270,7 @@ public class HomeSettingFragment extends Fragment {
 
         //  RegID = data.getString("regID");
 
+        controller= new SqliteController(getActivity());
         AlertDialog.Builder builder = new AlertDialog.Builder(this.getActivity());
         builder.setMessage("می خواهید از برنامه خارج شوید؟");
         builder.setCancelable(false);
