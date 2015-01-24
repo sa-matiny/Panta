@@ -66,6 +66,7 @@ public class Home extends Activity
             e.printStackTrace();
         }
 
+        Log.d("profileCOntext",getApplicationContext().toString());
         context=getApplicationContext();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);

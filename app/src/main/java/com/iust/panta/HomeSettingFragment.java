@@ -311,6 +311,7 @@ public class HomeSettingFragment extends Fragment {
                 params.put("username", userName);
                 Log.d(TAG, userName);
                 Log.d(TAG, RegID);
+
                 params.put("reg_id", RegID);
 
                 AsyncHttpClient client = new AsyncHttpClient();
