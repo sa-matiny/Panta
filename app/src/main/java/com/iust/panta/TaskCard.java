@@ -21,6 +21,7 @@ import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 
 import org.apache.http.Header;
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -45,6 +46,7 @@ public class TaskCard extends Activity {
     private Integer projectID;
     private Integer status;
     private JSONObject jobj;
+    private JSONArray users;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -105,7 +107,7 @@ public class TaskCard extends Activity {
         Log.d("inTASKCARD", " " + taskID);
         params.put("taskID", taskID);
         AsyncHttpClient client = new AsyncHttpClient();
-        client.post("http://104.236.33.128:8800//taskInfo/", params, new AsyncHttpResponseHandler() {
+        client.post("http://104.236.33.128:8800/taskInfo/", params, new AsyncHttpResponseHandler() {
 
             @Override
             public void onStart() {
@@ -121,6 +123,7 @@ public class TaskCard extends Activity {
 
                     JSONObject jobj_1 = new JSONObject(new String(response));
                     jobj = jobj_1.getJSONObject("taskInfo");
+                    users = jobj_1.getJSONArray("project_users");
 
                     Log.d("obj", jobj.toString());
 
@@ -319,6 +322,7 @@ public class TaskCard extends Activity {
         if (id == R.id.action_edit_task) {
             Intent intent = new Intent(this, EditTask.class);
             intent.putExtra("taskInfo", jobj.toString());
+            intent.putExtra("users",users.toString());
             startActivity(intent);
             return true;
 

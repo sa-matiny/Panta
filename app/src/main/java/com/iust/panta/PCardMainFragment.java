@@ -74,7 +74,7 @@ public class PCardMainFragment extends Fragment {
             pieChartValues = new int[]{pro_info.getInt("progress"), 100 - pro_info.getInt("progress")};
             mProInfo.setText(pro_info.getString("project_info"));
             mProDeadline.setText(pro_info.getString("pDeadline"));
-            if (!pro_info.getString("link").equals("null")) {
+            if (!(pro_info.getString("link").equals("null")|pro_info.getString("link").equals(""))) {
                 mProLink.setText(pro_info.getString("link"));
                 imageLink.setVisibility(View.VISIBLE);
                 labelLink.setVisibility(View.VISIBLE);
@@ -105,6 +105,7 @@ public class PCardMainFragment extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
         mProProgress.removeAllViews();
+
 
     }
 

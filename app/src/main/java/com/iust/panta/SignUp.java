@@ -75,6 +75,7 @@ public class SignUp extends Activity {
         mProgressView = (ProgressBar) findViewById(R.id.signup_progress);
         mButtonView = (Button) findViewById(R.id.signup_button);
         context = getApplicationContext();
+        Log.d("SignUpCOntext",context.toString());
 
     }
 
@@ -302,6 +303,9 @@ public class SignUp extends Activity {
                             {
                                 Log.d("isEmpty", "is");
                                 registerInBackground();
+                                Log.d("afterRegister",regID);
+
+
                             } else
                                 sendRegistrationIdToBackend();
 
@@ -355,6 +359,7 @@ public class SignUp extends Activity {
         RequestParams params = new RequestParams();
 
         params.put("reg_id",regID);
+        Log.d("regID in signUp",regID);
         try {
 
 
@@ -428,9 +433,29 @@ public class SignUp extends Activity {
             @Override
             protected String doInBackground(Void... params) {
                 String msg = "";
+            /*    int noOfAttemptsAllowed = 5;   // Number of Retries allowed
+                int noOfAttempts = 0;          // Number of tries done
+                boolean stopFetching = false;
+
+                while (!stopFetching)
+                {
+                    noOfAttempts ++;
+                    try {
+                        gcm.register()
+                    }
+                    try
+                    {
+                        // Leave some time here for the register to be
+                        // registered before going to the next line
+                        Thread.sleep(2000);   // Set this timing based on trial.
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }*/
                 try {
                     if (gcm == null) {
                         gcm = GoogleCloudMessaging.getInstance(context);
+                        Log.d("GCM", gcm.toString());
+
                     }
                     regID = gcm.register(SENDER_ID);
                     Log.d("regidafter",regID);
@@ -438,14 +463,15 @@ public class SignUp extends Activity {
 
                     // You should send the registration ID to your server over HTTP, so it
                     // can use GCM/HTTP or CCS to send messages to your app.
-
+                    Log.d("after Registerbac",regID);
+                    //sendRegistrationIdToBackend();
 
                     // For this demo: we don't need to send it because the device will send
                     // upstream messages to a server that echo back the message using the
                     // 'from' address in the message.
 
                     // Persist the regID - no need to register again.
-                    storeRegistrationId(context, regID);
+                    //
                 } catch (IOException ex) {
                     msg = "Error :" + ex.getMessage();
                     // If there is an error, don't just keep trying to register.
@@ -456,9 +482,17 @@ public class SignUp extends Activity {
                 return msg;
             }
 
+           /* @Override
+            public void onFinish()
+            {
+
+            }*/
+
             @Override
             protected void onPostExecute(String msg) {
-                mDisplay.append(msg + "\n");
+                Log.d("MSG",msg);
+                Log.d("IF", String.valueOf(msg.indexOf("Error")));
+                //mDisplay.append(msg + "\n");
                 if(msg.indexOf("Error")==-1)
                 {
                     Log.d("request to save","request");
@@ -520,7 +554,7 @@ public class SignUp extends Activity {
     private SharedPreferences getGcmPreferences(Context context) {
         // This sample app persists the registration ID in shared preferences, but
         // how you store the regID in your app is up to you.
-        return getSharedPreferences(Home.class.getSimpleName(),
+        return getSharedPreferences(SignUp.class.getSimpleName(),
                 Context.MODE_PRIVATE);
     }
 

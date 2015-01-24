@@ -252,6 +252,8 @@ public class ProjectCard extends FragmentActivity implements
             case R.id.action_addtask:
                 Intent intent = new Intent(this, AddTask.class);
                 intent.putExtra("projectID", projectID);
+                intent.putExtra("users",pro_users.toString());
+                Log.d("taskusersset",pro_users.toString());
                 startActivity(intent);
                 return true;
 
