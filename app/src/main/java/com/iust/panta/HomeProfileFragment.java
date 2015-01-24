@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.content.Context;
 
 import android.widget.SearchView;
 import android.widget.ExpandableListView;
@@ -61,6 +62,7 @@ public class HomeProfileFragment extends Fragment {
         Bundle msg = getArguments();
         userName = msg.getString("username");
         Log.d("username_profile", userName);
+
 
 
         searchView =

@@ -209,6 +209,7 @@ public class LoginActivity extends Activity {
                             {
                                 Log.d("isEmpty", "is");
                                 registerInBackground();
+                              //  sendRegistrationIdToBackend();
                             } else
                                 sendRegistrationIdToBackend();
 
@@ -469,7 +470,7 @@ protected void displayNotification(int number)
 
             @Override
             protected void onPostExecute(String msg) {
-                mDisplay.append(msg + "\n");
+
                 if(msg.indexOf("Error")==-1)
                 {
                     Log.d("request to save","request");
@@ -531,7 +532,7 @@ protected void displayNotification(int number)
     private SharedPreferences getGcmPreferences(Context context) {
         // This sample app persists the registration ID in shared preferences, but
         // how you store the regID in your app is up to you.
-        return getSharedPreferences(Home.class.getSimpleName(),
+        return getSharedPreferences(LoginActivity.class.getSimpleName(),
                 Context.MODE_PRIVATE);
     }
 
