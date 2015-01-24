@@ -104,7 +104,6 @@
                 android:text="خروج"
                 android:id="@+id/signOut_button"
                 android:layout_below="@+id/signOut"
-
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentStart="true"
                 android:layout_centerHorizontal="true"

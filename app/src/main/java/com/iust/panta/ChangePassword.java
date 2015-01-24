@@ -1,4 +1,3 @@
-
 package com.iust.panta;
 
 import android.app.Activity;
