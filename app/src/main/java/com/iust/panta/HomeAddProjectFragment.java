@@ -23,9 +23,7 @@ import org.apache.http.Header;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-/**
- * Created by Rayehe on 11/23/2014.
- */
+
 public class HomeAddProjectFragment extends Fragment {
 
     private EditText EprojectNameView;
@@ -62,15 +60,15 @@ public class HomeAddProjectFragment extends Fragment {
 
                 //set null error
                 EprojectNameView.setError(null);
-                //     Emanagerview.setError(null);
                 EprojectInfoview.setError(null);
 
                 //set variable
                 boolean has_error = false;
+                View focus_view;
+
                 String EprojectName = EprojectNameView.getText().toString();
                 String EprojectInfo = EprojectInfoview.getText().toString();
 
-                View focus_view;
 
 
                 // check if Edit texts are Empty
