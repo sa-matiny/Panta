@@ -27,7 +27,6 @@
                 android:layout_alignParentEnd="false"
                 android:layout_alignParentRight="true"
                 android:layout_alignParentTop="true"
-                android:gravity="center_vertical|center_horizontal"
                 android:text="نام کاربری"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:textColor="@color/text1"
@@ -42,6 +41,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/TUserName"
                 android:background="#ffffff"
+                android:gravity="right"
                 android:inputType="text" />
 
             <TextView
@@ -65,6 +65,7 @@
                 android:layout_marginTop="20dp"
                 android:background="#ffffff"
                 android:ems="10"
+                android:gravity="right"
                 android:inputType="text" />
 
 
@@ -89,6 +90,7 @@
                 android:layout_below="@+id/TTaskInfo"
                 android:layout_marginTop="20dp"
                 android:background="#ffffff"
+                android:gravity="right"
                 android:inputType="textMultiLine"
                 android:lines="3"
                 android:textSize="@dimen/font" />

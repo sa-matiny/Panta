@@ -31,15 +31,15 @@ public class HomeSettingFragment extends Fragment {
     private Button deleteAccount;
     private Button aboutUs;
     private Button signOut;
-    private SqliteController controller;
+
     //   private Context context;
 
-
+    private SqliteController controller;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle saveInstanceState) {
         rootView = inflater.inflate(R.layout.fragment_home_setting, container, false);
 
-
+        controller = new SqliteController(getActivity());
 
 
 
@@ -269,7 +269,7 @@ public class HomeSettingFragment extends Fragment {
 
 
         //  RegID = data.getString("regID");
-
+        //final SqliteController controller = new SqliteController(getActivity());
         AlertDialog.Builder builder = new AlertDialog.Builder(this.getActivity());
         builder.setMessage("می خواهید از برنامه خارج شوید؟");
         builder.setCancelable(false);

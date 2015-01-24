@@ -2,7 +2,6 @@ package com.iust.panta;
 
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.NotificationManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -18,6 +17,8 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
@@ -29,10 +30,6 @@ import com.loopj.android.http.RequestParams;
 import org.apache.http.Header;
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import android.support.v4.app.NotificationCompat;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import java.io.IOException;
 
@@ -220,6 +217,7 @@ public class LoginActivity extends Activity {
                                controller.insertRegID(email,regID);
 
                                 Log.d("Login Insert","insertReg ID");
+
 
 
                         } else
