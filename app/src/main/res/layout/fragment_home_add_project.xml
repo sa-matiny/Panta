@@ -39,10 +39,9 @@
             <EditText
                 android:id="@+id/Eprojectname"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignBottom="@id/Tprojectname"
-                android:layout_alignParentTop="true"
-                android:layout_marginRight="110dp"
+                android:layout_height="35dp"
+                android:layout_marginTop="20dp"
+                android:layout_below="@id/Tprojectname"
                 android:background="#ffffff"
                 android:ems="10"
                 android:inputType="text" />
@@ -52,7 +51,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
-                android:layout_below="@+id/Tprojectname"
+                android:layout_below="@+id/Eprojectname"
                 android:layout_marginTop="20dp"
                 android:text="اطلاعات پروژه"
                 android:textAppearance="?android:attr/textAppearanceMedium"
@@ -73,13 +72,39 @@
                 android:textAlignment="textStart"
                 android:textSize="@dimen/font" />
 
+            <TextView
+                android:id="@+id/TprojectLink"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_below="@+id/EprojectInfo"
+                android:layout_marginTop="20dp"
+                android:text="لینک پروژه (اختیاری)"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="@color/text1"
+                android:textSize="@dimen/font"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/EprojectLink"
+                android:layout_width="match_parent"
+                android:layout_height="65dp"
+                android:layout_below="@+id/TprojectLink"
+                android:layout_marginTop="20dp"
+                android:background="#ffffff"
+                android:inputType="textMultiLine"
+                android:lines="3"
+                android:minLines="1"
+                android:textAlignment="textStart"
+                android:textSize="@dimen/font" />
+
             <DatePicker
                 android:id="@+id/datePicker"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentRight="true"
-                android:layout_below="@+id/EprojectInfo"
+                android:layout_below="@+id/EprojectLink"
                 android:layout_marginTop="20dp"
                 android:calendarViewShown="false" />
 

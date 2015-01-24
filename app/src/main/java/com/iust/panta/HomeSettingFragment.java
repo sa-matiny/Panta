@@ -2,10 +2,8 @@ package com.iust.panta;
 
 import android.app.AlertDialog;
 import android.app.Fragment;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.nfc.Tag;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -168,7 +166,11 @@ public class HomeSettingFragment extends Fragment {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 RequestParams params = new RequestParams();
-                params.put("username","");
+                try {
+                    params.put("username",controller.getMe().toString());
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
                 AsyncHttpClient client = new AsyncHttpClient();
                 client.post("http://104.236.33.128:8800//deleteAccount/", params, new AsyncHttpResponseHandler() {
 
@@ -274,8 +276,6 @@ public class HomeSettingFragment extends Fragment {
         builder.setPositiveButton("بله", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-
-                final SqliteController controller = new SqliteController(getActivity());
                 JSONObject data;
                 Log.d(TAG, "inOnclick Yes");
                 String userName = "";

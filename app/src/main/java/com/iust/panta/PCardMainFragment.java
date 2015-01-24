@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import org.achartengine.ChartFactory;
@@ -34,6 +35,9 @@ public class PCardMainFragment extends Fragment {
     private TextView mProProgressP2;
     private TextView mProInfo;
     private TextView mProDeadline;
+    private TextView mProLink;
+    private ImageView imageLink;
+    private TextView labelLink;
     private Bundle msg;
     private View rootView;
 
@@ -52,6 +56,10 @@ public class PCardMainFragment extends Fragment {
         mProProgressP2 = (TextView) rootView.findViewById(R.id.pro_progress_p2);
         mProInfo = (TextView) rootView.findViewById(R.id.pro_info);
         mProDeadline = (TextView) rootView.findViewById(R.id.pro_date);
+        mProLink = (TextView) rootView.findViewById(R.id.pro_link);
+        imageLink = (ImageView) rootView.findViewById(R.id.imageView5);
+        labelLink = (TextView) rootView.findViewById(R.id.label6);
+
         msg = new Bundle();
         msg = getArguments();
 
@@ -66,6 +74,12 @@ public class PCardMainFragment extends Fragment {
             pieChartValues = new int[]{pro_info.getInt("progress"), 100 - pro_info.getInt("progress")};
             mProInfo.setText(pro_info.getString("project_info"));
             mProDeadline.setText(pro_info.getString("pDeadline"));
+            if (!(pro_info.getString("link").equals("null")|pro_info.getString("link").equals(""))) {
+                mProLink.setText(pro_info.getString("link"));
+                imageLink.setVisibility(View.VISIBLE);
+                labelLink.setVisibility(View.VISIBLE);
+                mProLink.setVisibility(View.VISIBLE);
+            }
 
         } catch (JSONException e) {
             e.printStackTrace();
@@ -91,6 +105,7 @@ public class PCardMainFragment extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
         mProProgress.removeAllViews();
+
 
     }
 

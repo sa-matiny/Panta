@@ -8,30 +8,12 @@ import android.app.FragmentManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
-import android.util.Log;
 import android.view.Menu;
 import android.view.View;
-import android.widget.TextView;
-import android.widget.Toast;
 
-import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.GooglePlayServicesUtil;
-import com.google.android.gms.gcm.GoogleCloudMessaging;
-import com.loopj.android.http.AsyncHttpClient;
-import com.loopj.android.http.AsyncHttpResponseHandler;
-import com.loopj.android.http.RequestParams;
-
-import org.apache.http.Header;
 import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.IOException;
 
 
 public class Home extends Activity
@@ -66,8 +48,7 @@ public class Home extends Activity
             e.printStackTrace();
         }
 
-        Log.d("profileCOntext",getApplicationContext().toString());
-        context=getApplicationContext();
+        context = getApplicationContext();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
         mNavigationDrawerFragment = (NavigationDrawerFragment)
@@ -182,31 +163,27 @@ public class Home extends Activity
 
     @Override
     public void onBackPressed() {
-     /*   AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        final AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setMessage("می خواهید از برنامه خارج شوید؟");
         builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
 
                 // controller.deleteMe();
-*/
-        Intent intent = new Intent(Intent.ACTION_MAIN);
-        intent.addCategory(Intent.CATEGORY_HOME);
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        //  finish();
-        startActivity(intent);
-        //   }
-        //  });
-     /*   builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+
+                Intent intent = new Intent(Intent.ACTION_MAIN);
+                intent.addCategory(Intent.CATEGORY_HOME);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                //  finish();
+                startActivity(intent);
+            }
+        });
+        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 dialog.cancel();
             }
         });
         builder.create().show();
-*/
     }
-
-
 }
-

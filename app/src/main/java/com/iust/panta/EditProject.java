@@ -26,6 +26,7 @@ public class EditProject extends Activity {
     private EditText EprojectNameView;
 
     private EditText EprojectInfoView;
+    private EditText EprojectLinkview;
     private Integer projectID;
 
     private Button ButtonView;
@@ -45,6 +46,8 @@ public class EditProject extends Activity {
         EprojectNameView = (EditText) findViewById(R.id.Eprojectname);
 
         EprojectInfoView = (EditText) findViewById(R.id.EprojectInfo);
+
+        EprojectLinkview = (EditText) findViewById(R.id.EprojectLink);
 
         ProgressView = (ProgressBar) findViewById(R.id.AddProject_progress);
 
@@ -67,6 +70,9 @@ public class EditProject extends Activity {
             EprojectNameView.setText(info.getString("projectName"));
             EprojectInfoView.setText(info.getString("project_info"));
             projectID = info.getInt("projectID");
+            if (!info.getString("link").equals("null")) {
+                EprojectLinkview.setText(info.getString("link"));
+            }
 
             int year = Integer.parseInt(info.getString("pDeadline").split("-")[0]);
             int month = Integer.parseInt(info.getString("pDeadline").split("-")[1]);
@@ -92,6 +98,7 @@ public class EditProject extends Activity {
         params.put("projectID", projectID);
         params.put("projectName", EprojectNameView.getText().toString());
         params.put("project_info", EprojectInfoView.getText().toString());
+        params.put("link",EprojectLinkview.getText().toString());
         params.put("year", String.valueOf(datePicker.getYear()));
         params.put("month", String.valueOf(datePicker.getMonth()+1));
         params.put("day", String.valueOf(datePicker.getDayOfMonth()));
@@ -100,7 +107,7 @@ public class EditProject extends Activity {
 
         Log.d("projectID", String.valueOf(projectID));
         AsyncHttpClient client = new AsyncHttpClient();
-        client.post("http://104.236.33.128:8800//editProject/", params, new AsyncHttpResponseHandler() {
+        client.post("http://104.236.33.128:8800/editProject/", params, new AsyncHttpResponseHandler() {
 
             @Override
             public void onStart() {
