@@ -331,6 +331,7 @@ public class NotificationIntentService extends IntentService {
                         .setStyle(new NotificationCompat.BigTextStyle()
                                 .bigText(""))
                         .setContentText(msg);
+        mBuilder.setAutoCancel(true);
 
         mBuilder.setContentIntent(contentIntent);
         mNotificationManager.notify(NOTIFICATION_ID, mBuilder.build());
