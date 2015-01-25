@@ -33,7 +33,7 @@ public class NotificationIntentService extends IntentService {
     private static final String EXTRA_PARAM1 = "com.iust.panta.extra.PARAM1";
     private static final String EXTRA_PARAM2 = "com.iust.panta.extra.PARAM2";
     private String msgtype;
-    public static final int NOTIFICATION_ID = 1;
+    public static int NOTIFICATION_ID = 1;
     private NotificationManager mNotificationManager;
     NotificationCompat.Builder builder;
     String title;
@@ -335,6 +335,7 @@ public class NotificationIntentService extends IntentService {
 
         mBuilder.setContentIntent(contentIntent);
         mNotificationManager.notify(NOTIFICATION_ID, mBuilder.build());
+        NOTIFICATION_ID=NOTIFICATION_ID+1;
     }
 
 
