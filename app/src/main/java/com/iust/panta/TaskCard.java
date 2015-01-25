@@ -400,6 +400,7 @@ public class TaskCard extends Activity {
     }
 
     public void clickOnCheckBox2(View view) {
+        progressBar.setVisibility(View.VISIBLE);
         // managerCheckBox.setChecked(!managerCheckBox.isChecked());
         if (managerCheckBox.isChecked())
             managerCheckBox.setButtonDrawable(R.drawable.bluecheck);
@@ -425,6 +426,7 @@ public class TaskCard extends Activity {
     }
 
     public void clickOnCheckBox1(View view) {
+        progressBar.setVisibility(View.VISIBLE);
         //userCheckBox.setChecked(false);
         //  Log.d("status before click ",Boolean.toString(userCheckBox.isChecked()));
         //  userCheckBox.setChecked(!userCheckBox.isChecked());
@@ -447,11 +449,13 @@ public class TaskCard extends Activity {
     }
 
     private void saveStatusCheckBoxes(int status) {
+
         RequestParams params = new RequestParams();
         Log.d("status", Integer.toString(status));
 
         if (status == -1) {
             Toast.makeText(getApplicationContext(), "تایید شما قبل از تایید کاربر امکان پذیر نمیباشد", Toast.LENGTH_LONG).show();
+            progressBar.setVisibility(View.GONE);
             /*if(managerCheckBox.isChecked())
                 managerCheckBox.setButtonDrawable(R.drawable.blueunchecked);
             else
@@ -487,6 +491,7 @@ public class TaskCard extends Activity {
                         if (jsonobj.getBoolean("successful")) {
 
                             Toast.makeText(getApplicationContext(), "تغییرات ثبت شد . ", Toast.LENGTH_LONG).show();
+                            progressBar.setVisibility(View.GONE);
 
                         }
                     } catch (JSONException e) {
@@ -505,6 +510,7 @@ public class TaskCard extends Activity {
                     AlertDialog.Builder builder = new AlertDialog.Builder(TaskCard.this);
                     builder.setCancelable(false);
                     builder.setMessage("خطا! دوباره امتحانa کنید");
+                    progressBar.setVisibility(View.GONE);
                     builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {

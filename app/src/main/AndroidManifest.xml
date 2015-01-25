@@ -105,7 +105,7 @@
             android:label="@string/title_activity_task_card"
             android:screenOrientation="portrait"
             android:theme="@style/App" >
-        </activity>
+        </activity  >
 
     <receiver
 
