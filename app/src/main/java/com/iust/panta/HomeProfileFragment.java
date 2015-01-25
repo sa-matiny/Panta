@@ -1,18 +1,22 @@
 package com.iust.panta;
 
+import android.annotation.TargetApi;
 import android.app.AlertDialog;
 import android.app.Fragment;
 import android.app.SearchManager;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Debug;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
 import android.content.Context;
 
+import android.widget.PopupWindow;
 import android.widget.SearchView;
 import android.widget.ExpandableListView;
 import android.widget.ProgressBar;
@@ -20,6 +24,7 @@ import android.widget.Toast;
 
 import android.content.*;
 import com.iust.panta.Expand.adapter.ExpandListViewAdapter;
+import com.iust.panta.Expand.adapter.notification_list_adapter;
 import com.iust.panta.Expands.ExpandChildList;
 import com.iust.panta.Expands.ExpandGroupList;
 import com.loopj.android.http.AsyncHttpClient;
@@ -32,6 +37,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 
 public class HomeProfileFragment extends Fragment {
@@ -47,13 +53,23 @@ public class HomeProfileFragment extends Fragment {
     private View rootView;
     private ProgressBar mProgressView;
     private String userName;
+    public ArrayList<String > notification_title;
+    public ArrayList<String> notification_description;
  //   private SearchManager searchManager;
     private SearchView searchView;
 
+
+    public void onCreate (Bundle savedInstanceState)
+    {
+        notification_title=new ArrayList<String>();
+        super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
+    }
     @Override
+
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle
             saveInstanceState) {
-
+       // setHasOptionsMenu(true);
         rootView = inflater.inflate(R.layout.fragment_home_profile, container, false);
         Explist = (ExpandableListView) rootView.findViewById(R.id.Final_list);
 
@@ -69,7 +85,71 @@ public class HomeProfileFragment extends Fragment {
                 (SearchView) rootView.findViewById(R.id.search);
 
 
+
+        this.notification_title=new ArrayList<String>();
+        String[]b={"aa","bb","cc"};
+        this.notification_description=new ArrayList<String>(Arrays.asList(b));
+        RequestParams paramNot = new RequestParams();
+        paramNot.put("username", userName);
+
+        AsyncHttpClient clientNotifReq = new AsyncHttpClient();
+
+        clientNotifReq.post("http://104.236.33.128:8800/getNotif/", paramNot, new AsyncHttpResponseHandler() {
+
+
+            @TargetApi(Build.VERSION_CODES.KITKAT)
+
+            public void onSuccess(int statusCode, Header[] headers, byte[] response) {
+
+                try {
+
+                    Log.d("RESPONSE_Notificationsss", new String(response));
+                    JSONObject s_response = new JSONObject(new String(response));
+                    if (s_response.getBoolean("successful")) {
+                        Log.d("not",s_response.toString());
+                        JSONArray notifs = s_response.getJSONArray("notification");
+                        Log.d("notifsss",notifs.toString());
+
+                        if(notifs.length()!=0)
+                        {
+                            for(int i=0;i<notifs.length();i++){
+
+                                JSONObject not=notifs.getJSONObject(i);
+                                String message=not.getString("msg");
+                                notification_title.add(message.toString());
+
+
+                            }}
+                        else
+                        {
+                            String[] a={"asuccessemt","b","c"};
+                            notification_title=new ArrayList<String>(Arrays.asList(a));
+                        }
+
+
+
+                    }}
+
+                catch (JSONException je){}
+                getActivity().invalidateOptionsMenu();
+
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+                String[] a={"aFailure","b","c"};
+                notification_title=new ArrayList<String>(Arrays.asList(a));
+                getActivity().invalidateOptionsMenu() ;
+                Log.d("nashod","notif nabud :/");
+
+
+            }
+        });
+
+
         return rootView;
+
+
 
     }
 
@@ -199,6 +279,9 @@ public class HomeProfileFragment extends Fragment {
 
         });
 
+
+
+
         final SearchView.OnQueryTextListener queryTextListener=new SearchView.OnQueryTextListener()
         {
             public boolean onQueryTextChange(String newText) {
@@ -229,6 +312,34 @@ public class HomeProfileFragment extends Fragment {
         };
         searchView.setOnCloseListener(closeListener);
 
+    }
+
+   /* public void OnCreateOptionMenu(Menu menu){
+        menu.clear();
+        // Only show items in the action bar relevant to this screen
+        // if the drawer is not showing. Otherwise, let the drawer
+        // decide what to show in the action bar.
+        for(int i=0;i<notification_title.size();i++)
+        {
+            menu.add(notification_title.get(i));
+        }
+    }*/
+
+    public void onPrepareOptionsMenu (Menu menu) {
+
+            menu.clear();
+            // Only show items in the action bar relevant to this screen
+            // if the drawer is not showing. Otherwise, let the drawer
+            // decide what to show in the action bar.
+            int begin=0;
+            if(notification_title.size()<10)
+                begin=0;
+            else
+                begin=notification_title.size()-10;
+            for(int i=begin;i<notification_title.size();i++)
+            {
+                menu.add(notification_title.get(i));
+            }
     }
 
 
