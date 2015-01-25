@@ -32,5 +32,6 @@
     <string name="title_activity_change_password">تغییر گذرواژه</string>
     <string name="title_activity_about_us">درباره ی ما</string>
     <string name="exit">خروج </string>
+    <string name="manager_confrim">تایید مدیر:</string>
 
 </resources>
