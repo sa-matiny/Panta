@@ -29,9 +29,8 @@
     <string name="title_activity_search_project_name">search_projectName</string>
     <string name="hello_world">Hello world!</string>
     <string name="title_activity_list_notif">list_notif</string>
-    <string name="title_activity_about_us">درباره ما</string>
-    <string name="exit">خروج </string>
     <string name="title_activity_change_password">تغییر گذرواژه</string>
+    <string name="title_activity_about_us">درباره ی ما</string>
+    <string name="exit">خروج </string>
 
 </resources>
-
