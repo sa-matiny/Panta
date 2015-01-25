@@ -7,10 +7,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
-import android.widget.Button;
-import android.widget.Filter;
-import android.widget.Filterable;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.iust.panta.Expands.ExpandChildList;
 import com.iust.panta.Expands.ExpandGroupList;
@@ -27,25 +25,27 @@ public class ExpandListViewAdapter extends BaseExpandableListAdapter  {
     private Context context;
     private ArrayList<ExpandGroupList> groups;
     private ArrayList<ExpandGroupList> original;
-
+//////////////////////////////////////constructor///////////////////////////////////////////////
     public ExpandListViewAdapter(Context context, ArrayList<ExpandGroupList> groups) {
+        Log.d("salam","ta inja umadim");
         this.original=new ArrayList<ExpandGroupList>();
         this.original.addAll(groups);
         this.context = context;
         this.groups = new ArrayList<ExpandGroupList>();
         this.groups.addAll(groups);
     }
-
+/////////////////////////////////////filtering//////////////////////////////////////////////////
     public void filterData(String query){
         if(query!=null){
         query = query.toLowerCase();}
 
         groups.clear();
 
-        if(query.isEmpty()|| query==null){
+        if(query.isEmpty()){
             groups.addAll(original);
-
         }
+        if( query==null)
+            Toast.makeText(this.context.getApplicationContext(), "موردی یافت نشد", Toast.LENGTH_LONG).show();
         else {
             ArrayList<ExpandGroupList> newList = new ArrayList<ExpandGroupList>();
             for(ExpandGroupList project: original){
@@ -65,7 +65,7 @@ public class ExpandListViewAdapter extends BaseExpandableListAdapter  {
         notifyDataSetChanged();
 
     }
-
+/////////////////////////////////////////////////addItem/////////////////////////////////////////////////////////
     public void addItem(ExpandChildList item, ExpandGroupList group) {
         if (!groups.contains(group)) {
             groups.add(group);
@@ -75,7 +75,7 @@ public class ExpandListViewAdapter extends BaseExpandableListAdapter  {
         child.add(item);
         groups.get(indes).setItemes(child);
     }
-
+//////////////////////////////////////childHandle//////////////////////////////////////////////////////////////////
     public ExpandChildList getChild(int groupPosition, int childPosition) {
         ArrayList<ExpandChildList> child_list = groups.get(groupPosition).getItemes();
         return child_list.get(childPosition);
@@ -101,7 +101,7 @@ public class ExpandListViewAdapter extends BaseExpandableListAdapter  {
         ArrayList<ExpandChildList> chl = groups.get(groupPosition).getItemes();
         return chl.size();
     }
-
+//////////////////////////////////////groupHandle///////////////////////////////////////////////////////////////////
     public Object getGroup(int groupPositon) {
         return groups.get(groupPositon);
     }
@@ -159,32 +159,4 @@ public class ExpandListViewAdapter extends BaseExpandableListAdapter  {
     }
 
 
-
-
-
-
-    private class viewHolder {
-        private View mRow;
-        private TextView description = null;
-        private Button enter = null;
-
-        public viewHolder(View row) {
-            mRow = row;
-        }
-
-        public TextView getDescription() {
-            if (description == null) {
-                description = (TextView) mRow.findViewById(R.id.tvGroup);
-            }
-            return description;
-        }
-
-        public Button getEnter() {
-            if (enter == null) {
-                enter = (Button) mRow.findViewById(R.id.enter_card);
-
-            }
-            return enter;
-        }
-    }
 }

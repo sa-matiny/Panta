@@ -43,6 +43,7 @@
                 android:layout_marginTop="20dp"
                 android:layout_below="@id/Tprojectname"
                 android:background="#ffffff"
+                android:gravity="right"
                 android:ems="10"
                 android:inputType="text" />
 
@@ -66,6 +67,7 @@
                 android:layout_below="@+id/TprojectInfo"
                 android:layout_marginTop="20dp"
                 android:background="#ffffff"
+                android:gravity="right"
                 android:inputType="textMultiLine"
                 android:lines="3"
                 android:minLines="1"
@@ -92,6 +94,7 @@
                 android:layout_below="@+id/TprojectLink"
                 android:layout_marginTop="20dp"
                 android:background="#ffffff"
+                android:gravity="right"
                 android:inputType="textMultiLine"
                 android:lines="3"
                 android:minLines="1"

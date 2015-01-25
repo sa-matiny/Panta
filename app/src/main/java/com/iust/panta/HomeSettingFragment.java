@@ -39,9 +39,10 @@ public class HomeSettingFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle saveInstanceState) {
         rootView = inflater.inflate(R.layout.fragment_home_setting, container, false);
 
+        controller = new SqliteController(getActivity());
 
 
-            controller=new SqliteController(getActivity());
+
 
         changePassword = (Button) rootView.findViewById(R.id.changePassword_button);
         changePassword.setOnClickListener(new View.OnClickListener()
@@ -270,7 +271,6 @@ public class HomeSettingFragment extends Fragment {
 
         //  RegID = data.getString("regID");
 
-      //  controller= new SqliteController(getActivity());
         AlertDialog.Builder builder = new AlertDialog.Builder(this.getActivity());
         builder.setMessage("می خواهید از برنامه خارج شوید؟");
         builder.setCancelable(false);
