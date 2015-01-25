@@ -268,10 +268,11 @@ public class AddTask extends FragmentActivity  implements DatePickerDialog.OnDat
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
                                     dialog.cancel();
+                                    finish();
                                 }
                             });
                             dlg.create().show();
-                            finish();
+
                         } else {
                             AlertDialog.Builder dlg = new AlertDialog.Builder(AddTask.this);
                             dlg.setCancelable(false);
