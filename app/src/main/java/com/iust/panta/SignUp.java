@@ -51,7 +51,7 @@ public class SignUp extends Activity {
 
     private GoogleCloudMessaging gcm;
     private String regID;
-    private String SENDER_ID = "653195473278";
+    private String SENDER_ID = "34962439414";
     TextView mDisplay;
     private Context context;
 
@@ -306,17 +306,18 @@ public class SignUp extends Activity {
                                 Log.d("afterRegister",regID);
 
 
-                            } else
+                            } else {
+                                controller.insertRegID(mEmailView.getText().toString(), regID);
                                 sendRegistrationIdToBackend();
-
+                            }
                             // controller.deleteRegID();
                             // controller.deleteRegID();
 
                             //  controller.insertRegID("nastaran11","nastaran");
 
-
+                            Log.d("put RegIDin controller",regID);
                             //************* next line must be active
-                            controller.insertRegID(mEmailView.getText().toString(), regID);
+
 
                             Log.d("Login Insert", "insertReg ID");
 
@@ -498,6 +499,8 @@ public class SignUp extends Activity {
                 if(msg.indexOf("Error")==-1)
                 {
                     Log.d("request to save","request");
+                    Log.d("after Request",regID);
+                    controller.insertRegID(mEmailView.getText().toString(), regID);
                     sendRegistrationIdToBackend();
                 }
 

@@ -47,7 +47,7 @@ public class LoginActivity extends Activity {
 
     private GoogleCloudMessaging gcm;
     private String regID;
-    private String SENDER_ID = "653195473278";
+    private String SENDER_ID = "34962439414";
     TextView mDisplay;
     private Context context;
 
@@ -204,7 +204,7 @@ public class LoginActivity extends Activity {
                         if (checkPlayServices()) {
                             gcm = GoogleCloudMessaging.getInstance(context);
                             regID = getRegistrationId(context);
-                            Log.d("regId", regID);
+                            Log.d(TAG+"regId", regID);
                             if (regID.isEmpty())// create new
                             {
                                 Log.d("isEmpty", "is");
@@ -366,6 +366,7 @@ protected void displayNotification(int number)
 
         RequestParams params = new RequestParams();
 
+        Log.d(TAG +"send registration",regID);
         params.put("reg_id",regID);
         try {
 

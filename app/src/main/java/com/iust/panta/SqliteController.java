@@ -15,7 +15,7 @@ public class SqliteController extends SQLiteOpenHelper {
     private static final String LOGCAT = null;
 
     public SqliteController(Context applicationcontext) {
-        super(applicationcontext, "androidsqlite.db", null, 2);
+        super(applicationcontext, "androidsqlite.db", null, 21);
         Log.d(TAG, "Created");
     }
 

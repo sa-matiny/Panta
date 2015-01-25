@@ -22,6 +22,7 @@ import org.json.JSONObject;
  * TODO: Customize class - update intent actions, extra parameters and static
  * helper methods.
  */
+
 public class NotificationIntentService extends IntentService {
    // TODO: Rename actions, choose action names that describe tasks that this
     // IntentService can perform, e.g. ACTION_FETCH_NEW_ITEMS
@@ -36,6 +37,7 @@ public class NotificationIntentService extends IntentService {
     private NotificationManager mNotificationManager;
     NotificationCompat.Builder builder;
     String title;
+    String sentence;
     private int taskID;
     private String username;
     private String manager;
@@ -129,8 +131,8 @@ public class NotificationIntentService extends IntentService {
                 msgtype=extras.getString("msg_type");
                 Log.d("messageType",(msgtype));
 
-                title=extras.getString("message");
-                Log.d("titlee",title);
+                sentence=extras.getString("message");
+           //     Log.d("titlee",title);
                 if(msgtype.equals("1")) {
                     try {
                         JSONObject TaskInfo = new JSONObject(extras.getString("task_info"));
@@ -140,7 +142,8 @@ public class NotificationIntentService extends IntentService {
                          Log.d("taskInfoBundle", TaskInfo.toString());
                          taskID = TaskInfo.getInt("taskID");
                          Log.d("taskID", Integer.toString(taskID));
-                         msg="کاربر "+title+" وظیفه ی خود را انجام داده است";
+                         msg="کاربر "+sentence+" وظیفه ی خود را انجام داده است";
+                        title="انجام وظیفه";
                     }
                     catch (JSONException e) {
                         e.printStackTrace();
@@ -151,7 +154,8 @@ public class NotificationIntentService extends IntentService {
                 }
                 if(msgtype.equals("2")) {
 
-                        msg="شما به پروژه جدید اضافه شدید";
+                        msg="شما به پروژه "+ sentence+" اضافه شدید";
+                        title="پروژه ی جدید ";
 
 
                 }
@@ -165,10 +169,11 @@ public class NotificationIntentService extends IntentService {
                         Log.d("taskInfoBundle", TaskInfo.toString());
                         taskID = TaskInfo.getInt("taskID");
 
-                        manager=TaskInfo.getString("manager");
+                        manager=TaskInfo.getString("managerUser");
 
                        // Log.d("taskID", Integer.toString(taskID));
-                        msg="برای شما وظیفه ی جدیدی تعریف شده است";
+                        msg="برای شما وظیفه ی جدید در پروژه ی "+sentence+"تعریف شده است .";
+                        title="وظیفه جدید";
                     }
                     catch (JSONException e) {
                         e.printStackTrace();
@@ -181,8 +186,66 @@ public class NotificationIntentService extends IntentService {
                 }
                 if(msgtype.equals("4"))
                 {
-                    msg="زمان پروژه "+title +"به پایان رسیده است .";
+                    msg="زمان پروژه "+sentence +"به پایان رسیده است .";
+                    title="اتمام زمان پروژه";
 
+
+                }
+                if(msgtype.equals("5"))
+                {
+                    try {
+
+
+                        String task_name="";
+                        JSONObject TaskInfo = new JSONObject(extras.getString("task_info"));
+                        //  TaskInfo=TaskInfo.getJSONObject("taskInfo");
+                        // manager=TaskInfo.getString("managerUser");
+
+                        Log.d("taskInfoBundle", TaskInfo.toString());
+                        taskID = TaskInfo.getInt("taskID");
+                        task_name=TaskInfo.getString("taskName");
+
+                        manager = TaskInfo.getString("manager");
+
+                        msg ="زمان وظیفه ی "+task_name+"در پروژه ی"+sentence+"به پایان رسیده است .";
+                        title ="اتمام زمان وظیفه شما";
+
+                    }
+                    catch (JSONException e) {
+                    e.printStackTrace();
+                    Log.d("Problem in catching ", "hichi");
+
+
+                }
+
+
+                }
+                if(msgtype.equals("6"))
+                {
+                    try {
+
+                        String task_name="";
+
+                        JSONObject TaskInfo = new JSONObject(extras.getString("task_info"));
+                        //  TaskInfo=TaskInfo.getJSONObject("taskInfo");
+                        // manager=TaskInfo.getString("managerUser");
+
+                        Log.d("taskInfoBundle", TaskInfo.toString());
+                        taskID = TaskInfo.getInt("taskID");
+                        task_name=TaskInfo.getString("taskName");
+
+                        manager = TaskInfo.getString("manager");
+
+                        msg="زمان وظیفه ی "+task_name+"برای کاربر "+sentence+"به پایان رسیده است.";
+                        title ="اتمام زمان وظیفه یک کاربر";
+                    }
+
+                    catch (JSONException e) {
+                    e.printStackTrace();
+                    Log.d("Problem in catching ", "hichi");
+
+
+                }
 
                 }
 
@@ -191,7 +254,7 @@ public class NotificationIntentService extends IntentService {
             }
         }
         NotificationReceiver.completeWakefulIntent(intent);
-       /* if (intent != null) {
+       /*if (intent != null) {
             final String action = intent.getAction();
             if (ACTION_FOO.equals(action)) {
                 final String param1 = intent.getStringExtra(EXTRA_PARAM1);
@@ -203,7 +266,7 @@ public class NotificationIntentService extends IntentService {
                 handleActionBaz(param1, param2);
             }
         }*/
-    }
+   }
     private void sendNotification(String msg) {
         mNotificationManager = (NotificationManager)
                 this.getSystemService(Context.NOTIFICATION_SERVICE);
@@ -292,3 +355,4 @@ public class NotificationIntentService extends IntentService {
         throw new UnsupportedOperationException("Not yet implemented");
     }
 }
+
