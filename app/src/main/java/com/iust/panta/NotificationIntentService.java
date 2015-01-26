@@ -142,7 +142,7 @@ public class NotificationIntentService extends IntentService {
                          Log.d("taskInfoBundle", TaskInfo.toString());
                          taskID = TaskInfo.getInt("taskID");
                          Log.d("taskID", Integer.toString(taskID));
-                         msg="کاربر "+sentence+" وظیفه ی خود را انجام داده است";
+                         msg="کاربر "+" "+sentence+" "+" وظیفه ی خود را انجام داده است";
                         title="انجام وظیفه";
                     }
                     catch (JSONException e) {
@@ -154,7 +154,7 @@ public class NotificationIntentService extends IntentService {
                 }
                 if(msgtype.equals("2")) {
 
-                        msg="شما به پروژه "+ sentence+" اضافه شدید";
+                        msg="شما به پروژه "+" "+ sentence+" "+" اضافه شدید";
                         title="پروژه ی جدید ";
 
 
@@ -172,7 +172,7 @@ public class NotificationIntentService extends IntentService {
                         manager=TaskInfo.getString("managerUser");
 
                        // Log.d("taskID", Integer.toString(taskID));
-                        msg="برای شما وظیفه ی جدید در پروژه ی "+sentence+"تعریف شده است .";
+                        msg="برای شما وظیفه ی جدید در پروژه ی "+" "+sentence+" "+"تعریف شده است .";
                         title="وظیفه جدید";
                     }
                     catch (JSONException e) {
@@ -186,7 +186,7 @@ public class NotificationIntentService extends IntentService {
                 }
                 if(msgtype.equals("4"))
                 {
-                    msg="زمان پروژه "+sentence +"به پایان رسیده است .";
+                    msg="زمان پروژه "+" "+sentence +" "+"به پایان رسیده است .";
                     title="اتمام زمان پروژه";
 
 
@@ -207,7 +207,7 @@ public class NotificationIntentService extends IntentService {
 
                         manager = TaskInfo.getString("manager");
 
-                        msg ="زمان وظیفه ی "+task_name+"در پروژه ی"+sentence+"به پایان رسیده است .";
+                        msg ="زمان وظیفه ی "+task_name+"در پروژه ی"+" "+sentence+" "+"به پایان رسیده است .";
                         title ="اتمام زمان وظیفه شما";
 
                     }
@@ -236,7 +236,8 @@ public class NotificationIntentService extends IntentService {
 
                         manager = TaskInfo.getString("manager");
 
-                        msg="زمان وظیفه ی "+task_name+"برای کاربر "+sentence+"به پایان رسیده است.";
+                        msg="زمان وظیفه ی "+task_name+"برای کاربر "+" "+sentence+" "+" به پایان رسیده است.";
+
                         title ="اتمام زمان وظیفه یک کاربر";
                     }
 
