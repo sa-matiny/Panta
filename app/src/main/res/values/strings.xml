@@ -33,6 +33,6 @@
     <string name="title_activity_about_us">درباره ی ما</string>
     <string name="exit">خروج </string>
     <string name="manager_confrim">تایید مدیر:</string>
-    <string name="title_activity_notification_page">Notification_page</string>
+    <string name="title_activity_notification_page">اطلاع رسانی</string>
 
 </resources>
