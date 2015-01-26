@@ -1,9 +1,12 @@
 package com.iust.panta.Expand.adapter;
 
+import android.content.ClipData;
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
@@ -27,7 +30,6 @@ public class notification_list_adapter  extends BaseAdapter {
         this.context=context;
         this.notifs=new ArrayList<notif_row_control>();
         this.notifs.addAll(notifs);
-
     }
 
     public Object getNotif(int NotifId) {
@@ -49,6 +51,7 @@ public class notification_list_adapter  extends BaseAdapter {
         final int id = ((notif_row_control) getNotif(NotifId)).getID();
         if (v == null) {
             LayoutInflater inf = (LayoutInflater) context.getSystemService(context.LAYOUT_INFLATER_SERVICE);
+            Log.d("vasate sakht", "notif nabud :/");
             v = inf.inflate(R.layout.notif_row, null);
         }
         TextView tv = (TextView) v.findViewById(R.id.notif_title);
