@@ -1,6 +1,6 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android" >
     <item android:id="@+id/action_notif"
-        android:icon="@drawable/ic_action_search"
+        android:icon="@drawable/bell"
         android:showAsAction="ifRoom"
         android:title="notificaion"
         />
