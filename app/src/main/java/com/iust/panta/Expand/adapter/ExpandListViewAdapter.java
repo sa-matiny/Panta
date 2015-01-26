@@ -130,9 +130,6 @@ public class ExpandListViewAdapter extends BaseExpandableListAdapter  {
             LayoutInflater inf = (LayoutInflater) context.getSystemService(context.LAYOUT_INFLATER_SERVICE);
             v = inf.inflate(R.layout.exp_group, null);
 
-         /*   holder=new viewHolder(v);
-              v.setTag(holder);
-              holder=(viewHolder) v.getTag();*/
         }
         button = (TextView) v.findViewById(R.id.enter_card);
         TextView tv = (TextView) v.findViewById(R.id.tvGroup);

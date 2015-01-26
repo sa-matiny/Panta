@@ -24,34 +24,42 @@ public class notification_list_adapter  extends BaseAdapter {
 
     private Context context;
     private ArrayList<notif_row_control> notifs;
+    private ArrayList<notif_row_control> original;
     private int LayoutResourceId;
 
     public notification_list_adapter(Context context,ArrayList<notif_row_control> notifs){
         this.context=context;
         this.notifs=new ArrayList<notif_row_control>();
         this.notifs.addAll(notifs);
+        this.original=notifs;
+        Log.d("vasate sakht", "notif nabud :/");
     }
 
-    public Object getNotif(int NotifId) {
-        return notifs.get(NotifId);
-    }
 
-    public int getNotifCount() {
+    @Override
+    public int getCount() {
         return notifs.size();
     }
 
-    public long getNotifId(int NotifId) {
+    @Override
+    public Object getItem(int NotifId) {
+        return notifs.get(NotifId);
+    }
+
+    @Override
+    public long getItemId(int NotifId) {
         return NotifId;
 
     }
 
-    public View getGroupView(int NotifId, View v, ViewGroup parent) {
-        View view=v;
-        notif_row_control nc = (notif_row_control) getNotif(NotifId);
-        final int id = ((notif_row_control) getNotif(NotifId)).getID();
+    @Override
+    public View getView(int NotifId, View v, ViewGroup parent) {
+
+        notif_row_control nc = (notif_row_control) getItem(NotifId);
+        final int id = ((notif_row_control) getItem(NotifId)).getID();
         if (v == null) {
             LayoutInflater inf = (LayoutInflater) context.getSystemService(context.LAYOUT_INFLATER_SERVICE);
-            Log.d("vasate sakht", "notif nabud :/");
+
             v = inf.inflate(R.layout.notif_row, null);
         }
         TextView tv = (TextView) v.findViewById(R.id.notif_title);
@@ -59,25 +67,44 @@ public class notification_list_adapter  extends BaseAdapter {
         TextView sd=(TextView) v.findViewById(R.id.notif_short_explain);
         sd.setText(nc.getShort_exp());
         v.getTag();
-    return v;}
+        return v;}
 
-    @Override
-    public int getCount() {
-        return 0;
-    }
 
-    @Override
-    public Object getItem(int i) {
-        return null;
-    }
+    public boolean filterData(String query){
 
-    @Override
-    public long getItemId(int i) {
-        return 0;
-    }
+        notifs.clear();
 
-    @Override
-    public View getView(int i, View view, ViewGroup viewGroup) {
-        return null;
+        if(query.isEmpty()){
+
+            notifs.clear();
+            notifs.addAll(original);
+            return true;
+        }
+        else if( query==null){
+            notifs.clear();
+            return true;
+        }
+        else {
+            notifs.clear();
+            ArrayList<notif_row_control> newList = new ArrayList<notif_row_control>();
+            for(notif_row_control notification: original){
+                if(notification.getTitle().toLowerCase().contains(query.toLowerCase()) ){
+                    newList.add(notification);
+                }
+
+            }
+            if(newList.size() > 0){
+                notifs.addAll(newList);
+                return true;
+            }
+            else {
+                notifs.clear();
+                Log.d("no", "no result");
+            }
+        }
+
+        notifyDataSetChanged();
+        return false;
+
     }
 }
