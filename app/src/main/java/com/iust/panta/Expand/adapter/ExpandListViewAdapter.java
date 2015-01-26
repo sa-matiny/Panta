@@ -35,34 +35,41 @@ public class ExpandListViewAdapter extends BaseExpandableListAdapter  {
         this.groups.addAll(groups);
     }
 /////////////////////////////////////filtering//////////////////////////////////////////////////
-    public void filterData(String query){
-        if(query!=null){
-        query = query.toLowerCase();}
+    public boolean filterData(String query){
 
         groups.clear();
 
         if(query.isEmpty()){
+
+            groups.clear();
             groups.addAll(original);
+            return true;
         }
-        if( query==null)
-            Toast.makeText(this.context.getApplicationContext(), "موردی یافت نشد", Toast.LENGTH_LONG).show();
+        else if( query==null){
+            groups.clear();
+            return true;
+        }
         else {
+            groups.clear();
             ArrayList<ExpandGroupList> newList = new ArrayList<ExpandGroupList>();
             for(ExpandGroupList project: original){
-                if(project.getName().toLowerCase().contains(query) ){
+                if(project.getName().toLowerCase().contains(query.toLowerCase()) ){
                     newList.add(project);
                 }
 
             }
             if(newList.size() > 0){
                 groups.addAll(newList);
+                return true;
             }
             else {
-                groups.addAll(original);
+                groups.clear();
+                Log.d("no", "no result");
             }
         }
 
         notifyDataSetChanged();
+        return false;
 
     }
 /////////////////////////////////////////////////addItem/////////////////////////////////////////////////////////

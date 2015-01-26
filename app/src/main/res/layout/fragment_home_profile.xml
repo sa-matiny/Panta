@@ -49,4 +49,14 @@
         android:groupIndicator="@null">
 
     </ExpandableListView>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:id="@+id/no_res_label"
+        android:layout_alignTop="@+id/Final_list"
+        android:layout_centerHorizontal="true"
+        android:focusable="false"
+        android:textColor="#808080"/>
 </RelativeLayout>
