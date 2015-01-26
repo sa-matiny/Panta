@@ -8,6 +8,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ListView;
 import android.widget.SearchView;
+import android.widget.TextView;
 
 import com.iust.panta.Expand.adapter.notification_list_adapter;
 import com.iust.panta.Expands.notif_row_control;
@@ -20,10 +21,11 @@ public class Notification_page extends Activity {
     private ListView notif_list_view;
     private notification_list_adapter notif_adapter;
     private ArrayList<notif_row_control> notification_ready_toadapt;
-    private SearchView searchView;
     private ArrayList<String> list_notif_text;
     private Bundle msg;
     private boolean hasData;
+    private SearchView searchView;
+    private TextView no_res_label;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +33,8 @@ public class Notification_page extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_notification_page);
         notif_list_view=(ListView)findViewById(R.id.notif_list_view);
+        searchView=(SearchView)findViewById(R.id.search_not);
+        no_res_label=(TextView)findViewById(R.id.no_res_label_not);
         msg = getIntent().getExtras();
         list_notif_text = msg.getStringArrayList("notification");
         Log.d("notifications", list_notif_text.toString());
@@ -45,6 +49,44 @@ public class Notification_page extends Activity {
 
         notif_list_view.setAdapter(notif_adapter);
 
+        final SearchView.OnQueryTextListener queryTextListener=new SearchView.OnQueryTextListener()
+        {
+            public boolean onQueryTextChange(String newText) {
+                boolean mid=notif_adapter.filterData(newText);
+                if(!mid)
+                    no_res_label.setText("موردی یافت نشد");
+                else
+                    no_res_label.setText("");
+
+                notif_adapter.notifyDataSetChanged();
+
+                return true;
+            }
+
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+
+                boolean mid=notif_adapter.filterData(query);
+                if(!mid)
+                    no_res_label.setText("موردی یافت نشد");
+                else
+                    no_res_label.setText("");
+                notif_adapter.notifyDataSetChanged();
+                return true;
+            }
+
+        };
+        searchView.setOnQueryTextListener(queryTextListener);
+
+        final SearchView.OnCloseListener closeListener=new SearchView.OnCloseListener()
+        {
+            @Override
+            public boolean onClose() {
+                notif_adapter.filterData("");
+                return false;
+            }
+        };
+        searchView.setOnCloseListener(closeListener);
 
     }
     public void onStart() {
@@ -67,25 +109,9 @@ public class Notification_page extends Activity {
                 setList.add(nc);
             }
         }
+        Log.d("nashod",setList.toString());
         return setList;
     }
 
-    /** @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.notification_page, menu);
-        return true;
-    }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-        if (id == R.id.action_settings) {
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }*/
 }
