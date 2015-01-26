@@ -137,7 +137,7 @@ public class HomeProfileFragment extends Fragment {
                         }}
                     else
                     {
-                        String[] a={"asuccessemt","b","c"};
+                        String[] a={""};
                         notification_title=new ArrayList<String>(Arrays.asList(a));
                     }
 
