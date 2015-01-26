@@ -22,7 +22,7 @@
 
     <SearchView
 
-        android:id="@+id/search"
+        android:id="@+id/search_not"
         android:layout_height="wrap_content"
         android:singleLine="true"
         android:layout_width="match_parent"
@@ -49,7 +49,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:id="@+id/no_res_label"
+        android:id="@+id/no_res_label_not"
         android:layout_alignTop="@+id/Final_list"
         android:layout_centerHorizontal="true"
         android:focusable="false"
