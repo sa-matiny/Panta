@@ -263,7 +263,7 @@ public class AddTask extends FragmentActivity  implements DatePickerDialog.OnDat
                         if (s_response.getBoolean("successful")) {
                             AlertDialog.Builder dlg = new AlertDialog.Builder(AddTask.this);
                             dlg.setCancelable(false);
-                            dlg.setMessage("successful");
+                            dlg.setMessage("وظیفه اضافه شد.");
                             dlg.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {

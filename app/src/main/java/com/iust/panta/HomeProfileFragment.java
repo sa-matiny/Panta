@@ -7,7 +7,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ExpandableListView;
@@ -46,8 +46,6 @@ public class HomeProfileFragment extends Fragment {
     private ProgressBar mProgressView;
     private String userName;
     public ArrayList<String > notification_title;
-    public ArrayList<String> notification_description;
- //   private SearchManager searchManager;
     private SearchView searchView;
     private TextView no_res_label;
 
@@ -137,20 +135,20 @@ public class HomeProfileFragment extends Fragment {
 
                             if (msgtype.equals("1")) {
 
-                                message = "کاربر " + sentence + " وظیفه ی خود را انجام داده است";
+                                message = "کاربر " + " "+sentence +" "+ " وظیفه ی خود را انجام داده است";
 
 
                             }
                             if (msgtype.equals("2")) {
 
-                                message = "شما به پروژه " + sentence + " اضافه شدید";
+                                message = "شما به پروژه " +" "+ sentence +" "+ " اضافه شدید";
 
 
                             }
 
                             if (msgtype.equals("3")) {
 
-                                message = "برای شما وظیفه ی جدید در پروژه ی " + sentence + "تعریف شده است .";
+                                message = "برای شما وظیفه ی جدید در پروژه ی " +" " +sentence +" "+ "تعریف شده است .";
 
                             }
                             if (msgtype.equals("4")) {
@@ -162,14 +160,14 @@ public class HomeProfileFragment extends Fragment {
 
 
                                 task_name1=not.getString("data");
-                                message = "زمان وظیفه ی " + task_name1 + "در پروژه ی" + sentence + "به پایان رسیده است .";
+                                message = "زمان وظیفه ی " + task_name1 + "در پروژه ی" +" "+ sentence +" "+ "به پایان رسیده است .";
 
 
                             }
                             if (msgtype.equals("6")) {
 
                                 task_name1=not.getString("data");
-                                message = "زمان وظیفه ی " + task_name1 + "برای کاربر " + sentence + "به پایان رسیده است.";
+                                message = "زمان وظیفه ی " + task_name1 + "برای کاربر " +" "+ sentence +" "+ "به پایان رسیده است.";
 
 
 
@@ -261,7 +259,7 @@ public class HomeProfileFragment extends Fragment {
             public void onFinish() {
 
 
-                getActivity().invalidateOptionsMenu();
+                //getActivity().invalidateOptionsMenu();
                 expGroup = SetStandardGroup(hasData);
 
                 expandAdapter = new ExpandListViewAdapter(rootView.getContext(), expGroup);
@@ -411,7 +409,7 @@ public class HomeProfileFragment extends Fragment {
         }
     }*/
 
-    public void onPrepareOptionsMenu (Menu menu) {
+    /*public void onPrepareOptionsMenu (Menu menu) {
 
             menu.clear();
             // Only show items in the action bar relevant to this screen
@@ -426,6 +424,23 @@ public class HomeProfileFragment extends Fragment {
             {
                 menu.add(notification_title.get(i));
             }
+    }*/
+
+
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_notif:
+                Intent intent_notif = new Intent(getActivity(),Notification_page.class);
+                intent_notif.putExtra("notification",notification_title);
+                startActivity(intent_notif);
+                // Not implemented here
+                return true;
+            default:
+                break;
+        }
+        return false;
     }
 
 

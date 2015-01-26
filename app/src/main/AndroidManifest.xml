@@ -121,7 +121,9 @@
 
         <activity
             android:name=".Notification_page"
-            android:label="@string/title_activity_notification_page" >
+            android:label="@string/title_activity_notification_page"
+            android:screenOrientation="portrait"
+            android:theme="@style/App">
         </activity>
     </application>
 

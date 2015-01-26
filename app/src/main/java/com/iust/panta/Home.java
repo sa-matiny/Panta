@@ -13,6 +13,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 
 import org.json.JSONException;
@@ -158,11 +159,14 @@ public class Home extends Activity
             // Only show items in the action bar relevant to this screen
             // if the drawer is not showing. Otherwise, let the drawer
             // decide what to show in the action bar.
+            MenuInflater inflater = getMenuInflater();
+            inflater.inflate(R.menu.home_profile_menu, menu);
             restoreActionBar();
             return true;
         }
         return super.onCreateOptionsMenu(menu);
     }
+
 
     @Override
     public void onBackPressed() {

@@ -218,7 +218,7 @@ public class EditTask extends FragmentActivity implements DatePickerDialog.OnDat
 
         Log.d("projectID", String.valueOf(projectID));
         AsyncHttpClient client = new AsyncHttpClient();
-        client.post("http://104.236.33.128:8800//editTask/", params, new AsyncHttpResponseHandler() {
+        client.post("http://104.236.33.128:8800/editTask/", params, new AsyncHttpResponseHandler() {
 
             @Override
             public void onStart() {
