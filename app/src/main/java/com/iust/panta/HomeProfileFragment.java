@@ -126,15 +126,61 @@ public class HomeProfileFragment extends Fragment {
 
                     if(Notif_title.length()!=0)
                     {
-                        for(int i=0;i<Notif_title.length();i++){
+                        for(int i=0;i<Notif_title.length();i++) {
 
-                            JSONObject not=Notif_title.getJSONObject(i);
-                            String message=not.getString("msg");
+
+                            JSONObject not = Notif_title.getJSONObject(i);
+                            String msgtype = not.getString("msg_type");
+                            String sentence = not.getString("message");
+                            String message = "";
+                            String task_name1="";
+
+                            if (msgtype.equals("1")) {
+
+                                message = "کاربر " + sentence + " وظیفه ی خود را انجام داده است";
+
+
+                            }
+                            if (msgtype.equals("2")) {
+
+                                message = "شما به پروژه " + sentence + " اضافه شدید";
+
+
+                            }
+
+                            if (msgtype.equals("3")) {
+
+                                message = "برای شما وظیفه ی جدید در پروژه ی " + sentence + "تعریف شده است .";
+
+                            }
+                            if (msgtype.equals("4")) {
+                                message = "زمان پروژه " + sentence + "به پایان رسیده است .";
+
+
+                            }
+                            if (msgtype.equals("5")) {
+
+
+                                task_name1=not.getString("data");
+                                message = "زمان وظیفه ی " + task_name1 + "در پروژه ی" + sentence + "به پایان رسیده است .";
+
+
+                            }
+                            if (msgtype.equals("6")) {
+
+                                task_name1=not.getString("data");
+                                message = "زمان وظیفه ی " + task_name1 + "برای کاربر " + sentence + "به پایان رسیده است.";
+
+
+
+
+                            }
+
                             notification_title.add(message.toString());
+                            message="";
+                        }
+                    }
 
-
-
-                        }}
                     else
                     {
                         String[] a={""};
