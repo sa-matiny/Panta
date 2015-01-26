@@ -1,31 +1,22 @@
 package com.iust.panta;
 
-import android.annotation.TargetApi;
 import android.app.AlertDialog;
 import android.app.Fragment;
-import android.app.SearchManager;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
-import android.os.Debug;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
-import android.content.Context;
-
-import android.widget.PopupWindow;
-import android.widget.SearchView;
 import android.widget.ExpandableListView;
 import android.widget.ProgressBar;
+import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import android.content.*;
 import com.iust.panta.Expand.adapter.ExpandListViewAdapter;
-import com.iust.panta.Expand.adapter.notification_list_adapter;
 import com.iust.panta.Expands.ExpandChildList;
 import com.iust.panta.Expands.ExpandGroupList;
 import com.loopj.android.http.AsyncHttpClient;
@@ -190,7 +181,7 @@ public class HomeProfileFragment extends Fragment {
 
                 } catch (JSONException jsone) {
                     jsone.printStackTrace();
-                    getActivity().invalidateOptionsMenu();
+
 
                 }
             }
@@ -212,7 +203,6 @@ public class HomeProfileFragment extends Fragment {
 
                 String[] a={"failed to load"};
                 notification_title=new ArrayList<String>(Arrays.asList(a));
-                getActivity().invalidateOptionsMenu() ;
                 Log.d("nashod","notif nabud :/");
 
 
@@ -225,6 +215,7 @@ public class HomeProfileFragment extends Fragment {
             public void onFinish() {
 
 
+                getActivity().invalidateOptionsMenu();
                 expGroup = SetStandardGroup(hasData);
 
                 expandAdapter = new ExpandListViewAdapter(rootView.getContext(), expGroup);
