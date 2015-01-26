@@ -10,6 +10,9 @@
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="Medium Text"
         android:id="@+id/notif_title"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="12.5dp"
+        android:layout_marginLeft="10dp"
         android:layout_gravity="right" />
 
     <TextView
@@ -17,6 +20,8 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:text="Small Text"
+        android:layout_marginRight="60dp"
+        android:layout_marginLeft="10dp"
         android:id="@+id/notif_short_explain"
         android:layout_gravity="right" />
 

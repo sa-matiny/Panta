@@ -148,11 +148,11 @@ public class HomeProfileFragment extends Fragment {
 
                             if (msgtype.equals("3")) {
 
-                                message = "برای شما وظیفه ی جدید در پروژه ی " +" " +sentence +" "+ "تعریف شده است .";
+                                message = "برای شما وظیفه ی جدید در پروژه ی " +" " +sentence +" "+ " تعریف شده است .";
 
                             }
                             if (msgtype.equals("4")) {
-                                message = "زمان پروژه " + sentence + "به پایان رسیده است .";
+                                message = "زمان پروژه " + sentence + " به پایان رسیده است .";
 
 
                             }
@@ -160,14 +160,14 @@ public class HomeProfileFragment extends Fragment {
 
 
                                 task_name1=not.getString("data");
-                                message = "زمان وظیفه ی " + task_name1 + "در پروژه ی" +" "+ sentence +" "+ "به پایان رسیده است .";
+                                message = "زمان وظیفه ی " + task_name1 + "در پروژه ی" +" "+ sentence +" "+ " به پایان رسیده است .";
 
 
                             }
                             if (msgtype.equals("6")) {
 
                                 task_name1=not.getString("data");
-                                message = "زمان وظیفه ی " + task_name1 + "برای کاربر " +" "+ sentence +" "+ "به پایان رسیده است.";
+                                message = "زمان وظیفه ی " + task_name1 + "برای کاربر " +" "+ sentence +" "+ " به پایان رسیده است.";
 
 
 

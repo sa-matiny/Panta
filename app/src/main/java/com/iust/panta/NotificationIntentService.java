@@ -172,7 +172,7 @@ public class NotificationIntentService extends IntentService {
                         manager=TaskInfo.getString("managerUser");
 
                        // Log.d("taskID", Integer.toString(taskID));
-                        msg="برای شما وظیفه ی جدید در پروژه ی "+" "+sentence+" "+"تعریف شده است .";
+                        msg="برای شما وظیفه ی جدید در پروژه ی "+" "+sentence+" "+" تعریف شده است .";
                         title="وظیفه جدید";
                     }
                     catch (JSONException e) {
@@ -186,7 +186,7 @@ public class NotificationIntentService extends IntentService {
                 }
                 if(msgtype.equals("4"))
                 {
-                    msg="زمان پروژه "+" "+sentence +" "+"به پایان رسیده است .";
+                    msg="زمان پروژه "+" "+sentence +" "+" به پایان رسیده است .";
                     title="اتمام زمان پروژه";
 
 

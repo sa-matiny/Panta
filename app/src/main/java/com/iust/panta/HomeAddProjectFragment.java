@@ -36,6 +36,7 @@ public class HomeAddProjectFragment extends Fragment {
     private DatePicker datePicker;
     private String userName;
 
+
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle saveInstanceState) {
         final View rootView = inflater.inflate(R.layout.fragment_home_add_project, container, false);
 
